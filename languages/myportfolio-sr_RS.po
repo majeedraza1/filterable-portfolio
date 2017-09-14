@@ -1,0 +1,101 @@
+# Copyright (C) 2014 Nivo Image Slider
+# This file is distributed under the same license as the Nivo Image Slider package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Nivo Image Slider 1.2.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/nivo-image-slider\n"
+"POT-Creation-Date: 2014-12-18 03:31:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-04-17 10:50+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.4\n"
+"Language: sr_RS\n"
+
+#: nivo-image-slider.php:52
+msgctxt "Post Type General Name"
+msgid "Slides"
+msgstr "Slajdovi [Opšti naziv vrste posta]"
+
+#: nivo-image-slider.php:53
+msgctxt "Post Type Singular Name"
+msgid "Slide"
+msgstr "Slajd [Pojedinačni naziv vrste posta]"
+
+#: nivo-image-slider.php:54
+msgid "Slider"
+msgstr "Slajder"
+
+#: nivo-image-slider.php:55
+msgid "Parent Slide:"
+msgstr "Nadređeni slajd:"
+
+#: nivo-image-slider.php:56
+msgid "All Slides"
+msgstr "Svi slajdovi"
+
+#: nivo-image-slider.php:57
+msgid "View Slide"
+msgstr "Vidi slajd"
+
+#: nivo-image-slider.php:58
+msgid "Add New Slide"
+msgstr "Dodaj novi slajd"
+
+#: nivo-image-slider.php:59
+msgid "Add New"
+msgstr "Dodaj novi "
+
+#: nivo-image-slider.php:60
+msgid "Edit Slide"
+msgstr "Uredi slajd"
+
+#: nivo-image-slider.php:61
+msgid "Update Slide"
+msgstr "Ažuriraj slajd"
+
+#: nivo-image-slider.php:62
+msgid "Search Slide"
+msgstr "Pretraži slajd"
+
+#: nivo-image-slider.php:63
+msgid "Not found"
+msgstr "Nije pronađen"
+
+#: nivo-image-slider.php:64
+msgid "Not found in Trash"
+msgstr "Nije pronađen u korpi za otpatke"
+
+#: nivo-image-slider.php:67
+msgid "slider"
+msgstr "slajder"
+
+#: nivo-image-slider.php:68
+msgid "Post Type Description"
+msgstr "Opis vrste posta"
+
+#: nivo-image-slider.php:97
+msgid "Upload Slide Image"
+msgstr "Otpremi sliku slajda"
+
+#. Plugin Name of the plugin/theme
+msgid "Nivo Image Slider"
+msgstr "Nivo Image Slider"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/plugins/nivo-image-slider/"
+msgstr "http://wordpress.org/plugins/nivo-image-slider/"
+
+#. Description of the plugin/theme
+msgid "A WordPress plugin to include image slider into your theme."
+msgstr "WordPress plugin koji ubacije slajder sa slikama u vašu temu."
+
+#. Author of the plugin/theme
+msgid "Sayful Islam"
+msgstr "Sayful Islam"
+
+#. Author URI of the plugin/theme
+msgid "http://www.sayful.net"
+msgstr "http://www.sayful.net"

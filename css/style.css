@@ -1,0 +1,230 @@
+.controls {
+    border-bottom: 3px solid #bdd4c1;
+    padding-bottom: 10px;
+}
+.myportfolio {
+	position: relative;
+    height: auto;
+}
+.controls,
+.myportfolio {
+	margin: 10px 0 20px;
+}
+.myportfolio:before,
+.myportfolio:after,
+.controls:before,
+.controls:after {
+	display: table;
+  	content: " ";
+}
+.myportfolio:after,
+.controls:after {
+	clear: both;
+}
+.myportfolio > div {
+    display: inline-block;
+}
+.controls ul {
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    margin: 0 !important;
+    padding: 0;
+    list-style: none;
+}
+.controls ul li {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.controls ul li > a{
+    margin: 0 0 0 4px;
+    padding: 3px 12px;
+    background: none repeat scroll 0 0 #bdd4c1;
+    color: #6e9b76 !important;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    border-radius: 3px;
+    font-style: italic;
+    text-decoration: none;
+    transition: all 0.1s ease-out 0s;
+    cursor: pointer;
+
+}
+.controls ul li > a:hover{
+    color: #fff !important;
+    background: none repeat scroll 0 0 #6e9b76;
+
+}
+.controls ul li:hover {
+}
+
+.controls a.current,
+.controls a.current:hover {
+    background: none repeat scroll 0 0 #6e9b76;
+    color: #fff !important;
+}
+
+.portfolio_thumb_1 {
+    width: 100%;
+    position: relative;
+}
+
+.portfolio_thumb_2 {
+    width: 50%;
+    position: relative;
+}
+
+.portfolio_thumb_3 {
+    width: 33.33333333%;
+    position: relative;
+}
+
+.portfolio_thumb_4 {
+    width: 25%;
+    position: relative;
+}
+
+.portfolio_thumb_5 {
+    width: 20%;
+    position: relative;
+}
+
+.portfolio_thumb_6 {
+    width: 16.66666666%;
+    position: relative;
+}
+
+.portfolio_single {
+    clear: both;
+    padding: 0 15px 10px;
+}
+.portfolio_image {
+    position: relative;
+    background-color: transparent;
+}
+.portfolio_image > img {
+  	display: inline-block;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  	max-width: 100%;
+    width: 100%;
+  	height: auto;
+  	background-color: #383838;
+  	-webkit-transition: all .5s ease-in-out;
+       	 -o-transition: all .5s ease-in-out;
+          	transition: all .5s ease-in-out;
+}
+.portfolio_image .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+}
+.mask i:hover,
+.mask i:active,
+.mask i:after {
+    background: #f00;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+.mask i {
+    padding: 10px;
+    background: #fff;
+    color: #24890d;
+}
+.mask {
+    opacity: 0;
+}
+.mask:hover {
+    opacity: 1;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+.mask .picture_icon {
+    border-radius: 0 0 20px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.mask .link_icon {
+    border-radius: 0 0 0 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.mask .portfolio_title > a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    color: #ddd;
+    font-size: 16px;
+    font-weight: lighter;
+    text-decoration: none;
+    left: 0;
+    bottom: 5px;
+    padding: 5px 10px;
+    position: absolute;
+}
+.mask .portfolio_title:hover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*=======================================================
+Tablet Layout: 768px.
+========================================================*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+.portfolio_thumb_4,
+.portfolio_thumb_5,
+.portfolio_thumb_6
+{
+    width: 33.33333333%;
+}
+	
+}
+
+/*=======================================================
+Wide Mobile Layout: 480px.
+========================================================*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+.controls ul li {
+  margin: 0 0 4px 4px;
+}
+.portfolio_thumb_3,
+.portfolio_thumb_4,
+.portfolio_thumb_5,
+.portfolio_thumb_6
+{
+    width: 50%;
+}
+	
+}
+
+/*=======================================================
+Mobile Layout: 320px.
+========================================================*/
+
+@media only screen and (max-width: 479px) {
+
+.controls ul li {
+  margin: 0 0 4px 4px;
+}
+.portfolio_thumb_2,
+.portfolio_thumb_3,
+.portfolio_thumb_4,
+.portfolio_thumb_5,
+.portfolio_thumb_6
+{
+    width: 100%;
+}
+
+}
