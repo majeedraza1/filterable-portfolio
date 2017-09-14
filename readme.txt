@@ -1,43 +1,36 @@
 === Filterable Portfolio ===
 Contributors: sayful
-Tags: portfolio, filterable portfolio, shortcode, images, image
-Requires at least: 3.0
-Tested up to: 4.2
-Stable tag: 1.0.2
+Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
+Requires at least: 3.5
+Tested up to: 4.7
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A WordPress Filterable Portfolio to display portfolio images or gallery to your site.
+A WordPress Portfolio plugin to display portfolio/project images to your site.
 
 == Description ==
 
-A WordPress Filterable Portfolio to display portfolio images or gallery to your site.
+A WordPress Portfolio plugin to display portfolio/project images to your site.
+
+= Features =
+
+* **Fully responsive**
+* **Portfolio Showcase** with sorting images by groups.
+* **Supported Browsers:** Chrome, Firefox, Edge, IE 11, Safari
+* **Two portfolio themes with css3 effect**
+* **Single portfolio page template**
+* **Slide of portfolio images on single portfolio page**
+* **Related Projects on single portfolio page**
+* **Setting page with many options**
+* **Custom Meta box** for Project Images, Client Name, Project Date and Project URL
 
 = Usages =
 
 After installing and activating the plugin, a new custom post type called "Portfolios" will appear at your Wordpress Admin area. Just create your Portfolio from the "Portfolios" menu & paste the following shortcode where you want to display this Portfolio:
 
-`[filterable_portfolio thumbnail='' prettyphoto_theme='']`
-
-The value of `thumbnail=''` can be from 1 to 6
-
-The value of `prettyphoto_theme=''` can be default, dark_rounded, dark_square, light_rounded, light_square or facebook
-
-So if you want to show three thumbnail with prettyphoto facebook theme, your shortcode should look like the following:
-
-`[filterable_portfolio thumbnail='3' prettyphoto_theme='facebook']`
-
-= Translators =
-
-<ul>
-	<li>Bengali (bn_BD) - <a href="https://profiles.wordpress.org/sayful">Sayful Islam</a></li>
-	<li>Serbian (sr_RS) - <a href="http://webhostinggeeks.com/">Andrijana from WebHostingGeeks</a></li>
-</ul>
-
-
-= Still need help? Watch this Youtube Video. =
-
-https://www.youtube.com/watch?v=J-9kKKHvSzA
+**[filterable_portfolio]**
 
 
 == Installation ==
@@ -46,22 +39,14 @@ Installing the plugins is just like installing other WordPress plugins. If you d
 
 = Install by Search =
 
-* From your WordPress dashboard, choose 'Add New' under the 'Plugins' category.
-* Search for 'Filterable Portfolio' a plugin will come called 'Filterable Portfolio by Sayful Islam' and Click 'Install Now' and confirm your installation by clicking 'ok'
-* The plugin will download and install. Just click 'Activate Plugin' to activate it.
+* From your WordPress dashboard go to **Plugins > Add New**.
+* Search for **Filterable Portfolio** in **Search Plugins** box.
+* Find the WordPress Plugin named **Filterable Portfolio** by **Sayful Islam**.
+* Click **Install Now** to install the **Filterable Portfolio** Plugin.
+* The plugin will begin to download and install.
+* Now just click **Activate** to activate the plugin.
 
-= Install by ZIP File =
-
-* From your WordPress dashboard, choose 'Add New' under the 'Plugins' category.
-* Select 'Upload' from the set of links at the top of the page (the second link)
-* From here, browse for the zip file included in your plugin titled 'filterable-portfolio.zip' and click the 'Install Now' button
-* Once installation is complete, activate the plugin to enable its features.
-
-= Install by FTP =
-
-* Find the directory titles 'filterable-portfolio' and upload it and all files within to the plugins directory of your WordPress install (WORDPRESS-DIRECTORY/wp-content/plugins/) [e.g. www.yourdomain.com/wp-content/plugins/]
-* From your WordPress dashboard, choose 'Installed Plugins' option under the 'Plugins' category
-* Locate the newly added plugin and click on the 'Activate' link to enable its features.
+If you still need help. visit [WordPress codex](https://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
 
 
 == Frequently Asked Questions ==
@@ -69,13 +54,20 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == Screenshots ==
 
-1. Screenshot of Filterable Portfolio on Twenty Fifteen theme.
-2. Screenshot of Filterable Portfolio prettyPhoto lightbox view.
-3. Screenshot of Filterable Portfolio Custom Post (Add New).
-4. Screenshot of Filterable Portfolio Custom Post (All Portfolios).
-5. Screenshot of Filterable Portfolio Custom Post (Portfolio Categories).
+1. Screenshot of Theme one.
+2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.1.0 =
+* Updated 	- Upgraded shuffle javaScript to version 4.0.2
+* Removed 	- prettyPhoto, fontawesome and modernizr
+* Added 	- Added Project Images, Client Name, Project Date and Project URL.
+* Added 	- Setting page with many sitting options.
+* Added 	- Two Portfolio Theme.
+* Added 	- Single page template.
+* Added 	- Slide of images on single page.
+* Added 	- Related Projects on single page.
 
 = version 1.0.1 =
 * Added support for comment on portfolio single post.
@@ -85,11 +77,8 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == CREDIT ==
 
-1.This plugin was developed by [Sayful Islam](http://sayful.net)
-
-== CONTACT ==
-
-[Sayful Islam](http://sayful1.wordpress.com/100-2/)
+1. [Shuffle](https://vestride.github.io/Shuffle/)
+2. [ResponsiveSlides](http://responsiveslides.com/)
 
 == Upgrade Notice ==
 

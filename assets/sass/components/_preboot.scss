@@ -1,0 +1,84 @@
+// Vars
+// --------------------------------------------------
+$color-button-bg: #4cc1be !default;
+$color-button-txt: #ffffff !default;
+
+$screen-small: 768px;
+$screen-medium: 992px;
+$screen-large: 1200px;
+
+// mixin
+// --------------------------------------------------
+@mixin backface-visibility( $value ){
+	-webkit-backface-visibility: $value; // Chrome, Safari, Opera
+    backface-visibility: $value;
+}
+
+@mixin transform( $value ){
+	-ms-transform: $value; // IE 9
+    -webkit-transform: $value; // Chrome, Safari, Opera
+    transform: $value;
+}
+
+@mixin transition( $value ){
+	-webkit-transition: $value; // Chrome, Safari, Opera
+	-moz-transition: $value; // Firefox
+	transition: $value;
+}
+
+//Rem generator
+$baseline-px: 16px;
+
+@mixin rem($property, $px-values) {
+	// Convert the baseline into rems
+	$baseline-rem: $baseline-px / 1rem;
+	// Print the first line in pixel values
+	#{$property}: $px-values;
+	// If there is only one (numeric) value, return the property/value line for it.
+	@if type-of($px-values) == "number" {
+		#{$property}: $px-values / $baseline-rem; }
+	@else {
+		// Create an empty list that we can dump values into
+		$rem-values: unquote("");
+		@each $value in $px-values {
+			// If the value is zero, return 0
+			@if $value == 0 {
+				$rem-values: append($rem-values, $value); }
+			@else {
+				$rem-values: append($rem-values, $value / $baseline-rem); } }
+		// Return the property and its list of converted values
+		#{$property}: $rem-values; }
+}
+
+// Extends
+// --------------------------------------------------
+%clearfix {
+	zoom: 1;
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+// Grids
+// ------------------------------------------------------
+@mixin grids($size){
+	.grid {
+		&.#{$size}1 { width:8.33333%; }
+		&.#{$size}2 { width:16.66666%; }
+		&.#{$size}3 { width:24.99999%; }
+		&.#{$size}4 { width:33.33333%; }
+		&.#{$size}5 { width:41.66666%; }
+		&.#{$size}6 { width:49.99999%; }
+		&.#{$size}7 { width:58.33333%; }
+		&.#{$size}8 { width:66.66666%; }
+		&.#{$size}9 { width:74.99999%; }
+		&.#{$size}10 { width:83.33333%; }
+		&.#{$size}11 { width:91.66666%; }
+		&.#{$size}12 { width:99.99999%; }
+	}
+}

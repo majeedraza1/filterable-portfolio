@@ -1,0 +1,38 @@
+@import 'preboot';
+
+.grids {
+    margin-left: -15px;
+    margin-right: -15px;
+    display: flex;
+    flex-wrap: wrap;
+
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+    }
+    &:after {
+        clear: both;
+    }
+
+    [class*="grid"] {
+        float: left;
+        padding: 15px;
+        vertical-align: top;
+        width: 99.99999%;
+    }
+}
+
+@include grids('xs');
+
+@media only screen and (min-width: $screen-small ){
+    @include grids('s');
+}
+
+@media only screen and (min-width: $screen-medium ){
+    @include grids('m');
+}
+
+@media only screen and (min-width: $screen-large ){
+    @include grids('l');
+}

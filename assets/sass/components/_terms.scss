@@ -1,0 +1,45 @@
+@import 'preboot';
+
+.portfolio-terms {
+
+	margin: 0 0 10px;
+	border-bottom: 1px solid $color-button-bg;
+	padding-bottom: 5px;
+
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+	}
+	&:after {
+		clear: both;
+	}
+
+	.filter-options {
+		float: right;
+	}
+
+	button {
+		font-size: 15px;
+		line-height: 1;
+		padding: 8px 16px;
+		margin-right: 5px;
+		background-color: transparent;
+		border: 1px solid $color-button-bg;
+		color: $color-button-bg;
+		display: inline-block;
+		cursor: pointer;
+
+		&.active,
+		&:hover,
+		&:focus {
+			border: 1px solid $color-button-bg;
+			background-color: $color-button-bg;
+			color: $color-button-txt;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

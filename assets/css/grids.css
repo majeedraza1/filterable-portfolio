@@ -1,0 +1,54 @@
+.grids { margin-left: -15px; margin-right: -15px; display: flex; flex-wrap: wrap; }
+.grids:before, .grids:after { display: table; content: ""; }
+.grids:after { clear: both; }
+.grids [class*="grid"] { float: left; padding: 15px; vertical-align: top; width: 99.99999%; }
+
+.grid.xs1 { width: 8.33333%; }
+.grid.xs2 { width: 16.66666%; }
+.grid.xs3 { width: 24.99999%; }
+.grid.xs4 { width: 33.33333%; }
+.grid.xs5 { width: 41.66666%; }
+.grid.xs6 { width: 49.99999%; }
+.grid.xs7 { width: 58.33333%; }
+.grid.xs8 { width: 66.66666%; }
+.grid.xs9 { width: 74.99999%; }
+.grid.xs10 { width: 83.33333%; }
+.grid.xs11 { width: 91.66666%; }
+.grid.xs12 { width: 99.99999%; }
+
+@media only screen and (min-width: 768px) { .grid.s1 { width: 8.33333%; }
+  .grid.s2 { width: 16.66666%; }
+  .grid.s3 { width: 24.99999%; }
+  .grid.s4 { width: 33.33333%; }
+  .grid.s5 { width: 41.66666%; }
+  .grid.s6 { width: 49.99999%; }
+  .grid.s7 { width: 58.33333%; }
+  .grid.s8 { width: 66.66666%; }
+  .grid.s9 { width: 74.99999%; }
+  .grid.s10 { width: 83.33333%; }
+  .grid.s11 { width: 91.66666%; }
+  .grid.s12 { width: 99.99999%; } }
+@media only screen and (min-width: 992px) { .grid.m1 { width: 8.33333%; }
+  .grid.m2 { width: 16.66666%; }
+  .grid.m3 { width: 24.99999%; }
+  .grid.m4 { width: 33.33333%; }
+  .grid.m5 { width: 41.66666%; }
+  .grid.m6 { width: 49.99999%; }
+  .grid.m7 { width: 58.33333%; }
+  .grid.m8 { width: 66.66666%; }
+  .grid.m9 { width: 74.99999%; }
+  .grid.m10 { width: 83.33333%; }
+  .grid.m11 { width: 91.66666%; }
+  .grid.m12 { width: 99.99999%; } }
+@media only screen and (min-width: 1200px) { .grid.l1 { width: 8.33333%; }
+  .grid.l2 { width: 16.66666%; }
+  .grid.l3 { width: 24.99999%; }
+  .grid.l4 { width: 33.33333%; }
+  .grid.l5 { width: 41.66666%; }
+  .grid.l6 { width: 49.99999%; }
+  .grid.l7 { width: 58.33333%; }
+  .grid.l8 { width: 66.66666%; }
+  .grid.l9 { width: 74.99999%; }
+  .grid.l10 { width: 83.33333%; }
+  .grid.l11 { width: 91.66666%; }
+  .grid.l12 { width: 99.99999%; } }

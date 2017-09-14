@@ -1,0 +1,75 @@
+@import 'preboot';
+// Portfolio Theme Two
+.portfolio-items {
+
+	*:not(a){
+		@include backface-visibility(hidden);
+	}
+
+	@include rem('font-size', 18px);
+
+	figure {
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+
+		&:hover figcaption {
+
+			&:after{ left: 0; }
+
+			h4 { right: 0; }
+			.button { bottom: 15px; }
+		}
+	}
+
+	figcaption {
+		text-align: content;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		transition: .4s;
+
+		&:after {
+			background-color: #000;
+			content: "";
+			height: 100%;
+			left: -100%;
+			opacity: .6;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			transition: .4s;
+		}
+
+		h4 {
+			font-size: inherit;
+			position: absolute;
+			right: -100%;
+			bottom: 50px;
+			text-align: center;
+			padding: 0 15px;
+			color: $color-button-txt;
+			width: 100%;
+			z-index: 10;
+			transition: .4s;
+		}
+
+		.button {
+			position: absolute;
+			left: 50%;
+			bottom: -25%;
+			-webkit-transform: translateX(-50%);
+			transform: translateX(-50%);
+			display: table;
+			font-size: 15px;
+			line-height: 1;
+			padding: 8px 33px;
+			background-color: $color-button-bg;
+			color: $color-button-txt;
+			z-index: 10;
+			transition: .4s;
+		}
+	}
+}

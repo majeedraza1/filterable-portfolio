@@ -1,0 +1,9 @@
+.portfolio-items { font-size: 18px; font-size: 1.125rem; }
+.portfolio-items *:not(a) { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.portfolio-items figure { position: relative; overflow: hidden; text-align: center; }
+.portfolio-items figure:hover figcaption { opacity: 1; -ms-transform: translateY(0px); -webkit-transform: translateY(0px); transform: translateY(0px); -webkit-transition: -webkit-transform 0.4s, opacity 0.1s; -moz-transition: -moz-transform 0.4s, opacity 0.1s; transition: transform 0.4s, opacity 0.1s; }
+.portfolio-items figure:hover img { -ms-transform: translateY(-50px); -webkit-transform: translateY(-50px); transform: translateY(-50px); }
+.portfolio-items figcaption { position: absolute; background-color: #363f48; display: block; width: 100%; bottom: 0; padding: 17px 20px; text-align: center; opacity: 0; -ms-transform: translateY(100%); -webkit-transform: translateY(100%); transform: translateY(100%); -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s; -moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s; transition: transform 0.4s, opacity 0.1s 0.3s; }
+.portfolio-items img { -webkit-transition: -webkit-transform 0.4s; -moz-transition: -moz-transform 0.4s; transition: transform 0.4s; max-width: 100%; height: auto; }
+.portfolio-items h4 { font-size: inherit; color: white; margin: 0 0 15px 0; }
+.portfolio-items .button { font-size: 15px; line-height: 1; padding: 8px 33px; background-color: #4cc1be; color: #ffffff; }

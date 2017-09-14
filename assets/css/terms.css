@@ -1,0 +1,7 @@
+.portfolio-terms { margin: 0 0 10px; border-bottom: 1px solid #4cc1be; padding-bottom: 5px; }
+.portfolio-terms:before, .portfolio-terms:after { display: table; content: ""; }
+.portfolio-terms:after { clear: both; }
+.portfolio-terms .filter-options { float: right; }
+.portfolio-terms button { font-size: 15px; line-height: 1; padding: 8px 16px; margin-right: 5px; background-color: transparent; border: 1px solid #4cc1be; color: #4cc1be; display: inline-block; cursor: pointer; }
+.portfolio-terms button.active, .portfolio-terms button:hover, .portfolio-terms button:focus { border: 1px solid #4cc1be; background-color: #4cc1be; color: #ffffff; }
+.portfolio-terms button:last-child { margin-right: 0; }

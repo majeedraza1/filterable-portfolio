@@ -1,0 +1,46 @@
+/* jQuery UI Datepicker */
+.ui-datepicker{
+	background-color: #ffffff;
+	border:1px solid #cccccc;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	padding: 8px; 
+	display: none;
+
+	&-header {
+		background-color: #f1f1f1;
+	}
+	&-prev, 
+	&-next { 
+		color:#000; 
+		padding: 6px; 
+		cursor: pointer; 
+	}
+	&-prev:hover, 
+	&-next:hover { 
+		color:#000; 
+	}
+	&-prev { 
+		float: left; 
+	}
+	&-next { 
+		float: right; 
+	}
+	&-calendar td > a { 
+		border: 1px solid #ddd;
+		display: block;
+		padding: 6px;
+		text-decoration: none; 
+		color:#000;
+		background-color:#f1f1f1;
+	}
+	&-calendar td.ui-datepicker {
+		&-today > a { 
+			color:#000; 
+			background-color:#ffeb3b; 
+		}
+		&-current-day > a { 
+			color:#fff;
+			background-color:#f44336;
+		}
+	}
+}

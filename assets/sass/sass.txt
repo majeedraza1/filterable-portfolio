@@ -1,0 +1,27 @@
+// Grids
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_grids.scss:assets/css/grids.css --style compact
+
+// Terms
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_terms.scss:assets/css/terms.css --style compact
+
+// Theme One
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_theme-one.scss:assets/css/theme-one.css --style compact
+
+// Theme Two
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_theme-two.scss:assets/css/theme-two.css --style compact
+
+// Slider
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_slides.scss:assets/css/slides.css --style compact
+
+// project meta
+---------------------------------------------------------------------
+sass --watch assets/sass/components/_project-meta.scss:assets/css/project-meta.css --style compact
+
+// Admin
+---------------------------------------------------------------------
+sass --watch assets/sass/admin.scss:assets/css/admin-style.css --style compact

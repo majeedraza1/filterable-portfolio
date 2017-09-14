@@ -1,0 +1,65 @@
+@import 'preboot';
+
+.portfolio-items {
+
+	*:not(a){
+		@include backface-visibility(hidden);
+	}
+
+	@include rem('font-size', 18px);
+	figure{
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+
+		&:hover figcaption{
+			opacity: 1;
+			@include transform(translateY(0px));
+			-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+			-moz-transition: -moz-transform 0.4s, opacity 0.1s;
+			transition: transform 0.4s, opacity 0.1s;
+		}
+
+		&:hover img{
+			@include transform(translateY(-50px));
+		}
+	}
+
+	figcaption{
+		position: absolute;
+		background-color: #363f48;
+		display: block;
+		width: 100%;
+		bottom: 0;
+		padding: 17px 20px;
+		text-align: center;
+		opacity: 0;
+		@include transform(translateY(100%));
+		@include backface-visibility(hidden);
+		-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
+		-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
+		transition: transform 0.4s, opacity 0.1s 0.3s;
+	}
+
+	img{
+		-webkit-transition: -webkit-transform 0.4s;
+		-moz-transition: -moz-transform 0.4s;
+		transition: transform 0.4s;
+		max-width: 100%;
+		height: auto;
+	}
+
+	h4{
+		font-size: inherit;
+		color: $color-button-txt;
+		margin: 0 0 15px 0;
+	}
+
+	.button {
+		font-size: 15px;
+		line-height: 1;
+		padding: 8px 33px;
+		background-color: $color-button-bg;
+		color: $color-button-txt;
+	}
+}
