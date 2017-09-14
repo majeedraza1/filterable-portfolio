@@ -1,4 +1,10 @@
 <?php
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Very simple WordPress Settings API wrapper class
  *
@@ -180,7 +186,8 @@ class ShaplaTools_Settings_API
 	    echo '<h2 class="nav-tab-wrapper">';
 	    foreach( $this->tabs as $tab ){
 	        $class = ( $tab['id'] === $current_tab ) ? ' nav-tab-active' : '';
-	        echo sprintf('<a class="nav-tab%s" href="?page=%s&tab=%s">%s</a>', $class, $page, $tab['id'], $tab['title']);
+	        $page_url = esc_url( add_query_arg( array( 'page' => $page, 'tab' => $tab['id'] ), admin_url( $this->menu_fields['parent_slug'] ) ) );
+	        echo sprintf('<a class="nav-tab%1$s" href="%2$s">%3$s</a>', $class, $page_url, $tab['title']);
 	    }
 	    echo '</h2>';
 	}

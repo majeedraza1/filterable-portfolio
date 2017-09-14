@@ -1,4 +1,10 @@
 <?php
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 $optionPage = new ShaplaTools_Settings_API;
 $optionPage->add_menu(array(
 	'page_title' 	=> __('Settings', 'filterable-portfolio'),
@@ -7,6 +13,25 @@ $optionPage->add_menu(array(
 	'parent_slug' 	=> 'edit.php?post_type=portfolio',
 	'option_name' 	=> 'filterable_portfolio',
 ));
+
+// Add settings page tab
+$optionPage->add_tab([
+    'id' => 'general',
+    'title' => __('General Settings', 'filterable-portfolio'),
+]);
+$optionPage->add_tab([
+    'id' => 'responsive-settings',
+    'title' => __('Responsive Settings', 'filterable-portfolio'),
+]);
+$optionPage->add_tab([
+    'id' => 'single-portfolio-settings',
+    'title' => __('Single Portfolio Settings', 'filterable-portfolio'),
+]);
+$optionPage->add_tab([
+    'id' => 'advanced-settings',
+    'title' => __('Advanced Settings', 'filterable-portfolio'),
+]);
+
 $optionPage->add_field(array(
 	'id' 	=> 'columns',
 	'type' 	=> 'select',
@@ -20,6 +45,7 @@ $optionPage->add_field(array(
 		'l3' => __('4 Columns', 'filterable-portfolio'),
 		'l2' => __('6 Columns', 'filterable-portfolio'),
 	),
+    'tab'   => 'responsive-settings',
 ));
 $optionPage->add_field(array(
 	'id' 	=> 'columns_desktop',
@@ -33,6 +59,7 @@ $optionPage->add_field(array(
 		'm4' => __('3 Columns', 'filterable-portfolio'),
 		'm3' => __('4 Columns', 'filterable-portfolio'),
 	),
+    'tab'   => 'responsive-settings',
 ));
 $optionPage->add_field(array(
 	'id' 	=> 'columns_tablet',
@@ -46,6 +73,7 @@ $optionPage->add_field(array(
 		's4' => __('3 Columns', 'filterable-portfolio'),
 		's3' => __('4 Columns', 'filterable-portfolio'),
 	),
+    'tab'   => 'responsive-settings',
 ));
 $optionPage->add_field(array(
 	'id' 	=> 'columns_phone',
@@ -59,6 +87,7 @@ $optionPage->add_field(array(
 		'xs4' => __('3 Columns', 'filterable-portfolio'),
 		'xs3' => __('4 Columns', 'filterable-portfolio'),
 	),
+    'tab'   => 'responsive-settings',
 ));
 $optionPage->add_field(array(
 	'id' 	=> 'portfolio_theme',
@@ -67,8 +96,18 @@ $optionPage->add_field(array(
 	'name' 	=> __('Portfolio Theme', 'filterable-portfolio'),
 	'desc' 	=> __('Choose portfolio theme.', 'filterable-portfolio'),
 	'options' => array(
-		'one' => __('Theme One', 'filterable-portfolio'),
-		'two' => __('Theme Two', 'filterable-portfolio'),
+		'one' => __('Theme One - Classic Layout', 'filterable-portfolio'),
+		'two' => __('Theme Two - Classic Layout', 'filterable-portfolio'),
+	),
+));$optionPage->add_field(array(
+	'id' 	=> 'portfolio_filter_script',
+	'type' 	=> 'select',
+	'std' 	=> 'isotope',
+	'name' 	=> __('Portfolio Filter Script', 'filterable-portfolio'),
+	'desc' 	=> __('Choose portfolio filter script. Isotope uses GPLv3 for open source use or Commercial License for commercial use. Shuffle uses only MIT License ( compatible with GPL License )', 'filterable-portfolio'),
+	'options' => array(
+		'isotope' => __('Isotope', 'filterable-portfolio'),
+		'shuffle' => __('Shuffle', 'filterable-portfolio'),
 	),
 ));
 $optionPage->add_field(array(
@@ -86,25 +125,52 @@ $optionPage->add_field(array(
 	'desc' 	=> __('Choose color for filter buttons, border color and details buttons.', 'filterable-portfolio'),
 ));
 $optionPage->add_field(array(
-	'id' 	=> 'show_related_projects',
-	'type' 	=> 'checkbox',
-	'std' 	=> 1,
-	'name' 	=> __('Show Related Projects', 'filterable-portfolio'),
-	'desc' 	=> __('Enable to show related projects on portfolio single page.', 'filterable-portfolio'),
+	'id' 	=> 'order',
+	'type' 	=> 'select',
+	'std' 	=> 'DESC',
+	'name' 	=> __('Portfolio Order', 'filterable-portfolio'),
+	'desc' 	=> __('Choose portfolio ascending or descending order.', 'filterable-portfolio'),
+	'options' => array(
+		'ASC' => __('Ascending order', 'filterable-portfolio'),
+		'DESC' => __('Descending order', 'filterable-portfolio'),
+	),
 ));
 $optionPage->add_field(array(
-	'id' 	=> 'related_projects_text',
-	'type' 	=> 'text',
-	'std' 	=> __('Related Projects', 'filterable-portfolio'),
-	'name' 	=> __('Related Projects Text', 'filterable-portfolio'),
-	'desc' 	=> __('Enter the text for related projects.', 'filterable-portfolio'),
+	'id' 	=> 'orderby',
+	'type' 	=> 'select',
+	'std' 	=> 'ID',
+	'name' 	=> __('Portfolio Order By', 'filterable-portfolio'),
+	'desc' 	=> __('Sort retrieved portfolios by parameter.', 'filterable-portfolio'),
+	'options' => array(
+		'ID' 		=> __('ID', 'filterable-portfolio'),
+		'title' 	=> __('Title', 'filterable-portfolio'),
+		'date' 		=> __('Date created', 'filterable-portfolio'),
+		'modified' 	=> __('Date modified', 'filterable-portfolio'),
+		'rand' 		=> __('Random', 'filterable-portfolio'),
+	),
 ));
 $optionPage->add_field(array(
-	'id' 	=> 'related_projects_number',
+	'id' 	=> 'posts_per_page',
 	'type' 	=> 'number',
-	'std' 	=> 3,
-	'name' 	=> __('# of Related Projects', 'filterable-portfolio'),
-	'desc' 	=> __('How many related projects you want to show in single portfolio page.', 'filterable-portfolio'),
+	'std' 	=> -1,
+	'name' 	=> __('# of portfolio to show', 'filterable-portfolio'),
+	'desc' 	=> __('Number of portfolio to show per page. -1 to show all portfolios', 'filterable-portfolio'),
+));
+$optionPage->add_field(array(
+	'id' 	=> 'all_categories_text',
+	'type' 	=> 'text',
+	'std' 	=> __('All', 'filterable-portfolio'),
+	'name' 	=> __('All Categories Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for all filter button.', 'filterable-portfolio'),
+    // 'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'details_button_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Details', 'filterable-portfolio'),
+	'name' 	=> __('Details Button Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for details button.', 'filterable-portfolio'),
+    // 'tab'   => 'single-portfolio-settings',
 ));
 $optionPage->add_field(array(
 	'id' 	=> 'custom_css',
@@ -113,4 +179,87 @@ $optionPage->add_field(array(
 	'name' 	=> __('Custom CSS', 'filterable-portfolio'),
 	'desc' 	=> __('Quickly add some CSS to your theme by adding it to this block.', 'filterable-portfolio'),
 	'placeholder' 	=> '.portfolio-items { font-size: 20px; }',
+    'tab'   => 'advanced-settings',
+));
+
+// Single Portfolio Settings
+$optionPage->add_field(array(
+	'id' 	=> 'show_related_projects',
+	'type' 	=> 'checkbox',
+	'std' 	=> 1,
+	'name' 	=> __('Show Related Projects', 'filterable-portfolio'),
+	'desc' 	=> __('Enable to show related projects on portfolio single page.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'related_projects_number',
+	'type' 	=> 'number',
+	'std' 	=> 3,
+	'name' 	=> __('Number of Related Projects', 'filterable-portfolio'),
+	'desc' 	=> __('How many related projects you want to show in single portfolio page.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_description_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Project Description', 'filterable-portfolio'),
+	'name' 	=> __('Project Description Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project description.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_details_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Project Details', 'filterable-portfolio'),
+	'name' 	=> __('Project Details Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project details.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_skills_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Skills Needed:', 'filterable-portfolio'),
+	'name' 	=> __('Skills Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project skills.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_categories_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Categories:', 'filterable-portfolio'),
+	'name' 	=> __('Categories Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project categories.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_url_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Project URL:', 'filterable-portfolio'),
+	'name' 	=> __('Project URL Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project url.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_date_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Project Date:', 'filterable-portfolio'),
+	'name' 	=> __('Project date Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project date.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'project_client_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Client:', 'filterable-portfolio'),
+	'name' 	=> __('Client Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for project client.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
+));
+$optionPage->add_field(array(
+	'id' 	=> 'related_projects_text',
+	'type' 	=> 'text',
+	'std' 	=> __('Related Projects', 'filterable-portfolio'),
+	'name' 	=> __('Related Projects Text', 'filterable-portfolio'),
+	'desc' 	=> __('Enter the text for related projects.', 'filterable-portfolio'),
+    'tab'   => 'single-portfolio-settings',
 ));

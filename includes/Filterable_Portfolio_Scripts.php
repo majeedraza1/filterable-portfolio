@@ -1,5 +1,10 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if( ! class_exists('Filterable_Portfolio_Scripts') ):
 
 class Filterable_Portfolio_Scripts
@@ -44,12 +49,10 @@ class Filterable_Portfolio_Scripts
 
 	public function frontend_scripts()
 	{
-
-		global $post;
-		if( $this->should_load_script( $post ) ) {
-			wp_enqueue_script( 'shuffle', $this->plugin_url . '/assets/js/shuffle.min.js', array(), '4.0.2', true );
-			wp_enqueue_script( $this->plugin_name, $this->plugin_url . '/assets/js/custom.js', array('shuffle'), $this->version, true );
-		}
+		wp_register_script( 'isotope', $this->plugin_url . '/assets/js/isotope.pkgd.min.js', array(), '3.0.3', true );
+		wp_register_script( 'isotope-fp-custom', $this->plugin_url . '/assets/js/isotope-custom.js', array( 'isotope' ), $this->version, true );
+		wp_register_script( 'shuffle', $this->plugin_url . '/assets/js/shuffle.min.js', array(), '4.0.2', true );
+		wp_register_script( 'shuffle-fp-custom', $this->plugin_url . '/assets/js/shuffle-custom.js', array( 'shuffle' ), $this->version, true );
 	}
 
 	public function inline_style()
@@ -68,7 +71,7 @@ class Filterable_Portfolio_Scripts
 		
 		?><style type="text/css" id="filterable-portfolio-css">
 		<?php
-			if ($this->should_load_script( $post ) || is_singular( 'portfolio' )) {
+			if ($this->should_load_script( $post ) || is_singular( 'portfolio' ) || is_tax( 'portfolio_cat' ) || is_tax( 'portfolio_skill' ) ) {
 				echo $grids;
 				echo str_replace('#4cc1be', $btn_bg, $terms);
 
@@ -78,7 +81,7 @@ class Filterable_Portfolio_Scripts
 					echo str_replace('#4cc1be', $btn_bg, $themeTwo);
 				}
 
-				echo esc_attr($this->options['custom_css']);
+				echo wp_strip_all_tags($this->options['custom_css']);
 			}
 
 			if ( is_singular( 'portfolio' ) ) {
@@ -115,15 +118,10 @@ class Filterable_Portfolio_Scripts
 
 	public function should_load_script( $post )
 	{
-		if ( ! is_a( $post, 'WP_Post' ) ){
-			return false;
-		}
+		global $post;
+		$load_scripts = is_active_widget( false, false, 'widget_filterable_portfolio', true ) || ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'filterable_portfolio' ) );
 
-		if ( ! has_shortcode( $post->post_content, 'filterable_portfolio') ){
-			return false;
-		}
-
-		return true;
+		return apply_filters( 'filterable_portfolio_load_scripts', $load_scripts );
 	}
 }
 

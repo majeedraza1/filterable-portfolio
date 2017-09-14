@@ -1,5 +1,10 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if ( ! class_exists('ShaplaTools_Meta_Box') ):
 
 class ShaplaTools_Meta_Box

@@ -1,4 +1,10 @@
 <?php
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if ( ! class_exists('Filterable_Portfolio_Single_Post') ):
 
 class Filterable_Portfolio_Single_Post
@@ -6,6 +12,12 @@ class Filterable_Portfolio_Single_Post
 	private $plugin_path;
 	private $options;
 
+	/**
+	 * class construct of filterable portfolio single post
+	 * 
+	 * @param string $plugin_path
+	 * @param array $options
+	 */
 	public function __construct( $plugin_path, $options )
 	{
 		$this->plugin_path 	= $plugin_path;
@@ -28,6 +40,10 @@ class Filterable_Portfolio_Single_Post
 				return $html;
 			}
 
+			if ( $this->is_shapla_theme_activate() ) {
+				return $html;
+			}
+
 			$ids = get_post_meta( get_the_ID(), '_project_images', true );
 			$ids = array_filter(explode(',', rtrim( $ids, ',') ) );
 			if ( count($ids) > 1 ){
@@ -40,6 +56,12 @@ class Filterable_Portfolio_Single_Post
 		return $html;
 	}
 
+	/**
+	 * Filterable portfolio single page content
+	 * 
+	 * @param  string $content
+	 * @return string
+	 */
 	public function portfolio_content( $content )
 	{
 		if ( is_singular( 'portfolio' ) ) {
@@ -48,12 +70,13 @@ class Filterable_Portfolio_Single_Post
 				return $content;
 			}
 
+			if ( $this->is_shapla_theme_activate() ) {
+				return $content;
+			}
+
 			ob_start();
-			require $this->plugin_path . '/templates/project-slides.php';
-			echo '<div class="grids">';
-		    require $this->plugin_path . '/templates/project-content.php';
-		    require $this->plugin_path . '/templates/project-meta.php';
-			echo '</div>';
+			require $this->plugin_path . '/templates/single-portfolio.php';
+
 			if ($this->options['show_related_projects']) {
 			    require $this->plugin_path . '/templates/related-project.php';
 			}
@@ -68,11 +91,29 @@ class Filterable_Portfolio_Single_Post
 
 	/**
 	 * Check if single-portfolio.php file loaded in theme directory
+	 * 
 	 * @return boolean
 	 */
 	public function single_portfolio_loaded_in_theme()
 	{
-		if (locate_template("single-portfolio.php") != ''){
+		if ( locate_template("single-portfolio.php") != '' ){
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if Shapla theme or it's child theme is active
+	 * @return boolean
+	 */
+	public function is_shapla_theme_activate()
+	{
+		$current_theme 	= wp_get_theme();
+		$theme_name 	= $current_theme->get( 'Name' );
+		$theme_template = $current_theme->get( 'Template' );
+
+		if ( $theme_template == 'shapla' || $theme_name == 'Shapla' ) {
 			return true;
 		}
 

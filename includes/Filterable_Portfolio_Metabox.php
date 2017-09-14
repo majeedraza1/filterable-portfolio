@@ -1,5 +1,10 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if( !class_exists('Filterable_Portfolio_Metabox') ):
 
 class Filterable_Portfolio_Metabox {
@@ -74,7 +79,6 @@ class Filterable_Portfolio_Metabox {
         }
 
 	    $ids = strip_tags(rtrim($_POST['ids'], ','));
-	    // update_post_meta( $post_id, '_shaplatools_images_ids', $ids);
 
 	    $thumbs_output = '';
 	    foreach( explode(',', $ids) as $thumb ) {

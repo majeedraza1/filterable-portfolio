@@ -1,4 +1,10 @@
 <?php
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if( ! class_exists('Filterable_Portfolio_Shortcode') ):
 
 class Filterable_Portfolio_Shortcode
@@ -28,19 +34,44 @@ class Filterable_Portfolio_Shortcode
 	    $grid 		= sprintf('grid %1$s %2$s %3$s %4$s', $this->options['columns_phone'], $this->options['columns_tablet'], $this->options['columns_desktop'], $this->options['columns']);
 
 		ob_start();
-	    require $this->plugin_path . '/templates/filterable_portfolio.php';
+		if ( locate_template("filterable_portfolio.php") != '' ){
+		    require get_stylesheet_directory() . '/filterable_portfolio.php';
+		}
+		else {
+			if ( $this->options['portfolio_filter_script'] == 'isotope' ) {
+			    wp_enqueue_script( 'isotope' );
+			    wp_enqueue_script( 'isotope-fp-custom' );
+			    require $this->plugin_path . '/templates/filterable_portfolio-isotope.php';
+			}
+			else {
+			    wp_enqueue_script( 'shuffle' );
+			    wp_enqueue_script( 'shuffle-fp-custom' );
+			    require $this->plugin_path . '/templates/filterable_portfolio-shuffle.php';
+			}
+		}
 	    $html = ob_get_contents();
 	    ob_end_clean();
 
 	    return apply_filters( 'filterable_portfolio', $html, $portfolios, $terms );
 	}
 
+	/**
+	 * Get all portfolios
+	 * 
+	 * @return object
+	 */
 	public function get_portfolios()
 	{
+		$posts_per_page = isset( $this->options['posts_per_page'] ) ? intval( $this->options['posts_per_page'] ) : -1;
+		$orderby 		= isset( $this->options['orderby'] ) ? esc_attr( $this->options['orderby'] ) : 'ID';
+		$order 			= isset( $this->options['order'] ) ? esc_attr( $this->options['order'] ) : 'DESC';
+
 		$args = array(
             'post_type' 		=> 'portfolio',
-            'posts_per_page' 	=> -1,
             'post_status'    	=> 'publish',
+            'posts_per_page' 	=> $posts_per_page,
+            'orderby'          	=> $orderby,
+			'order'            	=> $order,
         );
 
         $portfolios = get_posts( $args );
@@ -76,21 +107,6 @@ class Filterable_Portfolio_Shortcode
 
         $portfolios = array_filter($portfolios);
         return json_decode(json_encode($portfolios), false);
-	}
-
-	public function get_terms_html()
-	{
-		$html = '';
-		$terms = get_terms("portfolio_cat");
-		if ( $terms && ! is_wp_error( $terms ) && count($terms) > 0 ){
-			$html .= '<div id="filter" class="portfolio-terms"><div class="filter-options">';
-			$html .= sprintf('<button class="active" data-group="all">%s</button>', __('All', 'filterable-portfolio'));
-			foreach ( $terms as $term ){
-				$html .= sprintf('<button data-group="%1$s">%2$s</button>', esc_attr( $term->slug ), esc_attr( $term->name ));
-			}
-			$html .= '</div></div>';
-		}
-		return $html;
 	}
 }
 

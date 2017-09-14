@@ -3,8 +3,8 @@ Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
 Requires at least: 3.5
-Tested up to: 4.7
-Stable tag: 1.1.0
+Tested up to: 4.8
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,11 @@ After installing and activating the plugin, a new custom post type called "Portf
 
 **[filterable_portfolio]**
 
+= Theme Integration =
+
+Filterable Portfolio works with most theme out of the box. But the following theme support its full features like single, archive and taxonomy template. Filterable Portfolio is fully integrated with the following themes.
+
+01. Shapla - [https://wordpress.org/themes/shapla/](https://wordpress.org/themes/shapla/)
 
 == Installation ==
 
@@ -59,6 +64,27 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == Changelog ==
 
+= version 1.2.2 - 2017-06-22 =
+* Updated - Removed jQuery dependency for isotope and rewrite with vanilla JS.
+
+= version 1.2.1 - 2017-03-27 =
+* Added 	- New Filterable Portfolio Widget to add portfolio at widget. Especially helpful for page builder that use widget like "Page Builder by SiteOrigin" or "Elementor Page Builder".
+* Added 	- Added archive, taxonomy, and single portfolio template for [Shapla](https://wordpress.org/themes/shapla/) Theme.
+
+= version 1.2.0 - 2017-03-21 =
+* Added 	- Added option to choose filter script from Shuffle or Isotope
+
+= version 1.1.2 - 2017-03-20 =
+* Fixed 	- Fixed “headers already sent” notice on plugin activation
+* Added 	- Added portfolio_skill taxonomy
+* Added 	- Added options to change meta label on portfolio single page
+
+= version 1.1.1 - 2017-03-13 =
+* Updated 	- To make portfolio_cat taxonomy hierarchical like categories
+* Added 	- Added 'custom-fields' support on portfolio post type
+* Added 	- Added option to customize shortcode from theme using 'filterable_portfolio.php' file
+* Added 	- Added option to set order, orderby and posts per page
+
 = version 1.1.0 =
 * Updated 	- Upgraded shuffle javaScript to version 4.0.2
 * Removed 	- prettyPhoto, fontawesome and modernizr
@@ -78,6 +104,7 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 == CREDIT ==
 
 1. [Shuffle](https://vestride.github.io/Shuffle/)
+1. [Isotope](http://isotope.metafizzy.co/)
 2. [ResponsiveSlides](http://responsiveslides.com/)
 
 == Upgrade Notice ==
