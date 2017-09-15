@@ -15,22 +15,22 @@ $optionPage->add_menu(array(
 ));
 
 // Add settings page tab
-$optionPage->add_tab([
+$optionPage->add_tab( array(
     'id' => 'general',
     'title' => __('General Settings', 'filterable-portfolio'),
-]);
-$optionPage->add_tab([
+) );
+$optionPage->add_tab( array(
     'id' => 'responsive-settings',
     'title' => __('Responsive Settings', 'filterable-portfolio'),
-]);
-$optionPage->add_tab([
+) );
+$optionPage->add_tab( array(
     'id' => 'single-portfolio-settings',
     'title' => __('Single Portfolio Settings', 'filterable-portfolio'),
-]);
-$optionPage->add_tab([
+) );
+$optionPage->add_tab( array(
     'id' => 'advanced-settings',
     'title' => __('Advanced Settings', 'filterable-portfolio'),
-]);
+) );
 
 $optionPage->add_field(array(
 	'id' 	=> 'columns',

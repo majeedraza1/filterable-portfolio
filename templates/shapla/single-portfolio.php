@@ -55,7 +55,7 @@ $related_projects = get_posts( $args );
 get_header(); ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+		<main id="main" class="site-main">
 
 		<?php
 		while ( have_posts() ) : the_post();

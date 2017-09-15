@@ -18,7 +18,7 @@ $grid 				= sprintf('grid %1$s %2$s %3$s %4$s', $options['columns_phone'], $opti
 get_header(); ?>
 
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+		<main id="main" class="site-main">
 
 			<header class="page-header">
 				<h1 class="page-title"><?php echo single_cat_title('', false); ?></h1>

@@ -48,7 +48,7 @@
         // All images removed
         frame.state().get('library').on( 'remove', function() {
             var models = frame.state().get('library');
-            if(models.length == 0){
+            if(models.length === 0){
                 selection = false;
                 $.post( FilterablePortfolio.ajaxurl, {
                     ids: '',
