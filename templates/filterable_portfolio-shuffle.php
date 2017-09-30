@@ -3,9 +3,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+$_fp_class = 'filterable-portfolio';
+$_fp_class .= ' filterable-portfolio-theme-' . $_theme;
 ?>
 <?php if ( count( $portfolios ) > 0 ): ?>
-	<div id="filterable-portfolio" class="filterable-portfolio">
+	<div id="filterable-portfolio" class="<?php echo $_fp_class; ?>">
 
 		<?php if ( $terms && ! is_wp_error( $terms ) && count($terms) > 0 ): ?>
 			<div id="filter" class="portfolio-terms">

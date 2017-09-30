@@ -86,43 +86,47 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 				true
 			);
 
+			if ( $this->should_load_script() ) {
+				wp_enqueue_style(
+					$this->plugin_name,
+					FILTERABLE_PORTFOLIO_ASSETS . '/css/style.css',
+					array(),
+					FILTERABLE_PORTFOLIO_VERSION,
+					'all'
+				);
+			}
+
 			if ( is_singular( 'portfolio' ) ) {
 				wp_enqueue_script( 'jquery' );
 			}
 		}
 
 		public function inline_style() {
-			global $post;
-			$theme      = $this->options['portfolio_theme'];
-			$btn_bg     = ! empty( $this->options['button_color'] ) ? $this->options['button_color'] : '#4cc1be';
-			$slideArrow = FILTERABLE_PORTFOLIO_ASSETS . '/img/themes.gif';
-
-			$grids    = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/grids.css' );
-			$terms    = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/terms.css' );
-			$themeOne = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/theme-one.css' );
-			$themeTwo = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/theme-two.css' );
-			$slides   = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/slides.css' );
-			$meta     = file_get_contents( FILTERABLE_PORTFOLIO_ASSETS . '/css/project-meta.css' );
-
+			$btn_bg = ! empty( $this->options['button_color'] ) ? $this->options['button_color'] : '#4cc1be';
 			?>
             <style type="text/css" id="filterable-portfolio-css">
+                .portfolio-terms {
+                    border-bottom: 1px solid <?php echo $btn_bg; ?>;
+                }
+
+                .portfolio-terms button {
+                    border: 1px solid <?php echo $btn_bg; ?>;
+                    color: <?php echo $btn_bg; ?>;
+                }
+
+                .portfolio-terms button:hover {
+                    border: 1px solid <?php echo $btn_bg; ?>;
+                    background-color: <?php echo $btn_bg; ?>;
+                }
+
+                .portfolio-items .button {
+                    background-color: <?php echo $btn_bg; ?>;
+                }
+
                 <?php
-					if ($this->should_load_script( $post ) || is_singular( 'portfolio' ) || is_tax( 'portfolio_cat' ) || is_tax( 'portfolio_skill' ) ) {
-						echo $grids;
-						echo str_replace('#4cc1be', $btn_bg, $terms);
-
-						if ( $theme == 'one' ) {
-							echo str_replace('#4cc1be', $btn_bg, $themeOne);
-						} else {
-							echo str_replace('#4cc1be', $btn_bg, $themeTwo);
-						}
-
+					if ($this->should_load_script() || is_singular( 'portfolio' ) ||
+					is_tax( 'portfolio_cat' ) || is_tax( 'portfolio_skill' ) ) {
 						echo wp_strip_all_tags($this->options['custom_css']);
-					}
-
-					if ( is_singular( 'portfolio' ) ) {
-						echo $meta;
-						echo str_replace('../img/themes.gif', $slideArrow, $slides);
 					}
 				?>
             </style>
@@ -151,7 +155,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 			}
 		}
 
-		public function should_load_script( $post ) {
+		private function should_load_script() {
 			global $post;
 			$load_scripts = is_active_widget( false, false, 'widget_filterable_portfolio', true ) ||
 			                ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'filterable_portfolio' ) );

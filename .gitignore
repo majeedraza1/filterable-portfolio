@@ -1,4 +1,7 @@
 #Folders
 .idea/
 node_modules/
+.sass-cache/
 
+#Files
+assets/css/style.css.map

@@ -1,10 +1,8 @@
-@import 'preboot';
-
 .portfolio-terms {
 
-	margin: 0 0 10px;
+	margin: 0 0 0.5rem;
 	border-bottom: 1px solid $color-button-bg;
-	padding-bottom: 5px;
+	padding-bottom: 0.5rem;
 
 	&:before,
 	&:after {
@@ -20,10 +18,10 @@
 	}
 
 	button {
-		font-size: 15px;
+		font-size: 1rem;
 		line-height: 1;
-		padding: 8px 16px;
-		margin-right: 5px;
+		padding: 0.5rem 1rem;
+		margin-right: 0.5rem;
 		background-color: transparent;
 		border: 1px solid $color-button-bg;
 		color: $color-button-bg;

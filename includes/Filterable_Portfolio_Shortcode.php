@@ -22,8 +22,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ):
 		 * @return mixed
 		 */
 		public function shortcode() {
+
 			$portfolios = $this->get_portfolios();
 			$terms      = get_terms( "portfolio_cat" );
+			$_theme     = $this->options['portfolio_theme'];
 			$image_size = $this->options['image_size'];
 			$grid       = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone'], $this->options['columns_tablet'], $this->options['columns_desktop'], $this->options['columns'] );
 

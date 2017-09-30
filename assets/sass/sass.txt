@@ -25,3 +25,4 @@ sass --watch assets/sass/components/_project-meta.scss:assets/css/project-meta.c
 // Admin
 ---------------------------------------------------------------------
 sass --watch assets/sass/admin.scss:assets/css/admin-style.css --style compact
+sass --watch assets/sass/style.scss:assets/css/style.css --style compact
