@@ -8,7 +8,7 @@
 
 
 		this.shuffle = new Shuffle(element, {
-			itemSelector: '.portfolio-item',
+			itemSelector: '.portfolio-item'
 		});
 
 		this._activeFilters = [];
@@ -93,6 +93,6 @@
 	};
 
 	document.addEventListener('DOMContentLoaded', function () {
-		window.demo = new FilterablePortfolio(document.getElementById('portfolio-items'));
+		new FilterablePortfolio(document.getElementById('portfolio-items'));
 	});
 })();
