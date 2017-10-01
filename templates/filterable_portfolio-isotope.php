@@ -4,11 +4,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$_fp_class = 'filterable-portfolio';
-$_fp_class .= ' filterable-portfolio-theme-' . $_theme;
+$_fp_class = 'grids portfolio-items';
+$_fp_class .= ' fp-theme-' . $_theme;
 ?>
 <?php if ( count( $portfolios ) > 0 ): ?>
-    <div id="filterable-portfolio" class="<?php echo $_fp_class; ?>">
+    <div id="filterable-portfolio" class="filterable-portfolio">
 
 		<?php if ( $terms && ! is_wp_error( $terms ) && count( $terms ) > 0 ): ?>
             <div id="filter" class="portfolio-terms">
@@ -23,10 +23,11 @@ $_fp_class .= ' filterable-portfolio-theme-' . $_theme;
             </div>
 		<?php endif; ?>
 
-        <div id="portfolio-items" class="grids portfolio-items">
+        <div id="portfolio-items" class="<?php echo $_fp_class; ?>">
 			<?php foreach ( $portfolios as $portfolio ): ?>
                 <div id="id-<?php echo $portfolio->id; ?>"
-                     class="portfolio-item <?php echo $grid; ?> <?php echo implode( " ", json_decode( $portfolio->terms ) ); ?>">
+                     class="portfolio-item <?php echo $grid; ?> <?php echo implode( " ",
+					     json_decode( $portfolio->terms ) ); ?>">
                     <figure>
                         <a href="<?php echo $portfolio->permalink; ?>" rel="bookmark">
 							<?php echo get_the_post_thumbnail( $portfolio->id, $image_size ); ?>

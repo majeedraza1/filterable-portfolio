@@ -132,7 +132,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/class-shaplatools-settings-api.php';
 			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/class-shaplatools-meta-box.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Metabox.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/settings.php';
+			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Setting.php';
 		}
 
 		/**
@@ -182,8 +182,6 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 				'project_url_text'         => __( 'Project URL:', 'filterable-portfolio' ),
 				'project_date_text'        => __( 'Project Date:', 'filterable-portfolio' ),
 				'project_client_text'      => __( 'Client:', 'filterable-portfolio' ),
-				// Advanced Settings
-				'custom_css'               => '',
 			);
 
 			$this->options = wp_parse_args( get_option( 'filterable_portfolio' ), $default );
@@ -201,7 +199,9 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 		public function admin_footer_text( $text ) {
 			global $post_type, $hook_suffix;
 
-			$footer_text = sprintf( __( 'If you like %1$s Filterable Portfolio %2$s please leave us a %3$s rating. A huge thanks in advance!', 'filterable-portfolio' ), '<strong>', '</strong>', '<a href="https://wordpress.org/support/view/plugin-reviews/filterable-portfolio?filter=5#postform" target="_blank" data-rated="Thanks :)">&starf;&starf;&starf;&starf;&starf;</a>' );
+			$footer_text = sprintf( __( 'If you like %1$s Filterable Portfolio %2$s please leave us a %3$s rating. A huge thanks in advance!',
+				'filterable-portfolio' ), '<strong>', '</strong>',
+				'<a href="https://wordpress.org/support/view/plugin-reviews/filterable-portfolio?filter=5#postform" target="_blank" data-rated="Thanks :)">&starf;&starf;&starf;&starf;&starf;</a>' );
 
 			if ( $post_type == 'portfolio' || $hook_suffix == 'portfolio_page_fp-settings' ) {
 				return $footer_text;
@@ -219,7 +219,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 		 */
 		public function action_links( $links ) {
 			$plugin_links = array(
-				'<a href="' . admin_url( 'edit.php?post_type=portfolio&page=fp-settings' ) . '">' . __( 'Settings', 'filterable-portfolio' ) . '</a>'
+				'<a href="' . admin_url( 'edit.php?post_type=portfolio&page=fp-settings' ) . '">' . __( 'Settings',
+					'filterable-portfolio' ) . '</a>'
 			);
 
 			return array_merge( $plugin_links, $links );
