@@ -5,9 +5,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'ShaplaTools_Meta_Box' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 
-	class ShaplaTools_Meta_Box {
+	class Filterable_Portfolio_MetaBox_API {
 
 		/**
 		 * Add a custom meta box
@@ -417,5 +417,5 @@ if ( ! class_exists( 'ShaplaTools_Meta_Box' ) ):
 			return $html;
 		}
 	}
+}
 
-endif;

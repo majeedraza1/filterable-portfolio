@@ -130,7 +130,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
 					),
 				)
 			);
-			$meta_box = new ShaplaTools_Meta_Box;
+			$meta_box = new Filterable_Portfolio_MetaBox_API();
 			$meta_box->add( $args );
 		}
 	}

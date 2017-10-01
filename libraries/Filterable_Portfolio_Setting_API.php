@@ -15,10 +15,12 @@ if ( ! defined( 'WPINC' ) ) {
  * @version    1.0.0 (Oct 28, 2016)
  *
  * @author        Sayful Islam <sayful.islam001@gmail.com>
- * @link        www.sayfulit.com Sayful IT
+ * @link        www.sayfulislam.com
  */
-if ( ! class_exists( 'ShaplaTools_Settings_API' ) ):
-	class ShaplaTools_Settings_API {
+if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
+
+
+	class Filterable_Portfolio_Setting_API {
 		/**
 		 * Settings options array
 		 */
@@ -725,4 +727,4 @@ if ( ! class_exists( 'ShaplaTools_Settings_API' ) ):
 			<?php return ob_get_clean();
 		}
 	}
-endif;
+}

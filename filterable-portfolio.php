@@ -129,8 +129,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 		 * @return void
 		 */
 		private function admin_includes() {
-			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/class-shaplatools-settings-api.php';
-			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/class-shaplatools-meta-box.php';
+			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_Setting_API.php';
+			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_MetaBox_API.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Metabox.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Setting.php';
 		}

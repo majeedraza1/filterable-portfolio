@@ -8,3 +8,42 @@
         clear: both;
     }
 }
+
+.portfolio-items {
+
+    font-size: 1.25rem;
+
+    *:not(a) {
+        backface-visibility: hidden;
+    }
+
+    figure {
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    h4 {
+        font-size: inherit;
+        line-height: 1;
+        margin: 0 0 1rem 0;
+        padding: 0;
+    }
+
+    img {
+        transition: transform 0.4s;
+        max-width: 100%;
+        height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .button {
+        font-size: 1rem;
+        line-height: 1;
+        padding: 0.5rem 1rem;
+        font-weight: 400;
+    }
+}

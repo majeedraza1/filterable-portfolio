@@ -25,7 +25,7 @@ class Filterable_Portfolio_Setting {
 	}
 
 	public function settings() {
-		$settings = new ShaplaTools_Settings_API();
+		$settings = new Filterable_Portfolio_Setting_API();
 		$settings->add_menu( array(
 			'page_title'  => __( 'Settings', 'filterable-portfolio' ),
 			'menu_title'  => __( 'Settings', 'filterable-portfolio' ),
