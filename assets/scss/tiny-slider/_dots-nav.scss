@@ -1,0 +1,68 @@
+.carousel-slider-outer {
+    margin-bottom: 30px;
+
+    .tns-nav {
+        text-align: center;
+        -webkit-tap-highlight-color: transparent;
+        margin-top: 10px;
+        position: absolute;
+        width: 100%;
+        bottom: -20px;
+
+        > button {
+            display: inline-block;
+            zoom: 1;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin: 0 5px 0 0;
+            padding: 0;
+            transition: opacity 200ms ease;
+            border: 0 none;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    // Dots positions
+    &.dots-center {
+        .tns-nav {
+            text-align: center;
+        }
+    }
+    &.dots-left {
+        .tns-nav {
+            text-align: left;
+        }
+    }
+    &.dots-right {
+        .tns-nav {
+            text-align: right;
+
+            > button {
+                margin: 0 0 0 5px;
+            }
+        }
+    }
+
+    // Dots visibility
+    &.dots-visible-hover {
+        .tns-nav {
+            opacity: 0;
+        }
+
+        &:hover .tns-nav {
+            opacity: 1;
+        }
+    }
+
+    // Dots shape
+    &.dots-circle {
+        .tns-nav {
+            > button {
+                border-radius: 9999px;
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+.carousel-slider-outer {
+    position: relative;
+
+    .prev,
+    .next {
+        height: 48px;
+        width: 48px;
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        transition: all .3s ease-in-out;
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    &:hover {
+        .prev,
+        .next {
+            opacity: 1;
+        }
+    }
+
+    &.arrows-visible-always {
+        .prev,
+        .next {
+            opacity: 1;
+        }
+    }
+
+    &.arrows-outside {
+        .prev {
+            left: -48px;
+        }
+
+        .next {
+            right: -48px;
+        }
+    }
+}

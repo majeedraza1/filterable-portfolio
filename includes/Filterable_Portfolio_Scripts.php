@@ -17,9 +17,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
-
 			add_action( 'wp_head', array( $this, 'inline_style' ), 30 );
-			add_action( 'wp_footer', array( $this, 'inline_script' ), 30 );
 		}
 
 		public function admin_scripts() {
@@ -97,10 +95,17 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 
 			if ( is_singular( 'portfolio' ) ) {
 				wp_enqueue_script(
-					'responsiveslides',
-					FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/responsiveslides.min.js',
-					array( 'jquery' ),
-					'1.55',
+					'tiny-slider',
+					FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/tiny-slider.min.js',
+					array(),
+					'2.2.0',
+					true
+				);
+				wp_enqueue_script(
+					'tiny-slider-custom',
+					FILTERABLE_PORTFOLIO_ASSETS . '/js/public/tiny-slider-custom.js',
+					array( 'tiny-slider' ),
+					FILTERABLE_PORTFOLIO_VERSION,
 					true
 				);
 			}
@@ -131,34 +136,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
                 }
             </style>
 			<?php
-		}
-
-		public function inline_script() {
-			if ( ! is_singular( 'portfolio' ) ) {
-				return;
-			}
-			?>
-            <script type="text/javascript">
-                (function ($) {
-                    $("#fp_slides").responsiveSlides({
-                        auto: true,
-                        pager: true,
-                        nav: true,
-                        speed: 500,
-                        namespace: "fp_slides"
-                    });
-                })(jQuery);
-            </script>
-			<?php
-		}
-
-		private function should_load_script() {
-			global $post;
-			$load_scripts = is_active_widget( false, false, 'widget_filterable_portfolio', true ) ||
-			                ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content,
-					                'filterable_portfolio' ) );
-
-			return apply_filters( 'filterable_portfolio_load_scripts', $load_scripts );
 		}
 	}
 
