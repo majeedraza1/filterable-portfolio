@@ -51,17 +51,17 @@ if ( count( $project_images ) > 0 ): ?>
 			<?php endforeach; ?>
         </div>
 
-        <div class="carousel-slider-controls" aria-label="Carousel Navigation" tabindex="0">
-        <span class="prev" data-controls="prev" aria-controls="customize" tabindex="-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
-                <path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path>
-            </svg>
-        </span>
-            <span class="next" data-controls="next" aria-controls="customize" tabindex="-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
-                <path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path>
-            </svg>
-        </span>
+        <div class="carousel-slider-controls">
+            <span class="prev" data-controls="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
+                    <path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path>
+                </svg>
+            </span>
+            <span class="next" data-controls="next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
+                    <path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path>
+                </svg>
+            </span>
         </div>
         <!-- Arrows Navigation -->
     </div>

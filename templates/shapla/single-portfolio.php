@@ -83,11 +83,53 @@ get_header(); ?>
 					do_action( 'shapla_single_post_top' );
 
 					if ( count( $project_images ) > 0 ) {
-						echo '<div class="fp_slider"><ul id="fp_slides">';
-						foreach ( $project_images as $image_id ) {
-							echo sprintf( '<li>%s</li>', wp_get_attachment_image( $image_id, 'full' ) );
-						}
-						echo '</div></ul>';
+
+						?>
+                        <div class="carousel-slider-outer dots-circle dots-right">
+                            <div
+                                    class="carousel-slider"
+                                    data-slide-by="1"
+                                    data-gutter="10"
+                                    data-loop="true"
+                                    data-autoplay="true"
+                                    data-lazyload="true"
+                                    data-autoplay-timeout="5000"
+                                    data-autoplay-hover-pause="true"
+                                    data-speed="500"
+                                    data-dots="true"
+                                    data-arrows="true"
+                                    data-mobile="1"
+                                    data-tablet="1"
+                                    data-desktop="1"
+                                    data-wide-screen="1"
+                                    data-full-hd="1"
+                                    data-high-screen="1"
+                            >
+								<?php foreach ( $project_images as $image_id ): ?>
+                                    <div class="item">
+                                        <div class="img img-1">
+											<?php echo wp_get_attachment_image( $image_id, 'full' ); ?>
+                                        </div>
+                                    </div>
+								<?php endforeach; ?>
+                            </div>
+
+                            <div class="carousel-slider-controls">
+                                <span class="prev" data-controls="prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
+                                        <path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path>
+                                    </svg>
+                                </span>
+                                                    <span class="next" data-controls="next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
+                                        <path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <!-- Arrows Navigation -->
+                        </div>
+						<?php
+
 					} elseif ( has_post_thumbnail() ) {
 						the_post_thumbnail();
 					}
