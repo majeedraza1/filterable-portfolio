@@ -1,6 +1,10 @@
 (function () {
     'use strict';
 
+    if (typeof tns === "undefined") {
+        return;
+    }
+
     var sliders,
         i,
         slider,

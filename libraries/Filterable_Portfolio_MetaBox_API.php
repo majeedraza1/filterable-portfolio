@@ -14,11 +14,11 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 *
 		 * @param array $meta_box Meta box input data
 		 *
-		 * @return bool
+		 * @return void
 		 */
 		public function add( $meta_box ) {
 			if ( ! is_array( $meta_box ) ) {
-				return false;
+				return;
 			}
 
 			add_meta_box(
@@ -64,7 +64,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 				$type      = isset( $field['type'] ) ? $field['type'] : 'text';
 
 				$table .= "<tr>";
-				$table .= sprintf( '<th scope="row"><label for="%1$s">%2$s</label></th>', $field['id'], $field['name'] );
+				$table .= sprintf( '<th scope="row"><label for="%1$s">%2$s</label></th>', $field['id'],
+					$field['name'] );
 				$table .= "<td>";
 
 				if ( method_exists( $this, $type ) ) {
@@ -110,7 +111,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function text( $field, $name, $value ) {
-			return sprintf( '<input type="text" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="text" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -123,7 +125,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function email( $field, $name, $value ) {
-			return sprintf( '<input type="email" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="email" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -136,7 +139,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function password( $field, $name, $value ) {
-			return sprintf( '<input type="password" class="regular-text" value="" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="password" class="regular-text" value="" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -149,7 +153,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function number( $field, $name, $value ) {
-			return sprintf( '<input type="number" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="number" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -162,7 +167,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function url( $field, $name, $value ) {
-			return sprintf( '<input type="url" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="url" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -177,7 +183,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		private function color( $field, $name, $value ) {
 			$default_color = ( isset( $field['std'] ) ) ? $field['std'] : "";
 
-			return sprintf( '<input type="text" class="colorpicker" value="%1$s" id="%2$s" name="%3$s" data-default-color="%4$s">', $value, $field['id'], $name, $default_color );
+			return sprintf( '<input type="text" class="colorpicker" value="%1$s" id="%2$s" name="%3$s" data-default-color="%4$s">',
+				$value, $field['id'], $name, $default_color );
 		}
 
 		/**
@@ -193,7 +200,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$value = empty( $value ) ? date( 'F d, Y', time() ) : $value;
 			$value = date( "F d, Y", strtotime( $value ) );
 
-			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">',
+				$value, $field['id'], $name );
 		}
 
 		/**
@@ -209,7 +217,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$rows = ( isset( $field['rows'] ) ) ? $field['rows'] : 5;
 			$cols = ( isset( $field['cols'] ) ) ? $field['cols'] : 40;
 
-			return sprintf( '<textarea id="%2$s" name="%3$s" rows="%4$s" cols="%5$s">%1$s</textarea>', $value, $field['id'], $name, $rows, $cols );
+			return sprintf( '<textarea id="%2$s" name="%3$s" rows="%4$s" cols="%5$s">%1$s</textarea>', $value,
+				$field['id'], $name, $rows, $cols );
 		}
 
 		/**
@@ -224,7 +233,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		private function checkbox( $field, $name, $value ) {
 			$checked = ( 1 == $value ) ? 'checked="checked"' : '';
 			$table   = sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
-			$table   .= sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><label for="%2$s"><input type="checkbox" value="1" id="%2$s" name="%4$s" %3$s>%1$s</label></fieldset>', $field['name'], $field['id'], $checked, $name );
+			$table   .= sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><label for="%2$s"><input type="checkbox" value="1" id="%2$s" name="%4$s" %3$s>%1$s</label></fieldset>',
+				$field['name'], $field['id'], $checked, $name );
 
 			return $table;
 		}
@@ -245,7 +255,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$table .= sprintf( '<input type="hidden" name="%1$s" value="0">', $multicheck_name );
 			foreach ( $field['options'] as $key => $label ) {
 				$multichecked = ( in_array( $key, $this->options[ $field['id'] ] ) ) ? 'checked="checked"' : '';
-				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>', $key, $multicheck_name, $multichecked, $label );
+				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>',
+					$key, $multicheck_name, $multichecked, $label );
 			}
 			$table .= "</fieldset>";
 
@@ -262,12 +273,14 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		private function radio( $field, $name, $value ) {
-			$table = sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><p>', $field['name'] );
+			$table = sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><p>',
+				$field['name'] );
 
 			foreach ( $field['options'] as $key => $radio_label ) {
 
 				$radio_checked = ( $value == $key ) ? 'checked="checked"' : '';
-				$table         .= sprintf( '<label><input type="radio" %1$s value="%2$s" name="%3$s">%4$s</label><br>', $radio_checked, $key, $name, $radio_label );
+				$table         .= sprintf( '<label><input type="radio" %1$s value="%2$s" name="%3$s">%4$s</label><br>',
+					$radio_checked, $key, $name, $radio_label );
 			}
 			$table .= "</p></fieldset>";
 
@@ -398,21 +411,34 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		public function images( $field, $name, $value ) {
 			$btn_text = $value ? 'Edit Gallery' : 'Add Gallery';
 			$value    = strip_tags( rtrim( $value, ',' ) );
-			$output   = '';
-
-			if ( $value ) {
-				$thumbs = explode( ',', $value );
-				foreach ( $thumbs as $thumb ) {
-					$output .= '<li>' . wp_get_attachment_image( $thumb, array( 75, 75 ) ) . '</li>';
-				}
-			}
-
-			$html = '';
-			$html .= '<div class="shaplatools_gallery_images">';
-			$html .= sprintf( '<input type="hidden" value="%1$s" id="fp_images_ids" name="%2$s">', $value, $name );
-			$html .= sprintf( '<a href="#" id="fp_gallery_btn" class="button button-default">%s</a><br><br class="clear">', $btn_text );
-			$html .= sprintf( '<ul class="fp_gallery_list">%s</ul><br class="clear">', $output );
-			$html .= '</div>';
+			ob_start(); ?>
+            <div class="shaplatools_gallery_images">
+                <input type="hidden" value="<?php echo $value; ?>" id="<?php echo $field['id']; ?>"
+                       name="<?php echo $name; ?>">
+                <button id="fp_gallery_btn"
+                        class="button button-default"
+                        data-modal="MediaFramePost"
+                        data-value="<?php echo $value; ?>"
+                        data-create="<?php esc_attr_e( 'Create Gallery', 'filterable-portfolio' ); ?>"
+                        data-edit="<?php esc_attr_e( 'Edit Gallery', 'filterable-portfolio' ); ?>"
+                        data-progress="<?php esc_attr_e( 'Saving...', 'filterable-portfolio' ); ?>"
+                        data-save="<?php esc_attr_e( 'Save Gallery', 'filterable-portfolio' ); ?>"
+                ><?php echo $btn_text; ?></button>
+                <br class="clear"><br>
+                <ul class="fp_gallery_list">
+					<?php
+					if ( $value ) {
+						$thumbs = explode( ',', $value );
+						foreach ( $thumbs as $thumb ) {
+							echo '<li>' . wp_get_attachment_image( $thumb, array( 75, 75 ) ) . '</li>';
+						}
+					}
+					?>
+                </ul>
+                <br class="clear">
+            </div>
+			<?php $html = ob_get_contents();
+			ob_end_clean();
 
 			return $html;
 		}

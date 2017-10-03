@@ -16,7 +16,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 			$this->options = $options;
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 10 );
 			add_action( 'wp_head', array( $this, 'inline_style' ), 30 );
 		}
 
@@ -57,17 +57,18 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 
 		public function frontend_scripts() {
 			wp_register_script(
+				'filterable-portfolio',
+				FILTERABLE_PORTFOLIO_ASSETS . '/js/script.js',
+				array(),
+				FILTERABLE_PORTFOLIO_VERSION,
+				true
+			);
+
+			wp_register_script(
 				'isotope',
 				FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/isotope.pkgd.min.js',
 				array(),
 				'3.0.3',
-				true
-			);
-			wp_register_script(
-				'isotope-fp-custom',
-				FILTERABLE_PORTFOLIO_ASSETS . '/js/public/isotope-custom.js',
-				array( 'isotope' ),
-				FILTERABLE_PORTFOLIO_VERSION,
 				true
 			);
 			wp_register_script(
@@ -76,21 +77,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 				array(),
 				'4.0.2',
 				true
-			);
-			wp_register_script(
-				'shuffle-fp-custom',
-				FILTERABLE_PORTFOLIO_ASSETS . '/js/public/shuffle-custom.js',
-				array( 'shuffle' ),
-				FILTERABLE_PORTFOLIO_VERSION,
-				true
-			);
-
-			wp_enqueue_style(
-				$this->plugin_name,
-				FILTERABLE_PORTFOLIO_ASSETS . '/css/style.css',
-				array(),
-				FILTERABLE_PORTFOLIO_VERSION,
-				'all'
 			);
 
 			if ( is_singular( 'portfolio' ) ) {
@@ -101,14 +87,17 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 					'2.2.0',
 					true
 				);
-				wp_enqueue_script(
-					'tiny-slider-custom',
-					FILTERABLE_PORTFOLIO_ASSETS . '/js/public/tiny-slider-custom.js',
-					array( 'tiny-slider' ),
-					FILTERABLE_PORTFOLIO_VERSION,
-					true
-				);
+
+				wp_enqueue_script( 'filterable-portfolio' );
 			}
+
+			wp_enqueue_style(
+				$this->plugin_name,
+				FILTERABLE_PORTFOLIO_ASSETS . '/css/style.css',
+				array(),
+				FILTERABLE_PORTFOLIO_VERSION,
+				'all'
+			);
 		}
 
 		public function inline_style() {

@@ -9,6 +9,10 @@
         return;
     }
 
+    if (typeof Isotope === "undefined") {
+        return;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         portfolio = new Isotope(items, {
             itemSelector: '.portfolio-item',

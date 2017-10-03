@@ -53,13 +53,13 @@ if ( count( $project_images ) > 0 ): ?>
 
         <div class="carousel-slider-controls">
             <span class="prev" data-controls="prev">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
-                    <path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32">
+                    <path d="M12.3 17.71l6.486 6.486c0.39 0.39 1.024 0.39 1.414 0s0.39-1.024 0-1.414l-5.782-5.782 5.782-5.782c0.39-0.39 0.39-1.024 0-1.414s-1.024-0.39-1.414 0l-6.486 6.486c-0.196 0.196-0.292 0.452-0.292 0.71s0.096 0.514 0.292 0.71z"></path>
                 </svg>
             </span>
             <span class="next" data-controls="next">
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 20 20">
-                    <path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32">
+                    <path d="M13.8 24.196c0.39 0.39 1.024 0.39 1.414 0l6.486-6.486c0.196-0.196 0.294-0.454 0.292-0.71 0-0.258-0.096-0.514-0.292-0.71l-6.486-6.486c-0.39-0.39-1.024-0.39-1.414 0s-0.39 1.024 0 1.414l5.782 5.782-5.782 5.782c-0.39 0.39-0.39 1.024 0 1.414z"></path>
                 </svg>
             </span>
         </div>
@@ -88,7 +88,8 @@ if ( count( $project_images ) > 0 ): ?>
 				$terms = array_map( function ( $term ) {
 					return $term->name;
 				}, $terms );
-				echo sprintf( '<li><strong>%1$s</strong><p>%2$s</p></li>', $categories_text, implode( '<br>', $terms ) );
+				echo sprintf( '<li><strong>%1$s</strong><p>%2$s</p></li>', $categories_text,
+					implode( '<br>', $terms ) );
 			}
 			// Client
 			if ( ! empty( $client_name ) ) {
@@ -100,7 +101,8 @@ if ( count( $project_images ) > 0 ): ?>
 			}
 			// Project URL
 			if ( ! empty( $project_url ) ) {
-				echo sprintf( '<li><strong>%1$s</strong><p><a target="_blank" href="%2$s">%2$s</a></p></li>', $url_text, $project_url );
+				echo sprintf( '<li><strong>%1$s</strong><p><a target="_blank" href="%2$s">%2$s</a></p></li>', $url_text,
+					$project_url );
 			}
 			?>
         </ul>

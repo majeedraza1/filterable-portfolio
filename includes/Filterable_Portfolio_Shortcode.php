@@ -35,11 +35,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ):
 			} else {
 				if ( $this->options['portfolio_filter_script'] == 'isotope' ) {
 					wp_enqueue_script( 'isotope' );
-					wp_enqueue_script( 'isotope-fp-custom' );
+					wp_enqueue_script( 'filterable-portfolio' );
 					require FILTERABLE_PORTFOLIO_TEMPLATES . '/filterable_portfolio-isotope.php';
 				} else {
 					wp_enqueue_script( 'shuffle' );
-					wp_enqueue_script( 'shuffle-fp-custom' );
+					wp_enqueue_script( 'filterable-portfolio' );
 					require FILTERABLE_PORTFOLIO_TEMPLATES . '/filterable_portfolio-shuffle.php';
 				}
 			}
