@@ -5,7 +5,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 
 	class Filterable_Portfolio_Single_Post {
 		private $options;
@@ -15,8 +15,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ):
 		 *
 		 * @param array $options
 		 */
-		public function __construct(  $options ) {
-			$this->options     = $options;
+		public function __construct( $options ) {
+			$this->options = $options;
 
 			add_filter( 'post_thumbnail_html', array( $this, 'post_thumbnail_html' ) );
 			add_filter( 'the_content', array( $this, 'portfolio_content' ), 20 );
@@ -113,7 +113,5 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ):
 
 			return false;
 		}
-
 	}
-
-endif;
+}

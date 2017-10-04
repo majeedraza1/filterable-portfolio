@@ -11,15 +11,16 @@ gulp.task('scss', function () {
         .pipe(gulp.dest('./assets/css'));
 });
 
-gulp.task('js', function () {
-
+gulp.task('js-admin', function () {
     gulp.src('./assets/js/admin/*.js')
         .pipe(concat('admin.js'))
         .pipe(gulp.dest('./assets/js'))
         .pipe(concat('admin.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./assets/js'));
+});
 
+gulp.task('js-public', function () {
     gulp.src('./assets/js/public/*.js')
         .pipe(concat('script.js'))
         .pipe(gulp.dest('./assets/js'))
@@ -30,7 +31,8 @@ gulp.task('js', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./assets/scss/*.scss', ['scss']);
-    gulp.watch('./assets/js/src/*.js', ['js']);
+    gulp.watch('./assets/js/admin/*.js', ['js-admin']);
+    gulp.watch('./assets/js/public/*.js', ['js-public']);
 });
 
-gulp.task('default', ['scss', 'js', 'watch']);
+gulp.task('default', ['scss', 'js-admin', 'js-public', 'watch']);

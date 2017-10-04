@@ -5,9 +5,22 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 
 	class Filterable_Portfolio_Metabox {
+
+		private static $instance;
+
+		/**
+		 * @return Filterable_Portfolio_Metabox
+		 */
+		public static function init() {
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
+			}
+
+			return self::$instance;
+		}
 
 		/**
 		 * Hook into the appropriate actions when the class is constructed.
@@ -15,7 +28,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
 		public function __construct() {
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 			add_action( 'save_post', array( $this, 'save_meta_boxes' ) );
-			add_action( 'wp_ajax_fp_save_images', array( $this, 'save_images' ) );
 		}
 
 		/**
@@ -56,38 +68,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
 			}
 		}
 
-		public function save_images() {
-			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'fp_ajax_nonce' ) ) {
-				return;
-			}
-
-			if ( ! isset( $_POST['post_id'], $_POST['ids'] ) ) {
-				return;
-			}
-
-			$post_id = $_POST['post_id'];
-			// Check if user has permissions to save data.
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
-			// Check if not an autosave.
-			if ( wp_is_post_autosave( $post_id ) ) {
-				return;
-			}
-
-			$ids = strip_tags( rtrim( $_POST['ids'], ',' ) );
-
-			$thumbs_output = '';
-			foreach ( explode( ',', $ids ) as $thumb ) {
-				$thumbs_output .= sprintf(
-					'<li>%s</li>',
-					wp_get_attachment_image( $thumb, array( 75, 75 ) )
-				);
-			}
-			echo $thumbs_output;
-			wp_die();
-		}
-
 		/**
 		 * Adds the meta box container.
 		 */
@@ -105,7 +85,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
 						'desc' => __( 'Choose project images.', 'filterable-portfolio' ),
 						'id'   => '_project_images',
 						'type' => 'images',
-						'std'  => __( 'Upload Images', 'filterable-portfolio' )
+						'std'  => '',
 					),
 					array(
 						'name' => __( 'Client Name', 'filterable-portfolio' ),
@@ -134,6 +114,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ):
 			$meta_box->add( $args );
 		}
 	}
-endif;
+}
 
-new Filterable_Portfolio_Metabox;
+Filterable_Portfolio_Metabox::init();

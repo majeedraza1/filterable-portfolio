@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 
 	class Filterable_Portfolio_Admin {
 
@@ -56,7 +56,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ):
 
 			$args = array(
 				'label'               => __( 'Portfolios', 'filterable-portfolio' ),
-				'description'         => __( 'A WordPress filterable portfolio to display portfolio images or gallery to your site.', 'filterable-portfolio' ),
+				'description'         => __( 'A WordPress filterable portfolio to display portfolio images or gallery to your site.',
+					'filterable-portfolio' ),
 				'labels'              => $labels,
 				'supports'            => apply_filters( 'filterable_portfolio_supports', array(
 					'title',
@@ -120,7 +121,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ):
 			) );
 		}
 	}
-
-endif;
+}
 
 Filterable_Portfolio_Admin::init();

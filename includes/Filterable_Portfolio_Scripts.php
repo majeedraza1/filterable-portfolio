@@ -5,7 +5,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 	class Filterable_Portfolio_Scripts {
 
@@ -20,8 +20,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 			add_action( 'wp_head', array( $this, 'inline_style' ), 30 );
 		}
 
+		/**
+		 * Load admin scripts
+		 */
 		public function admin_scripts() {
-			global $post;
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_media();
 
@@ -34,36 +36,21 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 			);
 			wp_enqueue_script(
 				$this->plugin_name,
-				FILTERABLE_PORTFOLIO_ASSETS . '/js/admin/script.js',
+				FILTERABLE_PORTFOLIO_ASSETS . '/js/admin.min.js',
 				array(
 					'jquery',
 					'wp-color-picker',
 					'jquery-ui-datepicker'
 				),
 				FILTERABLE_PORTFOLIO_VERSION,
-				true );
-
-			wp_localize_script( $this->plugin_name, 'FilterablePortfolio', array(
-				'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-				'nonce'             => wp_create_nonce( 'fp_ajax_nonce' ),
-				'post_id'           => $post ? $post->ID : '',
-				'image_ids'         => $post ? get_post_meta( $post->ID, '_project_images', true ) : '',
-				'create_btn_text'   => __( 'Create Gallery', 'filterable-portfolio' ),
-				'edit_btn_text'     => __( 'Edit Gallery', 'filterable-portfolio' ),
-				'progress_btn_text' => __( 'Saving...', 'filterable-portfolio' ),
-				'save_btn_text'     => __( 'Save Gallery', 'filterable-portfolio' ),
-			) );
-		}
-
-		public function frontend_scripts() {
-			wp_register_script(
-				'filterable-portfolio',
-				FILTERABLE_PORTFOLIO_ASSETS . '/js/script.js',
-				array(),
-				FILTERABLE_PORTFOLIO_VERSION,
 				true
 			);
+		}
 
+		/**
+		 * Load front facing script
+		 */
+		public function frontend_scripts() {
 			wp_register_script(
 				'isotope',
 				FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/isotope.pkgd.min.js',
@@ -78,16 +65,23 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 				'4.0.2',
 				true
 			);
+			wp_register_script(
+				'tiny-slider',
+				FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/tiny-slider.min.js',
+				array(),
+				'2.2.0',
+				true
+			);
+			wp_register_script(
+				'filterable-portfolio',
+				FILTERABLE_PORTFOLIO_ASSETS . '/js/script.js',
+				array(),
+				FILTERABLE_PORTFOLIO_VERSION,
+				true
+			);
 
 			if ( is_singular( 'portfolio' ) ) {
-				wp_enqueue_script(
-					'tiny-slider',
-					FILTERABLE_PORTFOLIO_ASSETS . '/js/vendors/tiny-slider.min.js',
-					array(),
-					'2.2.0',
-					true
-				);
-
+				wp_enqueue_script( 'tiny-slider' );
 				wp_enqueue_script( 'filterable-portfolio' );
 			}
 
@@ -127,5 +121,4 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ):
 			<?php
 		}
 	}
-
-endif;
+}

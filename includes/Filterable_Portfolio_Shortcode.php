@@ -5,7 +5,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 
 	class Filterable_Portfolio_Shortcode {
 		private $options;
@@ -27,7 +27,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ):
 			$terms      = get_terms( "portfolio_cat" );
 			$_theme     = $this->options['portfolio_theme'];
 			$image_size = $this->options['image_size'];
-			$grid       = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone'], $this->options['columns_tablet'], $this->options['columns_desktop'], $this->options['columns'] );
+			$grid       = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone'],
+				$this->options['columns_tablet'], $this->options['columns_desktop'], $this->options['columns'] );
 
 			ob_start();
 			if ( locate_template( "filterable_portfolio.php" ) != '' ) {
@@ -103,5 +104,4 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ):
 			return json_decode( json_encode( $portfolios ), false );
 		}
 	}
-
-endif;
+}

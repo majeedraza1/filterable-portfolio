@@ -149,7 +149,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 */
 		public function page_content() {
 			ob_start(); ?>
-
             <div class="wrap">
                 <h1><?php echo $this->menu_fields['page_title']; ?></h1>
 				<?php $this->option_page_tabs(); ?>
@@ -162,23 +161,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					?>
                 </form>
             </div>
-            <script type="text/javascript">
-                jQuery(document).ready(function ($) {
-                    $(".colorpicker").wpColorPicker();
-                    $(".datepicker").datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        showAnim: "slideDown"
-                    });
-                });
-            </script>
 			<?php
 			echo ob_get_clean();
 		}
 
 		/**
 		 * Generate Option Page Tabs
-		 * @return string
+		 * @return void
 		 */
 		private function option_page_tabs() {
 			if ( count( $this->tabs ) < 1 ) {
@@ -195,7 +184,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					'page' => $page,
 					'tab'  => $tab['id']
 				), admin_url( $this->menu_fields['parent_slug'] ) ) );
-				echo sprintf( '<a class="nav-tab%1$s" href="%2$s">%3$s</a>', $class, $page_url, $tab['title'] );
+				echo '<a class="nav-tab' . $class . '" href="' . $page_url . '">' . $tab['title'] . '</a>';
 			}
 			echo '</h2>';
 		}
@@ -296,7 +285,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * Validate the option's value
 		 *
-		 * @param  array $input
+		 * @param  mixed $input
 		 * @param  string $validation_rule
 		 *
 		 * @return mixed
@@ -380,7 +369,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 				$value = isset( $this->options[ $field['id'] ] ) ? $this->options[ $field['id'] ] : '';
 
 				$table .= "<tr>";
-				$table .= sprintf( '<th scope="row"><label for="%1$s">%2$s</label></th>', $field['id'], $field['name'] );
+				$table .= sprintf( '<th scope="row"><label for="%1$s">%2$s</label></th>', $field['id'],
+					$field['name'] );
 				$table .= "<td>";
 
 				if ( method_exists( $this, $type ) ) {
@@ -400,7 +390,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			echo $table;
 		}
 
-		public function section( $field, $name, $value ) {
+		private function section( $field, $name, $value ) {
 			return '';
 		}
 
@@ -413,8 +403,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function text( $field, $name, $value ) {
-			return sprintf( '<input type="text" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+		public function text( $field, $name, $value ) {
+			return sprintf( '<input type="text" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -426,8 +417,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function email( $field, $name, $value ) {
-			return sprintf( '<input type="email" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+		public function email( $field, $name, $value ) {
+			return sprintf( '<input type="email" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -439,8 +431,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function password( $field, $name, $value ) {
-			return sprintf( '<input type="password" class="regular-text" value="" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+		public function password( $field, $name, $value ) {
+			return sprintf( '<input type="password" class="regular-text" value="" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -452,8 +445,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function number( $field, $name, $value ) {
-			return sprintf( '<input type="number" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+		public function number( $field, $name, $value ) {
+			return sprintf( '<input type="number" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -465,8 +459,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function url( $field, $name, $value ) {
-			return sprintf( '<input type="url" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+		public function url( $field, $name, $value ) {
+			return sprintf( '<input type="url" class="regular-text" value="%1$s" id="%2$s" name="%3$s">', $value,
+				$field['id'], $name );
 		}
 
 		/**
@@ -478,10 +473,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function color( $field, $name, $value ) {
+		public function color( $field, $name, $value ) {
 			$default_color = ( isset( $field['std'] ) ) ? $field['std'] : "";
 
-			return sprintf( '<input type="text" class="colorpicker" value="%1$s" id="%2$s" name="%3$s" data-default-color="%4$s">', $value, $field['id'], $name, $default_color );
+			return sprintf( '<input type="text" class="colorpicker" value="%1$s" id="%2$s" name="%3$s" data-default-color="%4$s">',
+				$value, $field['id'], $name, $default_color );
 		}
 
 		/**
@@ -493,10 +489,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function date( $field, $name, $value ) {
+		public function date( $field, $name, $value ) {
 			$value = date( "F d, Y", strtotime( $value ) );
 
-			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">', $value, $field['id'], $name );
+			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">',
+				$value, $field['id'], $name );
 		}
 
 		/**
@@ -508,12 +505,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function textarea( $field, $name, $value ) {
+		public function textarea( $field, $name, $value ) {
 			$rows        = ( isset( $field['rows'] ) ) ? $field['rows'] : 5;
 			$cols        = ( isset( $field['cols'] ) ) ? $field['cols'] : 40;
-			$placeholder = ( isset( $field['placeholder'] ) ) ? sprintf( 'placeholder="%s"', esc_attr( $field['placeholder'] ) ) : '';
+			$placeholder = ( isset( $field['placeholder'] ) ) ? sprintf( 'placeholder="%s"',
+				esc_attr( $field['placeholder'] ) ) : '';
 
-			return sprintf( '<textarea id="%2$s" name="%3$s" rows="%4$s" cols="%5$s" %6$s>%1$s</textarea>', $value, $field['id'], $name, $rows, $cols, $placeholder );
+			return sprintf( '<textarea id="%2$s" name="%3$s" rows="%4$s" cols="%5$s" %6$s>%1$s</textarea>', $value,
+				$field['id'], $name, $rows, $cols, $placeholder );
 		}
 
 		/**
@@ -525,10 +524,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function checkbox( $field, $name, $value ) {
+		public function checkbox( $field, $name, $value ) {
 			$checked = ( 1 == $value ) ? 'checked="checked"' : '';
 			$table   = sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
-			$table   .= sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><label for="%2$s"><input type="checkbox" value="1" id="%2$s" name="%4$s" %3$s>%1$s</label></fieldset>', $field['name'], $field['id'], $checked, $name );
+			$table   .= sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><label for="%2$s"><input type="checkbox" value="1" id="%2$s" name="%4$s" %3$s>%1$s</label></fieldset>',
+				$field['name'], $field['id'], $checked, $name );
 
 			return $table;
 		}
@@ -542,14 +542,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function multi_checkbox( $field, $name, $value ) {
+		public function multi_checkbox( $field, $name, $value ) {
 			$table           = "<fieldset>";
 			$multicheck_name = $name . "[]";
 
 			$table .= sprintf( '<input type="hidden" name="%1$s" value="0">', $multicheck_name );
 			foreach ( $field['options'] as $key => $label ) {
 				$multichecked = ( in_array( $key, $this->options[ $field['id'] ] ) ) ? 'checked="checked"' : '';
-				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>', $key, $multicheck_name, $multichecked, $label );
+				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>',
+					$key, $multicheck_name, $multichecked, $label );
 			}
 			$table .= "</fieldset>";
 
@@ -565,13 +566,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function radio( $field, $name, $value ) {
-			$table = sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><p>', $field['name'] );
+		public function radio( $field, $name, $value ) {
+			$table = sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><p>',
+				$field['name'] );
 
 			foreach ( $field['options'] as $key => $radio_label ) {
 
 				$radio_checked = ( $value == $key ) ? 'checked="checked"' : '';
-				$table         .= sprintf( '<label><input type="radio" %1$s value="%2$s" name="%3$s">%4$s</label><br>', $radio_checked, $key, $name, $radio_label );
+				$table         .= sprintf( '<label><input type="radio" %1$s value="%2$s" name="%3$s">%4$s</label><br>',
+					$radio_checked, $key, $name, $radio_label );
 			}
 			$table .= "</p></fieldset>";
 
@@ -587,7 +590,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function select( $field, $name, $value ) {
+		public function select( $field, $name, $value ) {
 			$table = sprintf( '<select id="%1$s" name="%2$s" class="regular-text">', $field['id'], $name );
 			foreach ( $field['options'] as $key => $select_label ) {
 				$selected = ( $value == $key ) ? 'selected="selected"' : '';
@@ -644,7 +647,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @return string
 		 */
-		private function wp_editor( $field, $name, $value ) {
+		public function wp_editor( $field, $name, $value ) {
 			ob_start();
 			echo "<div class='sp-wp-editor-container'>";
 			wp_editor( $value, $field['id'], array(
@@ -659,72 +662,5 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			return ob_get_clean();
 		}
 
-		/**
-		 * file input field
-		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
-		 *
-		 * @return string
-		 */
-		private function file( $field, $name, $value ) {
-			$multiple   = ( isset( $field['multiple'] ) ) ? true : false;
-			$btn_browse = ( isset( $field['btn_browse'] ) ) ? $field['btn_browse'] : 'Browse';
-			$btn_insert = ( isset( $field['btn_insert'] ) ) ? $field['btn_insert'] : 'Insert';
-			$btn_id     = $field['id'] . '_button';
-			ob_start(); ?>
-
-            <input type="text" name="<?php echo $name; ?>" id="<?php echo $field['id']; ?>"
-                   value="<?php echo $value; ?>" class="regular-text">
-            <input type="button" class="button" id="<?php echo $btn_id; ?>" value="<?php echo $btn_browse; ?>">
-            <script>
-                jQuery(function ($) {
-                    var frame,
-                        isMultiple = "<?php echo $multiple; ?>";
-
-                    $('#<?php echo $btn_id; ?>').on('click', function (e) {
-                        e.preventDefault();
-
-                        var options = {
-                            state: 'insert',
-                            frame: 'post',
-                            multiple: isMultiple
-                        };
-
-                        frame = wp.media(options).open();
-
-                        frame.menu.get('view').unset('gallery');
-                        frame.menu.get('view').unset('featured-image');
-
-                        frame.toolbar.get('view').set({
-                            insert: {
-                                style: 'primary',
-                                text: '<?php echo $btn_insert; ?>',
-
-                                click: function () {
-                                    var models = frame.state().get('selection'),
-                                        attachment_id = models.first().attributes.id,
-                                        files = [];
-
-                                    if (isMultiple) {
-                                        models.map(function (attachment) {
-                                            attachment = attachment.toJSON();
-                                            files.push(attachment.id);
-                                            attachment_id = files;
-                                        });
-                                    }
-
-                                    $('#<?php echo $field['id']; ?>').val(attachment_id);
-
-                                    frame.close();
-                                }
-                            }
-                        });
-                    });
-                });
-            </script>
-			<?php return ob_get_clean();
-		}
 	}
 }

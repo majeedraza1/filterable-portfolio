@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ):
+if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 
 	class Filterable_Portfolio_Shapla_Theme {
 
@@ -118,8 +118,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ):
 			return $archive_template;
 		}
 	}
-
-
-endif;
+}
 
 Filterable_Portfolio_Shapla_Theme::init();

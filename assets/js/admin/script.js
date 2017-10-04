@@ -2,6 +2,7 @@
     "use strict";
 
     var _this,
+        galleryImages,
         createBtnText,
         editBtnText,
         progressBtnText,
@@ -14,11 +15,12 @@
         e.preventDefault();
 
         _this = $(this);
+        galleryImages = _this.closest('.gallery_images');
         createBtnText = _this.data('create');
         editBtnText = _this.data('edit');
         progressBtnText = _this.data('progress');
         saveBtnText = _this.data('save');
-        images = _this.data('value');
+        images = galleryImages.find('input[type="hidden"]').val();
         selection = loadImages(images);
 
         var options = {
@@ -65,12 +67,6 @@
             var models = frame.state().get('library');
             if (models.length === 0) {
                 selection = false;
-                $.post(FilterablePortfolio.ajaxurl, {
-                    ids: '',
-                    action: 'fp_save_images',
-                    post_id: FilterablePortfolio.post_id,
-                    nonce: FilterablePortfolio.nonce
-                });
             }
         });
 
@@ -81,32 +77,21 @@
                     text: saveBtnText,
                     click: function () {
                         var models = frame.state().get('library'),
-                            ids = '';
+                            ids = '',
+                            thumbs_url = '';
 
                         models.each(function (attachment) {
                             ids += attachment.id + ',';
+                            thumbs_url += '<li><img width="75" height="75" src="' + attachment.attributes.sizes.thumbnail.url + '" class="attachment-75x75 size-75x75"></li>';
                         });
 
                         this.el.innerHTML = progressBtnText;
 
-                        $.ajax({
-                            type: 'POST',
-                            url: FilterablePortfolio.ajaxurl,
-                            data: {
-                                ids: ids,
-                                action: 'fp_save_images',
-                                post_id: FilterablePortfolio.post_id,
-                                nonce: FilterablePortfolio.nonce
-                            },
-                            success: function () {
-                                selection = loadImages(ids);
-                                $('#fp_images_ids').val(ids);
-                                frame.close();
-                            },
-                            dataType: 'html'
-                        }).done(function (data) {
-                            $('.fp_gallery_list').html(data);
-                        });
+                        selection = loadImages(ids);
+                        galleryImages.find('input[type="hidden"]').val(ids);
+                        galleryImages.find('.gallery_images_list').html(thumbs_url);
+
+                        frame.close();
                     }
                 }
             });
