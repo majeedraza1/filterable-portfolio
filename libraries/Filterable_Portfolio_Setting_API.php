@@ -21,28 +21,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 
 
 	class Filterable_Portfolio_Setting_API {
-		/**
-		 * Settings options array
-		 */
+
 		private $options = array();
-
-		/**
-		 * Settings menu fields array
-		 */
 		private $menu_fields = array();
-
-		/**
-		 * Settings fields array
-		 */
 		private $fields = array();
-
-		/**
-		 * Settings tabs array
-		 */
 		private $tabs = array();
+		private $action = 'options.php';
+
 
 		/**
-		 * Initialization or class
+		 * Filterable_Portfolio_Setting_API constructor.
 		 */
 		public function __construct() {
 			if ( is_admin() ) {
@@ -103,8 +91,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		}
 
 		/**
-		 * Register setting and its sanitization callback.
-		 * @return void
+		 * Register setting and its sanitize callback.
 		 */
 		public function admin_init() {
 			register_setting(
@@ -149,10 +136,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 */
 		public function page_content() {
 			ob_start(); ?>
-            <div class="wrap">
+            <div class="wrap about-wrap">
                 <h1><?php echo $this->menu_fields['page_title']; ?></h1>
+                <div class="about-text"><?php echo $this->menu_fields['about_text']; ?></div>
 				<?php $this->option_page_tabs(); ?>
-                <form autocomplete="off" method="POST" action="options.php">
+                <form autocomplete="off" method="POST" action="<?php echo $this->action; ?>">
 					<?php
 					$this->get_options();
 					settings_fields( $this->menu_fields['option_name'] );
@@ -177,7 +165,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			$current_tab = isset ( $_GET['tab'] ) ? $_GET['tab'] : $this->tabs[0]['id'];
 			$page        = $this->menu_fields['menu_slug'];
 
-			echo '<h2 class="nav-tab-wrapper">';
+			echo '<h2 class="nav-tab-wrapper wp-clearfix">';
 			foreach ( $this->tabs as $tab ) {
 				$class    = ( $tab['id'] === $current_tab ) ? ' nav-tab-active' : '';
 				$page_url = esc_url( add_query_arg( array(
@@ -206,23 +194,23 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 				$current_tab = isset ( $_GET['tab'] ) ? $_GET['tab'] : $this->tabs[0]['id'];
 			}
 
-			$newarray = array();
+			$new_array = array();
 			if ( is_array( $this->fields ) && count( $this->fields ) > 0 ) {
 				foreach ( array_keys( $this->fields ) as $key ) {
 					if ( isset( $this->fields[ $key ]['tab'] ) ) {
 						$temp[ $key ] = $this->fields[ $key ]['tab'];
 						if ( $temp[ $key ] == $current_tab ) {
-							$newarray[ $key ] = $this->fields[ $key ];
+							$new_array[ $key ] = $this->fields[ $key ];
 						}
 					} else {
 						if ( $current_tab == $this->tabs[0]['id'] ) {
-							$newarray[ $key ] = $this->fields[ $key ];
+							$new_array[ $key ] = $this->fields[ $key ];
 						}
 					}
 				}
 			}
 
-			return $newarray;
+			return $new_array;
 		}
 
 		/**
@@ -543,14 +531,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 * @return string
 		 */
 		public function multi_checkbox( $field, $name, $value ) {
-			$table           = "<fieldset>";
-			$multicheck_name = $name . "[]";
+			$table = "<fieldset>";
+			$name  = $name . "[]";
 
-			$table .= sprintf( '<input type="hidden" name="%1$s" value="0">', $multicheck_name );
+			$table .= sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
 			foreach ( $field['options'] as $key => $label ) {
 				$multichecked = ( in_array( $key, $this->options[ $field['id'] ] ) ) ? 'checked="checked"' : '';
 				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>',
-					$key, $multicheck_name, $multichecked, $label );
+					$key, $name, $multichecked, $label );
 			}
 			$table .= "</fieldset>";
 
@@ -567,14 +555,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 * @return string
 		 */
 		public function radio( $field, $name, $value ) {
-			$table = sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><p>',
-				$field['name'] );
+			$table = '<fieldset><legend class="screen-reader-text"><span>' . $field['name'] . '</span></legend><p>';
 
-			foreach ( $field['options'] as $key => $radio_label ) {
+			foreach ( $field['options'] as $key => $label ) {
 
-				$radio_checked = ( $value == $key ) ? 'checked="checked"' : '';
-				$table         .= sprintf( '<label><input type="radio" %1$s value="%2$s" name="%3$s">%4$s</label><br>',
-					$radio_checked, $key, $name, $radio_label );
+				$checked = ( $value == $key ) ? 'checked="checked"' : '';
+				$table   .= '<label><input type="radio" ' . $checked . ' value="' . $key . '" name="' . $name . '">' . $label . '</label><br>';
 			}
 			$table .= "</p></fieldset>";
 
@@ -592,15 +578,24 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 */
 		public function select( $field, $name, $value ) {
 			$table = sprintf( '<select id="%1$s" name="%2$s" class="regular-text">', $field['id'], $name );
-			foreach ( $field['options'] as $key => $select_label ) {
+			foreach ( $field['options'] as $key => $label ) {
 				$selected = ( $value == $key ) ? 'selected="selected"' : '';
-				$table    .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', $key, $selected, $select_label );
+				$table    .= '<option value="' . $key . '" ' . $selected . '>' . $label . '</option>';
 			}
 			$table .= "</select>";
 
 			return $table;
 		}
 
+		/**
+		 * Get available image sizes
+		 *
+		 * @param $field
+		 * @param $name
+		 * @param $value
+		 *
+		 * @return string
+		 */
 		public function image_sizes( $field, $name, $value ) {
 
 			global $_wp_additional_image_sizes;
@@ -614,7 +609,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					$height = get_option( "{$_size}_size_h" );
 					$crop   = (bool) get_option( "{$_size}_crop" ) ? 'hard' : 'soft';
 
-					$sizes[ $_size ] = "{$_size} - {$width}x{$height}";
+					$sizes[ $_size ] = "{$_size} - {$width}x{$height} ($crop crop)";
 
 				} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 
@@ -622,16 +617,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					$height = $_wp_additional_image_sizes[ $_size ]['height'];
 					$crop   = $_wp_additional_image_sizes[ $_size ]['crop'] ? 'hard' : 'soft';
 
-					$sizes[ $_size ] = "{$_size} - {$width}x{$height}";
+					$sizes[ $_size ] = "{$_size} - {$width}x{$height} ($crop crop)";
 				}
 			}
 
 			$sizes = array_merge( $sizes, array( 'full' => 'original uploaded image' ) );
 
-			$table = sprintf( '<select name="%2$s" id="%1$s" class="regular-text select2">', $field['id'], $name );
+			$table = '<select name="' . $name . '" id="' . $field['id'] . '" class="regular-text select2">';
 			foreach ( $sizes as $key => $option ) {
 				$selected = ( $value == $key ) ? ' selected="selected"' : '';
-				$table    .= sprintf( '<option value="%1$s" %3$s>%2$s</option>', $key, $option, $selected );
+				$table    .= '<option value="' . $key . '" ' . $selected . '>' . $option . '</option>';
 			}
 			$table .= '</select>';
 

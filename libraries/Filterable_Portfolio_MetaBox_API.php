@@ -69,7 +69,7 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 				$type      = isset( $field['type'] ) ? $field['type'] : 'text';
 
 				$table .= "<tr>";
-				$table .= sprintf( '<th scope="row"><label for="%1$s">%2$s</label></th>', $field['id'],
+				$table .= sprintf( '<th><label for="%1$s">%2$s</label></th>', $field['id'],
 					$field['name'] );
 				$table .= "<td>";
 

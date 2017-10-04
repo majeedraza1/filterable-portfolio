@@ -27,12 +27,12 @@
         fullHD,
         highScreen;
 
-    sliders = document.querySelectorAll('.carousel-slider');
+    sliders = document.querySelectorAll('.fp-tns-slider');
     for (i = 0; i < sliders.length; i++) {
         slider = sliders[i];
 
         sliderOuter = slider.parentNode;
-        controls = sliderOuter.querySelector('.carousel-slider-controls');
+        controls = sliderOuter.querySelector('.fp-tns-slider-controls');
 
         mobile = parseInt(slider.getAttribute('data-mobile'));
         tablet = parseInt(slider.getAttribute('data-tablet'));

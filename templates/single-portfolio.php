@@ -22,9 +22,9 @@ $date_text       = esc_attr( $this->options['project_date_text'] );
 $client_text     = esc_attr( $this->options['project_client_text'] );
 
 if ( count( $project_images ) > 0 ): ?>
-    <div class="carousel-slider-outer dots-circle dots-right">
+    <div class="fp-tns-slider-outer dots-circle dots-right">
         <div
-                class="carousel-slider"
+                class="fp-tns-slider"
                 data-slide-by="1"
                 data-gutter="10"
                 data-loop="true"
@@ -51,7 +51,7 @@ if ( count( $project_images ) > 0 ): ?>
 			<?php endforeach; ?>
         </div>
 
-        <div class="carousel-slider-controls">
+        <div class="fp-tns-slider-controls">
             <span class="prev" data-controls="prev">
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32">
                     <path d="M12.3 17.71l6.486 6.486c0.39 0.39 1.024 0.39 1.414 0s0.39-1.024 0-1.414l-5.782-5.782 5.782-5.782c0.39-0.39 0.39-1.024 0-1.414s-1.024-0.39-1.414 0l-6.486 6.486c-0.196 0.196-0.292 0.452-0.292 0.71s0.096 0.514 0.292 0.71z"></path>

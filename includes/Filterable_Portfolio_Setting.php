@@ -28,8 +28,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 		public function settings() {
 			$settings = new Filterable_Portfolio_Setting_API();
 			$settings->add_menu( array(
-				'page_title'  => __( 'Settings', 'filterable-portfolio' ),
+				'page_title'  => __( 'Filterable Portfolio Settings', 'filterable-portfolio' ),
 				'menu_title'  => __( 'Settings', 'filterable-portfolio' ),
+				'about_text'  => __( 'Thank you for choosing Filterable Portfolio. We hope you enjoy it!', 'filterable-portfolio' ),
 				'menu_slug'   => 'fp-settings',
 				'parent_slug' => 'edit.php?post_type=portfolio',
 				'option_name' => 'filterable_portfolio',

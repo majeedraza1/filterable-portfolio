@@ -114,8 +114,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
                     background-color: <?php echo $btn_bg; ?>;
                 }
 
-                .portfolio-items .button {
-                    background-color: <?php echo $btn_bg; ?>;
+                .portfolio-items .button,
+                .portfolio-items button:focus,
+                .portfolio-items button:hover {
+                    background-color: <?php echo $btn_bg; ?> !important;
                 }
             </style>
 			<?php
