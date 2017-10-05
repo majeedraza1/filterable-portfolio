@@ -237,7 +237,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			}
 
 			// Loop through each setting being saved and
-			// pass it through a sanitization filter
+			// pass it through a sanitize filter
 			foreach ( $input as $key => $value ) {
 				foreach ( $fields as $field ) {
 					if ( $field['id'] == $key ) {
@@ -343,7 +343,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @param  array $fields
 		 *
-		 * @return string
+		 * @return void
 		 */
 		private function setting_fields( $fields = null ) {
 			$fields = is_array( $fields ) ? $fields : $this->fields;
@@ -376,10 +376,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 
 			$table .= "</table>";
 			echo $table;
-		}
-
-		private function section( $field, $name, $value ) {
-			return '';
 		}
 
 		/**
@@ -499,8 +495,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			$placeholder = ( isset( $field['placeholder'] ) ) ? sprintf( 'placeholder="%s"',
 				esc_attr( $field['placeholder'] ) ) : '';
 
-			return sprintf( '<textarea id="%2$s" name="%3$s" rows="%4$s" cols="%5$s" %6$s>%1$s</textarea>', $value,
-				$field['id'], $name, $rows, $cols, $placeholder );
+			return '<textarea id="' . $field['id'] . '" name="' . $name . '" rows="' . $rows . '" cols="' . $cols . '" ' . $placeholder . '>' . $value . '</textarea>';
 		}
 
 		/**
@@ -513,10 +508,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 * @return string
 		 */
 		public function checkbox( $field, $name, $value ) {
-			$checked = ( 1 == $value ) ? 'checked="checked"' : '';
-			$table   = sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
-			$table   .= sprintf( '<fieldset><legend class="screen-reader-text"><span>%1$s</span></legend><label for="%2$s"><input type="checkbox" value="1" id="%2$s" name="%4$s" %3$s>%1$s</label></fieldset>',
-				$field['name'], $field['id'], $checked, $name );
+			$checked = ( 1 == $value ) ? 'checked' : '';
+			$table   = '<input type="hidden" name="' . $name . '" value="0">';
+			$table   .= '<fieldset><legend class="screen-reader-text"><span>' . $field['name'] . '</span></legend>';
+			$table   .= '<label for="' . $field['id'] . '">';
+			$table   .= '<input type="checkbox" value="1" id="' . $field['id'] . '" name="' . $name . '" ' . $checked . '>';
+			$table   .= $field['name'] . '</label></fieldset>';
 
 			return $table;
 		}
@@ -526,7 +523,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * @param  array $field
 		 * @param  string $name
-		 * @param  string $value
+		 * @param  array $value
 		 *
 		 * @return string
 		 */
@@ -536,9 +533,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 
 			$table .= sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
 			foreach ( $field['options'] as $key => $label ) {
-				$multichecked = ( in_array( $key, $this->options[ $field['id'] ] ) ) ? 'checked="checked"' : '';
-				$table        .= sprintf( '<label for="%1$s"><input type="checkbox" value="%1$s" id="%1$s" name="%2$s" %3$s>%4$s</label><br>',
-					$key, $name, $multichecked, $label );
+				$checked = ( in_array( $key, $value ) ) ? 'checked="checked"' : '';
+				$table   .= '<label for="' . $key . '"><input type="checkbox" value="' . $key . '" id="' . $key . '" name="' . $name . '" ' . $checked . '>' . $label . '</label><br>';
 			}
 			$table .= "</fieldset>";
 
