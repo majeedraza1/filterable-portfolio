@@ -103,7 +103,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 
 			if ( $this->is_shapla_theme_activate() ) {
 
-				$archive_portfolio_template = wp_normalize_path( dirname( dirname( __FILE__ ) ) . '/templates/shapla/archive-portfolio.php' );
+				$archive_portfolio_template = FILTERABLE_PORTFOLIO_TEMPLATES . '/shapla/archive-portfolio.php';
 				// Checks if the archive is portfolio.
 				if ( is_post_type_archive( 'portfolio' )
 				     || is_tax( 'portfolio_cat' )

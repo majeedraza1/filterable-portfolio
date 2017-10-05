@@ -45,7 +45,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 			}
 
 			// Check if user has permissions to save data.
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
 
@@ -72,14 +72,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 		 * Adds the meta box container.
 		 */
 		public function add_meta_box() {
-			$args     = array(
+			$args     = apply_filters( 'filterable_portfolio_meta_box', array(
 				'id'          => 'filterable-portfolio-metabox',
 				'title'       => __( 'Portfolio Settings', 'filterable-portfolio' ),
 				'description' => __( 'Here you can customize your project details.', 'filterable-portfolio' ),
 				'screen'      => 'portfolio',
 				'context'     => 'normal',
 				'priority'    => 'high',
-				'fields'      => array(
+				'fields'      => apply_filters( 'filterable_portfolio_meta_box_fields', array(
 					array(
 						'name' => __( 'Project Images', 'filterable-portfolio' ),
 						'desc' => __( 'Choose project images.', 'filterable-portfolio' ),
@@ -108,8 +108,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 						'type' => 'text',
 						'std'  => ''
 					),
-				)
-			);
+				) ),
+			) );
 			$meta_box = new Filterable_Portfolio_MetaBox_API();
 			$meta_box->add( $args );
 		}

@@ -64,7 +64,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 					'editor',
 					'thumbnail',
 					'comments',
-					'custom-fields'
+					'revisions'
 				) ),
 				'hierarchical'        => false,
 				'public'              => true,
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 					'slug'       => 'portfolio',
 					'with_front' => false,
 				),
-				'capability_type'     => 'post',
+				'capability_type'     => 'page',
 			);
 			register_post_type( 'portfolio', apply_filters( 'filterable_portfolio_post_type_args', $args ) );
 		}

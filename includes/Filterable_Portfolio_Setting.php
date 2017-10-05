@@ -188,7 +188,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				'std'  => __( 'All', 'filterable-portfolio' ),
 				'name' => __( 'All Categories Text', 'filterable-portfolio' ),
 				'desc' => __( 'Enter the text for all filter button.', 'filterable-portfolio' ),
-				// 'tab'   => 'single-portfolio-settings',
 			) );
 			$settings->add_field( array(
 				'id'   => 'details_button_text',
@@ -196,7 +195,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				'std'  => __( 'Details', 'filterable-portfolio' ),
 				'name' => __( 'Details Button Text', 'filterable-portfolio' ),
 				'desc' => __( 'Enter the text for details button.', 'filterable-portfolio' ),
-				// 'tab'   => 'single-portfolio-settings',
 			) );
 
 			// Single Portfolio Settings
