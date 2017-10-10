@@ -5,8 +5,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Requires at least: 3.5
 Tested up to: 4.8
 Stable tag: 1.2.2
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 A WordPress Portfolio plugin to display portfolio/project images to your site.
 
@@ -64,6 +64,13 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == Changelog ==
 
+= version 1.3.0 =
+* Update 	- Update plugin core
+* Tweak 	- Replace [ResponsiveSlides](http://responsiveslides.com/) with [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
+* Tweak 	- Combine public facing custom scripts to one file
+* Fixed 	- Fixed images overlapping issue
+
+
 = version 1.2.2 - 2017-06-22 =
 * Updated - Removed jQuery dependency for isotope and rewrite with vanilla JS.
 
@@ -104,8 +111,8 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 == CREDIT ==
 
 1. [Shuffle](https://vestride.github.io/Shuffle/)
-1. [Isotope](http://isotope.metafizzy.co/)
-2. [ResponsiveSlides](http://responsiveslides.com/)
+2. [Isotope](http://isotope.metafizzy.co/)
+3. [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 
 == Upgrade Notice ==
 
