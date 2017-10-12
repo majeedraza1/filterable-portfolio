@@ -3,7 +3,7 @@
  * Plugin Name:       Filterable Portfolio
  * Plugin URI:        https://wordpress.org/plugins/filterable-portfolio/
  * Description:       A WordPress plugin to display portfolio images with filtering.
- * Version:           1.2.2
+ * Version:           1.3.0
  * Author:            Sayful Islam
  * Author URI:        https://profiles.wordpress.org/sayful
  * License:           GPLv3
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 
 	class Filterable_Portfolio {
 		private $plugin_name = 'filterable-portfolio';
-		private $version = '1.2.3';
+		private $version = '1.3.0';
 		private $options;
 		protected static $instance;
 

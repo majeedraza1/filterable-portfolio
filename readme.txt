@@ -2,9 +2,9 @@
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
-Requires at least: 3.5
+Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,7 +64,7 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == Changelog ==
 
-= version 1.3.0 =
+= version 1.3.0 - 2017-10-12 =
 * Update 	- Update plugin core
 * Tweak 	- Replace [ResponsiveSlides](http://responsiveslides.com/) with [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 * Tweak 	- Combine public facing custom scripts to one file

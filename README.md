@@ -23,7 +23,7 @@ After installing and activating the plugin, a new custom post type called "Portf
 
 ## Changelog
 
-#### version 1.3.0
+#### version 1.3.0 - 2017-10-12
 * Update 	- Update plugin core
 * Tweak 	- Replace [ResponsiveSlides](http://responsiveslides.com/) with [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 * Tweak 	- Combine public facing custom scripts to one file
