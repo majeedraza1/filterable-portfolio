@@ -6,3 +6,4 @@ node_modules/
 #Files
 assets/css/style.css.map
 assets/css/admin.css.map
+package-lock.json

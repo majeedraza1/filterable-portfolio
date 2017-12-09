@@ -460,7 +460,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		public function color( $field, $name, $value ) {
 			$default_color = ( isset( $field['std'] ) ) ? $field['std'] : "";
 
-			return sprintf( '<input type="text" class="colorpicker" value="%1$s" id="%2$s" name="%3$s" data-default-color="%4$s">',
+			return sprintf( '<input type="text" class="color-picker" value="%1$s" id="%2$s" name="%3$s" data-alpha="true" data-default-color="%4$s">',
 				$value, $field['id'], $name, $default_color );
 		}
 

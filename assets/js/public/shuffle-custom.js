@@ -96,7 +96,9 @@
         }
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-        new FilterablePortfolio(document.getElementById('portfolio-items'));
+    var item = document.getElementById('portfolio-items');
+    imagesLoaded(item).on('progress', function () {
+        new FilterablePortfolio(item);
     });
+
 })();

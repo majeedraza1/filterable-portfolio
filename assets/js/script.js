@@ -13,24 +13,27 @@
         return;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        portfolio = new Isotope(items, {
-            itemSelector: '.portfolio-item',
-            layoutMode: 'fitRows'
-        });
-
-        for (i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', function () {
-                active = document.querySelector('.filter-options .active');
-                active.classList.remove('active');
-                this.classList.add('active');
-                data = this.getAttribute('data-filter');
-                portfolio.arrange({
-                    filter: data
-                });
-            });
-        }
+    portfolio = new Isotope(items, {
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
     });
+
+    // layout Isotope after each image loads
+    imagesLoaded(items).on('progress', function () {
+        portfolio.layout();
+    });
+
+    for (i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function () {
+            active = document.querySelector('.filter-options .active');
+            active.classList.remove('active');
+            this.classList.add('active');
+            data = this.getAttribute('data-filter');
+            portfolio.arrange({
+                filter: data
+            });
+        });
+    }
 })();
 
 (function () {
@@ -131,9 +134,11 @@
         }
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-        new FilterablePortfolio(document.getElementById('portfolio-items'));
+    var item = document.getElementById('portfolio-items');
+    imagesLoaded(item).on('progress', function () {
+        new FilterablePortfolio(item);
     });
+
 })();
 (function () {
     'use strict';

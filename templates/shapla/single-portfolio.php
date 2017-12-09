@@ -32,38 +32,48 @@ $_theme    = $options['portfolio_theme'];
 $_fp_class = 'grids portfolio-items related-projects';
 $_fp_class .= ' fp-theme-' . $_theme;
 
-$image_size       = esc_attr( $options['image_size'] );
-$rp_grid          = sprintf(
+$image_size = esc_attr( $options['image_size'] );
+$rp_grid    = sprintf(
 	'grid %1$s %2$s %3$s %4$s',
 	esc_attr( $options['columns_phone'] ),
 	esc_attr( $options['columns_tablet'] ),
 	esc_attr( $options['columns_desktop'] ),
 	esc_attr( $options['columns'] )
 );
-$term_ids         = array_map( function ( $tag ) {
-	return $tag->term_id;
-}, $terms );
-$skill_ids        = array_map( function ( $tag ) {
-	return $tag->term_id;
-}, $skills );
-$args             = array(
+
+$args = array(
 	'post_type'      => 'portfolio',
 	'posts_per_page' => intval( $options['related_projects_number'] ),
 	'post__not_in'   => array( get_the_ID() ),
 	'tax_query'      => array(
-		'relation' => 'OR',
-		array(
-			'taxonomy' => 'portfolio_cat',
-			'field'    => 'id',
-			'terms'    => $term_ids
-		),
-		array(
-			'taxonomy' => 'portfolio_skill',
-			'field'    => 'id',
-			'terms'    => $skill_ids
-		)
+		'relation' => 'OR'
 	)
 );
+
+if ( is_array( $terms ) ) {
+	$term_ids = array_map( function ( $tag ) {
+		return $tag->term_id;
+	}, $terms );
+
+	$args['tax_query'][] = array(
+		'taxonomy' => 'portfolio_cat',
+		'field'    => 'id',
+		'terms'    => $term_ids
+	);
+}
+
+if ( is_array( $skills ) ) {
+	$skill_ids = array_map( function ( $tag ) {
+		return $tag->term_id;
+	}, $skills );
+
+	$args['tax_query'][] = array(
+		'taxonomy' => 'portfolio_skill',
+		'field'    => 'id',
+		'terms'    => $skill_ids
+	);
+}
+
 $related_projects = get_posts( $args );
 
 get_header(); ?>

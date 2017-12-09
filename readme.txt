@@ -64,12 +64,18 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 
 == Changelog ==
 
+= version 1.3.1 - 2017-12-09 =
+* Added 	- Add imagesLoaded javaScript plugin to fix images overlapping issue.
+* Added 	- Add alpha color picker to choose button color.
+* Fixed 	- Fixed images overlapping issue.
+* Dev       - Load non-minified version when script debug is enabled.
+* Dev       - Update core code.
+
 = version 1.3.0 - 2017-10-12 =
 * Update 	- Update plugin core
 * Tweak 	- Replace [ResponsiveSlides](http://responsiveslides.com/) with [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 * Tweak 	- Combine public facing custom scripts to one file
 * Fixed 	- Fixed images overlapping issue
-
 
 = version 1.2.2 - 2017-06-22 =
 * Updated - Removed jQuery dependency for isotope and rewrite with vanilla JS.
