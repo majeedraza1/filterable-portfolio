@@ -1,12 +1,11 @@
 === Filterable Portfolio ===
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3LZWQTHEVYWCY
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: 1.3.0
+Tested up to: 4.9
+Stable tag: 1.3.1
 License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 A WordPress Portfolio plugin to display portfolio/project images to your site.
 
@@ -65,17 +64,18 @@ Do you have questions or issues with Filterable Portfolio? [Ask for support here
 == Changelog ==
 
 = version 1.3.1 - 2017-12-09 =
-* Added 	- Add imagesLoaded javaScript plugin to fix images overlapping issue.
 * Added 	- Add alpha color picker to choose button color.
 * Fixed 	- Fixed images overlapping issue.
+* Tweak 	- Upgrade Shuffle to version 5.0.3
+* Tweak 	- Upgrade Isotope to version 3.0.4
+* Tweak 	- Upgrade Tiny Slider to version 2.3.10
 * Dev       - Load non-minified version when script debug is enabled.
-* Dev       - Update core code.
+* Dev       - Update plugin core.
 
 = version 1.3.0 - 2017-10-12 =
 * Update 	- Update plugin core
 * Tweak 	- Replace [ResponsiveSlides](http://responsiveslides.com/) with [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 * Tweak 	- Combine public facing custom scripts to one file
-* Fixed 	- Fixed images overlapping issue
 
 = version 1.2.2 - 2017-06-22 =
 * Updated - Removed jQuery dependency for isotope and rewrite with vanilla JS.

@@ -3,9 +3,9 @@
  * Plugin Name:       Filterable Portfolio
  * Plugin URI:        https://wordpress.org/plugins/filterable-portfolio/
  * Description:       A WordPress plugin to display portfolio images with filtering.
- * Version:           1.3.0
+ * Version:           1.3.1
  * Author:            Sayful Islam
- * Author URI:        https://profiles.wordpress.org/sayful
+ * Author URI:        https://sayfulislam.com
  * License:           GPLv3
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       filterable-portfolio
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 
 	class Filterable_Portfolio {
 		private $plugin_name = 'filterable-portfolio';
-		private $version = '1.3.0';
+		private $version = '1.3.1';
 		private $options;
 		protected static $instance;
 
@@ -109,41 +109,20 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 		 */
 		private function includes() {
 			if ( is_admin() ) {
-				$this->admin_includes();
+				include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_Setting_API.php';
+				include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_MetaBox_API.php';
+				include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Metabox.php';
+				include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Setting.php';
 			}
 
-			if ( ! is_admin() ) {
-				$this->frontend_includes();
-			}
-
+			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Shortcode.php';
+			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Single_Post.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Admin.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Scripts.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Widget.php';
 			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Shapla_Theme.php';
+
 			new Filterable_Portfolio_Scripts( $this->get_option() );
-		}
-
-		/**
-		 * Include admin files
-		 *
-		 * @return void
-		 */
-		private function admin_includes() {
-			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_Setting_API.php';
-			include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_MetaBox_API.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Metabox.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Setting.php';
-		}
-
-		/**
-		 * Include front facing files
-		 *
-		 * @return void
-		 */
-		private function frontend_includes() {
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Shortcode.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Single_Post.php';
-
 			new Filterable_Portfolio_Single_Post( $this->get_option() );
 			new Filterable_Portfolio_Shortcode( $this->get_option() );
 		}

@@ -9,7 +9,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 	class Filterable_Portfolio_Scripts {
 
-		private $plugin_name = 'filterable-portfolio';
 		private $options;
 
 		public function __construct( $options ) {
@@ -27,7 +26,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 * Register plugin admin & public styles
 		 */
 		public function register_styles() {
-			$suffix = ( defined( "SCRIPT_DEBUG" ) && SCRIPT_DEBUG ) ? '' : '.min';
 			$styles = array(
 				'filterable-portfolio'       => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/style.css',
@@ -55,22 +53,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 			$suffix = ( defined( "SCRIPT_DEBUG" ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 			$scripts = array(
-				'images-loaded'              => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/imagesloaded/imagesloaded' . $suffix . '.js',
-					'dependency' => array(),
-					'version'    => '4.1.1',
-					'in_footer'  => true,
-				),
 				'isotope'                    => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope' . $suffix . '.js',
-					'dependency' => array( 'images-loaded' ),
+					'dependency' => array( 'imagesloaded' ),
 					'version'    => '3.0.4',
 					'in_footer'  => true,
 				),
 				'shuffle'                    => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/shuffle/shuffle' . $suffix . '.js',
-					'dependency' => array( 'images-loaded' ),
-					'version'    => '4.0.2',
+					'dependency' => array( 'imagesloaded' ),
+					'version'    => '5.0.3',
 					'in_footer'  => true,
 				),
 				'tiny-slider'                => array(
@@ -82,7 +74,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				'wp-color-picker-alpha'      => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/wp-color-picker-alpha/wp-color-picker-alpha' . $suffix . '.js',
 					'dependency' => array( 'jquery', 'wp-color-picker' ),
-					'version'    => '1.3',
+					'version'    => '2.1.3',
 					'in_footer'  => true,
 				),
 				'filterable-portfolio'       => array(
