@@ -3,7 +3,7 @@ Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -56,12 +56,38 @@ If you still need help. visit [WordPress codex](https://codex.wordpress.org/Mana
 == Frequently Asked Questions ==
 Do you have questions or issues with Filterable Portfolio? [Ask for support here.](http://wordpress.org/support/plugin/filterable-portfolio)
 
+== Frequently Asked Questions ==
+
+= After changing portfolio slug, portfolio link is not working.  =
+After change portfolio slug, you need to regenerate permalink.
+To regenerate permalink, go to *Settings --> Permalinks* from WordPress admin and press on "Save Changes" button.
+
+= I want to remove Project Date. Is it possible? =
+You can add, remove or modify any field using filter hook. *filterable_portfolio_meta_box_fields*
+Here is an example to remove Project Date.
+```
+function filterable_portfolio_remove_product_date( $fields ) {
+    // Remove product date
+    unset( $fields['_project_date'] );
+
+    return $fields;
+}
+add_filter( 'filterable_portfolio_meta_box_fields', 'filterable_portfolio_remove_product_date' );
+```
+Here is a list of all default meta fields: _project_images, _client_name, _project_date, _project_url
+
 == Screenshots ==
 
 1. Screenshot of Theme one.
 2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.3.2 - 2018-05-11 =
+* Added 	- Add portfolio settings to change Portfolio Slug, Portfolio Category Slug, Portfolio Skill Slug.
+* Dev       - Add filter hook *filterable_portfolio_category_args* for modifying portfolio_cat taxonomy arguments.
+* Dev       - Add filter hook *filterable_portfolio_skill_args* for modifying portfolio_skill taxonomy arguments.
+* Dev       - Update plugin core.
 
 = version 1.3.1 - 2017-12-09 =
 * Added 	- Add alpha color picker to choose button color.

@@ -8,6 +8,11 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 	class Filterable_Portfolio_Setting {
 
+		/**
+		 * Instance of current class
+		 *
+		 * @var self
+		 */
 		private static $instance;
 
 		/**
@@ -21,10 +26,18 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Filterable_Portfolio_Setting constructor.
+		 */
 		public function __construct() {
 			add_action( 'init', array( $this, 'settings' ) );
 		}
 
+		/**
+		 * Plugin setting fields
+		 *
+		 * @throws Exception
+		 */
 		public function settings() {
 			$settings = new Filterable_Portfolio_Setting_API();
 			$settings->add_menu( array(
@@ -196,6 +209,27 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				'name' => __( 'Details Button Text', 'filterable-portfolio' ),
 				'desc' => __( 'Enter the text for details button.', 'filterable-portfolio' ),
 			) );
+			$settings->add_field( array(
+				'id'   => 'portfolio_slug',
+				'type' => 'text',
+				'std'  => 'portfolio',
+				'name' => __( 'Portfolio Slug', 'filterable-portfolio' ),
+				'desc' => __( 'The slug name cannot be the same name as a page name or the layout will break. This option changes the permalink when you use the permalink type as %postname%. Make sure to regenerate permalink from Settings --> Permalinks after changing this value.', 'filterable-portfolio' ),
+			) );
+			$settings->add_field( array(
+				'id'   => 'category_slug',
+				'type' => 'text',
+				'std'  => 'portfolio-category',
+				'name' => __( 'Portfolio Category Slug', 'filterable-portfolio' ),
+				'desc' => __( 'The slug name cannot be the same name as a page name or the layout will break. This option changes the permalink when you use the permalink type as %postname%. Make sure to regenerate permalink from Settings --> Permalinks after changing this value.', 'filterable-portfolio' ),
+			) );
+			$settings->add_field( array(
+				'id'   => 'skill_slug',
+				'type' => 'text',
+				'std'  => 'portfolio-skill',
+				'name' => __( 'Portfolio Skill Slug', 'filterable-portfolio' ),
+				'desc' => __( 'The slug name cannot be the same name as a page name or the layout will break. This option changes the permalink when you use the permalink type as %postname%. Make sure to regenerate permalink from Settings --> Permalinks after changing this value.', 'filterable-portfolio' ),
+			) );
 
 			// Single Portfolio Settings
 			$settings->add_field( array(
@@ -282,5 +316,3 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 		}
 	}
 }
-
-Filterable_Portfolio_Setting::init();

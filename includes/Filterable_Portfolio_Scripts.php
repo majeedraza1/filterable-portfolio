@@ -9,9 +9,20 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 	class Filterable_Portfolio_Scripts {
 
-		private $options;
+		/**
+		 * Plugin options
+		 *
+		 * @var array
+		 */
+		private $options = array();
 
+		/**
+		 * Filterable_Portfolio_Scripts constructor.
+		 *
+		 * @param $options
+		 */
 		public function __construct( $options ) {
+
 			$this->options = $options;
 
 			add_action( 'wp_loaded', array( $this, 'register_styles' ) );

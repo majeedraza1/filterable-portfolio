@@ -4,6 +4,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 
 	class Filterable_Portfolio_Shapla_Theme {
 
+		/**
+		 * Instance of current class
+		 *
+		 * @var self
+		 */
 		protected static $instance;
 
 		/**
@@ -119,5 +124,3 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		}
 	}
 }
-
-Filterable_Portfolio_Shapla_Theme::init();

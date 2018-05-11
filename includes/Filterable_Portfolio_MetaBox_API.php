@@ -61,7 +61,7 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$table = "";
 			$table .= "<table class='" . $this->table_class . "'>";
 
-			foreach ( $meta_box['fields'] as $field ) {
+			foreach ( $meta_box['fields'] as $field_id => $field ) {
 				$std_value = isset( $field['std'] ) ? $field['std'] : '';
 				$meta      = get_post_meta( $post->ID, $field['id'], true );
 				$value     = $meta ? $meta : $std_value;
@@ -361,4 +361,3 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		}
 	}
 }
-

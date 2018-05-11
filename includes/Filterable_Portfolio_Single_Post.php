@@ -8,7 +8,13 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 
 	class Filterable_Portfolio_Single_Post {
-		private $options;
+
+		/**
+		 * Plugin options
+		 *
+		 * @var array
+		 */
+		private $options = array();
 
 		/**
 		 * class construct of filterable portfolio single post

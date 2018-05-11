@@ -22,10 +22,39 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 
 	class Filterable_Portfolio_Setting_API {
 
+		/**
+		 * Setting page options
+		 *
+		 * @var array
+		 */
 		private $options = array();
+
+		/**
+		 * Setting page menu fields
+		 *
+		 * @var array
+		 */
 		private $menu_fields = array();
+
+		/**
+		 * Fields list
+		 *
+		 * @var array
+		 */
 		private $fields = array();
+
+		/**
+		 * Setting page tabs settings
+		 *
+		 * @var array
+		 */
 		private $tabs = array();
+
+		/**
+		 * Setting page form action attribute value
+		 *
+		 * @var string
+		 */
 		private $action = 'options.php';
 
 

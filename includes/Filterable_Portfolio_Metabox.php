@@ -9,6 +9,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 
 	class Filterable_Portfolio_Metabox {
 
+		/**
+		 * Instance of current class
+		 *
+		 * @var self
+		 */
 		private static $instance;
 
 		/**
@@ -80,28 +85,28 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 				'context'     => 'normal',
 				'priority'    => 'high',
 				'fields'      => apply_filters( 'filterable_portfolio_meta_box_fields', array(
-					array(
+					'_project_images' => array(
 						'name' => __( 'Project Images', 'filterable-portfolio' ),
 						'desc' => __( 'Choose project images.', 'filterable-portfolio' ),
 						'id'   => '_project_images',
 						'type' => 'images',
 						'std'  => '',
 					),
-					array(
+					'_client_name'    => array(
 						'name' => __( 'Client Name', 'filterable-portfolio' ),
 						'desc' => __( 'Enter the client name of the project', 'filterable-portfolio' ),
 						'id'   => '_client_name',
 						'type' => 'text',
 						'std'  => ''
 					),
-					array(
+					'_project_date'   => array(
 						'name' => __( 'Project Date', 'filterable-portfolio' ),
 						'desc' => __( 'Choose the project date.', 'filterable-portfolio' ),
 						'id'   => '_project_date',
 						'type' => 'date',
 						'std'  => '',
 					),
-					array(
+					'_project_url'    => array(
 						'name' => __( 'Project URL', 'filterable-portfolio' ),
 						'desc' => __( 'Enter the project URL', 'filterable-portfolio' ),
 						'id'   => '_project_url',
@@ -115,5 +120,3 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 		}
 	}
 }
-
-Filterable_Portfolio_Metabox::init();

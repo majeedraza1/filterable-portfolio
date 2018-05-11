@@ -8,8 +8,19 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 
 	class Filterable_Portfolio_Shortcode {
-		private $options;
 
+		/**
+		 * Plugin options
+		 *
+		 * @var array
+		 */
+		private $options = array();
+
+		/**
+		 * Filterable_Portfolio_Shortcode constructor.
+		 *
+		 * @param $options
+		 */
 		public function __construct( $options ) {
 			$this->options = $options;
 

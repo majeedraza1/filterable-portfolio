@@ -17,12 +17,47 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Filterable_Portfolio' ) ):
+if ( ! class_exists( 'Filterable_Portfolio' ) ) {
+	/**
+	 * Main Filterable_Portfolio Class.
+	 *
+	 * @class Filterable_Portfolio
+	 */
+	final class Filterable_Portfolio {
 
-	class Filterable_Portfolio {
+		/**
+		 * Plugin unique slug
+		 *
+		 * @var string
+		 */
 		private $plugin_name = 'filterable-portfolio';
-		private $version = '1.3.1';
-		private $options;
+
+		/**
+		 * Holds various class instances
+		 *
+		 * @var array
+		 */
+		private $container = array();
+
+		/**
+		 * Current version number
+		 *
+		 * @var string
+		 */
+		private $version = '1.3.2';
+
+		/**
+		 * Plugin options
+		 *
+		 * @var array
+		 */
+		private $options = array();
+
+		/**
+		 * Instance of this class
+		 *
+		 * @var self
+		 */
 		protected static $instance;
 
 		/**
@@ -39,9 +74,34 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 			return self::$instance;
 		}
 
+		/**
+		 * Magic getter to bypass referencing plugin.
+		 *
+		 * @param string $property
+		 *
+		 * @return mixed
+		 */
+		public function __get( $property ) {
+			if ( array_key_exists( $property, $this->container ) ) {
+				return $this->container[ $property ];
+			}
+
+			return $this->{$property};
+		}
+
+		/**
+		 * Filterable_Portfolio constructor.
+		 */
 		public function __construct() {
+
+			// Define plugin constants
 			$this->define_constants();
-			$this->includes();
+
+			// Includes plugin files
+			$this->include_files();
+
+			// initialize plugin classes
+			$this->init_classes();
 
 			register_activation_hook( __FILE__, array( $this, 'activation' ) );
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
@@ -60,8 +120,6 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 			define( 'FILTERABLE_PORTFOLIO_PATH', dirname( FILTERABLE_PORTFOLIO_FILE ) );
 			define( 'FILTERABLE_PORTFOLIO_INCLUDES', FILTERABLE_PORTFOLIO_PATH . '/includes' );
 			define( 'FILTERABLE_PORTFOLIO_TEMPLATES', FILTERABLE_PORTFOLIO_PATH . '/templates' );
-			define( 'FILTERABLE_PORTFOLIO_WIDGETS', FILTERABLE_PORTFOLIO_PATH . '/widgets' );
-			define( 'FILTERABLE_PORTFOLIO_LIBRARIES', FILTERABLE_PORTFOLIO_PATH . '/libraries' );
 			define( 'FILTERABLE_PORTFOLIO_URL', plugins_url( '', FILTERABLE_PORTFOLIO_FILE ) );
 			define( 'FILTERABLE_PORTFOLIO_ASSETS', FILTERABLE_PORTFOLIO_URL . '/assets' );
 		}
@@ -104,66 +162,89 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 		}
 
 		/**
-		 * Include admin and front facing files
-		 * @return void
+		 * Includes files
 		 */
-		private function includes() {
-			if ( is_admin() ) {
-				include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_Setting_API.php';
-				include_once FILTERABLE_PORTFOLIO_LIBRARIES . '/Filterable_Portfolio_MetaBox_API.php';
-				include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Metabox.php';
-				include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Setting.php';
-			}
+		private function include_files() {
+			spl_autoload_register( function ( $class ) {
 
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Shortcode.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Single_Post.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Admin.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Scripts.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Widget.php';
-			include_once FILTERABLE_PORTFOLIO_INCLUDES . '/Filterable_Portfolio_Shapla_Theme.php';
+				// If class already exists, not need to include it
+				if ( class_exists( $class ) ) {
+					return;
+				}
 
-			new Filterable_Portfolio_Scripts( $this->get_option() );
-			new Filterable_Portfolio_Single_Post( $this->get_option() );
-			new Filterable_Portfolio_Shortcode( $this->get_option() );
+				// Include out classes
+				$class_path = FILTERABLE_PORTFOLIO_INCLUDES . '/' . $class . '.php';
+				if ( file_exists( $class_path ) ) {
+					require_once $class_path;
+				}
+			} );
 		}
 
 		/**
-		 * Get portfolio options
-		 * Merge with default values
+		 * Include admin and front facing files
+		 * @return void
+		 */
+		private function init_classes() {
+			$options = $this->get_option();
+
+			$this->container['admin']   = new Filterable_Portfolio_Admin( $options );
+			$this->container['scripts'] = new Filterable_Portfolio_Scripts( $options );
+
+			if ( $this->is_request( 'admin' ) ) {
+				$this->container['setting'] = new Filterable_Portfolio_Setting();
+				$this->container['metabox'] = new Filterable_Portfolio_Metabox();
+			}
+
+			if ( $this->is_request( 'frontend' ) ) {
+				$this->container['shortcode'] = new Filterable_Portfolio_Shortcode( $options );
+				$this->container['portfolio'] = new Filterable_Portfolio_Single_Post( $options );
+				$this->container['shapla']    = new Filterable_Portfolio_Shapla_Theme();
+			}
+
+			add_action( 'widgets_init', array( 'Filterable_Portfolio_Widget', 'register' ) );
+		}
+
+		/**
+		 * Get portfolio options and merge with default values
 		 *
 		 * @return array
 		 */
 		public function get_option() {
-			$default = array(
-				// General Settings
-				'portfolio_theme'          => 'two',
-				'image_size'               => 'filterable-portfolio',
-				'button_color'             => '#4cc1be',
-				'order'                    => 'DESC',
-				'orderby'                  => 'ID',
-				'posts_per_page'           => - 1,
-				'portfolio_filter_script'  => 'isotope',
-				'all_categories_text'      => __( 'All', 'filterable-portfolio' ),
-				'details_button_text'      => __( 'Details', 'filterable-portfolio' ),
-				// Responsive Settings
-				'columns'                  => 'l4',
-				'columns_desktop'          => 'm4',
-				'columns_tablet'           => 's6',
-				'columns_phone'            => 'xs12',
-				// Single Portfolio Settings
-				'show_related_projects'    => 1,
-				'related_projects_number'  => 3,
-				'related_projects_text'    => __( 'Related Projects', 'filterable-portfolio' ),
-				'project_description_text' => __( 'Project Description', 'filterable-portfolio' ),
-				'project_details_text'     => __( 'Project Details', 'filterable-portfolio' ),
-				'project_skills_text'      => __( 'Skills Needed:', 'filterable-portfolio' ),
-				'project_categories_text'  => __( 'Categories:', 'filterable-portfolio' ),
-				'project_url_text'         => __( 'Project URL:', 'filterable-portfolio' ),
-				'project_date_text'        => __( 'Project Date:', 'filterable-portfolio' ),
-				'project_client_text'      => __( 'Client:', 'filterable-portfolio' ),
-			);
+			if ( empty( $this->options ) ) {
+				$default = array(
+					// General Settings
+					'portfolio_theme'          => 'two',
+					'image_size'               => 'filterable-portfolio',
+					'button_color'             => '#4cc1be',
+					'order'                    => 'DESC',
+					'orderby'                  => 'ID',
+					'posts_per_page'           => - 1,
+					'portfolio_filter_script'  => 'isotope',
+					'all_categories_text'      => __( 'All', 'filterable-portfolio' ),
+					'details_button_text'      => __( 'Details', 'filterable-portfolio' ),
+					'portfolio_slug'           => 'portfolio',
+					'category_slug'            => 'portfolio-category',
+					'skill_slug'               => 'portfolio-skill',
+					// Responsive Settings
+					'columns'                  => 'l4',
+					'columns_desktop'          => 'm4',
+					'columns_tablet'           => 's6',
+					'columns_phone'            => 'xs12',
+					// Single Portfolio Settings
+					'show_related_projects'    => 1,
+					'related_projects_number'  => 3,
+					'related_projects_text'    => __( 'Related Projects', 'filterable-portfolio' ),
+					'project_description_text' => __( 'Project Description', 'filterable-portfolio' ),
+					'project_details_text'     => __( 'Project Details', 'filterable-portfolio' ),
+					'project_skills_text'      => __( 'Skills Needed:', 'filterable-portfolio' ),
+					'project_categories_text'  => __( 'Categories:', 'filterable-portfolio' ),
+					'project_url_text'         => __( 'Project URL:', 'filterable-portfolio' ),
+					'project_date_text'        => __( 'Project Date:', 'filterable-portfolio' ),
+					'project_client_text'      => __( 'Client:', 'filterable-portfolio' ),
+				);
 
-			$this->options = wp_parse_args( get_option( 'filterable_portfolio' ), $default );
+				$this->options = wp_parse_args( get_option( 'filterable_portfolio' ), $default );
+			}
 
 			return $this->options;
 		}
@@ -204,9 +285,31 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ):
 
 			return array_merge( $plugin_links, $links );
 		}
-	}
 
-endif;
+
+		/**
+		 * What type of request is this?
+		 *
+		 * @param  string $type admin, ajax, cron or frontend.
+		 *
+		 * @return bool
+		 */
+		private function is_request( $type ) {
+			switch ( $type ) {
+				case 'admin':
+					return is_admin();
+				case 'ajax':
+					return defined( 'DOING_AJAX' );
+				case 'cron':
+					return defined( 'DOING_CRON' );
+				case 'frontend':
+					return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+			}
+
+			return false;
+		}
+	}
+}
 
 /**
  * Begins execution of the plugin.
