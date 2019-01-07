@@ -1,7 +1,7 @@
 <?php
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 class Filterable_Portfolio_Widget extends WP_Widget {
@@ -71,6 +71,9 @@ class Filterable_Portfolio_Widget extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * Register current class as widget
+	 */
 	public static function register() {
 		register_widget( __CLASS__ );
 	}

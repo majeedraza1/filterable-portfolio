@@ -1,8 +1,7 @@
 <?php
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 /**
@@ -681,6 +680,5 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 
 			return ob_get_clean();
 		}
-
 	}
 }

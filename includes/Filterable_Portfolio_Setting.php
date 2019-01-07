@@ -1,8 +1,7 @@
 <?php
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
@@ -21,16 +20,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 		public static function init() {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
+
+				add_action( 'init', array( self::$instance, 'settings' ) );
 			}
 
 			return self::$instance;
-		}
-
-		/**
-		 * Filterable_Portfolio_Setting constructor.
-		 */
-		public function __construct() {
-			add_action( 'init', array( $this, 'settings' ) );
 		}
 
 		/**

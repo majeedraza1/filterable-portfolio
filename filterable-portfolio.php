@@ -3,7 +3,7 @@
  * Plugin Name:       Filterable Portfolio
  * Plugin URI:        https://wordpress.org/plugins/filterable-portfolio/
  * Description:       A WordPress plugin to display portfolio images with filtering.
- * Version:           1.3.2
+ * Version:           1.3.3
  * Author:            Sayful Islam
  * Author URI:        https://sayfulislam.com
  * License:           GPLv3
@@ -12,9 +12,8 @@
  * Domain Path:       /languages
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 if ( ! class_exists( 'Filterable_Portfolio' ) ) {
@@ -44,7 +43,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '1.3.2';
+		private $version = '1.3.3';
 
 		/**
 		 * Plugin options
@@ -69,6 +68,25 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		public static function instance() {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
+
+				// Define plugin constants
+				self::$instance->define_constants();
+
+				// Includes plugin files
+				self::$instance->include_files();
+
+				// initialize plugin classes
+				self::$instance->init_classes();
+
+				register_activation_hook( __FILE__, array( self::$instance, 'activation' ) );
+				register_deactivation_hook( __FILE__, array( self::$instance, 'deactivation' ) );
+
+				add_action( 'after_setup_theme', array( self::$instance, 'add_image_size' ) );
+
+				add_filter( 'admin_footer_text', array( self::$instance, 'admin_footer_text' ) );
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( self::$instance, 'action_links' ) );
+
+				do_action( 'filterable_portfolio_init' );
 			}
 
 			return self::$instance;
@@ -90,30 +108,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		}
 
 		/**
-		 * Filterable_Portfolio constructor.
+		 * Define plugin constants
 		 */
-		public function __construct() {
-
-			// Define plugin constants
-			$this->define_constants();
-
-			// Includes plugin files
-			$this->include_files();
-
-			// initialize plugin classes
-			$this->init_classes();
-
-			register_activation_hook( __FILE__, array( $this, 'activation' ) );
-			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
-
-			add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
-
-			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
-
-			do_action( 'filterable_portfolio_init' );
-		}
-
 		public function define_constants() {
 			define( 'FILTERABLE_PORTFOLIO_VERSION', $this->version );
 			define( 'FILTERABLE_PORTFOLIO_FILE', __FILE__ );

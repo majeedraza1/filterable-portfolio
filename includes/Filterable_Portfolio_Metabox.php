@@ -1,8 +1,7 @@
 <?php
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
@@ -22,17 +21,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 		public static function init() {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
+
+				add_action( 'add_meta_boxes', array( self::$instance, 'add_meta_box' ) );
+				add_action( 'save_post', array( self::$instance, 'save_meta_boxes' ) );
 			}
 
 			return self::$instance;
-		}
-
-		/**
-		 * Hook into the appropriate actions when the class is constructed.
-		 */
-		public function __construct() {
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
-			add_action( 'save_post', array( $this, 'save_meta_boxes' ) );
 		}
 
 		/**

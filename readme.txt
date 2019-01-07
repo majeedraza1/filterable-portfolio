@@ -1,9 +1,9 @@
 === Filterable Portfolio ===
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
-Requires at least: 4.0
-Tested up to: 4.9
-Stable tag: 1.3.2
+Requires at least: 4.7
+Tested up to: 5.0
+Stable tag: 1.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -82,6 +82,10 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.3.3 - 2019-01-08 =
+* Added     - Add support for Gutenberg editor introduced on WordPress 5.0
+* Dev       - Check compatibility with WordPress 5.0
 
 = version 1.3.2 - 2018-05-11 =
 * Added 	- Add portfolio settings to change Portfolio Slug, Portfolio Category Slug, Portfolio Skill Slug.

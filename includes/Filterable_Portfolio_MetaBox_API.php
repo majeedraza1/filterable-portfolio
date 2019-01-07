@@ -1,17 +1,31 @@
 <?php
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 
 	class Filterable_Portfolio_MetaBox_API {
 
+		/**
+		 * @var string
+		 */
 		private $input_name = 'filterable_portfolio_meta';
+
+		/**
+		 * @var string
+		 */
 		private $nonce_name = '_fp_nonce';
+
+		/**
+		 * @var string
+		 */
 		private $nonce_action = 'filterable_portfolio_nonce';
+
+		/**
+		 * @var string
+		 */
 		private $table_class = 'form-table';
 
 		/**

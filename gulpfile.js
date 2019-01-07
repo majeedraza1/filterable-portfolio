@@ -21,7 +21,7 @@ gulp.task('scss', function () {
 });
 
 gulp.task('js-admin', function () {
-    gulp.src('./assets/js/admin/*.js')
+    gulp.src('./assets/src/admin/*.js')
         .pipe(concat('admin.js'))
         .pipe(gulp.dest('./assets/js'))
         .pipe(concat('admin.min.js'))
@@ -30,7 +30,7 @@ gulp.task('js-admin', function () {
 });
 
 gulp.task('js-public', function () {
-    gulp.src('./assets/js/public/*.js')
+    gulp.src('./assets/src/public/*.js')
         .pipe(concat('script.js'))
         .pipe(gulp.dest('./assets/js'))
         .pipe(concat('script.min.js'))

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
+}
+
 if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 
 	class Filterable_Portfolio_Shapla_Theme {
@@ -17,20 +21,18 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		public static function init() {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
+
+				if ( ! self::$instance->is_shapla_theme_activate() ) {
+					return self::$instance;
+				}
+
+				// Provide single portfolio template via filter.
+				add_filter( 'single_template', array( self::$instance, 'single_portfolio_template' ) );
+				// Provide archive portfolio template via filter.
+				add_filter( 'archive_template', array( self::$instance, 'archive_portfolio_template' ) );
 			}
 
 			return self::$instance;
-		}
-
-		public function __construct() {
-			if ( ! $this->is_shapla_theme_activate() ) {
-				return;
-			}
-
-			// Provide single portfolio template via filter.
-			add_filter( 'single_template', array( $this, 'single_portfolio_template' ) );
-			// Provide archive portfolio template via filter.
-			add_filter( 'archive_template', array( $this, 'archive_portfolio_template' ) );
 		}
 
 		/**

@@ -1,7 +1,7 @@
 <?php
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
@@ -126,6 +126,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'public'              => true,
 				'show_ui'             => true,
 				'show_in_menu'        => true,
+				'show_in_rest'        => true,
 				'show_in_nav_menus'   => true,
 				'show_in_admin_bar'   => true,
 				'menu_position'       => 5,
