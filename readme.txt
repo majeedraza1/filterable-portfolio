@@ -83,9 +83,12 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 == Changelog ==
 
-= version 1.3.3 - 2019-01-08 =
+= version 1.3.3 - 2019-01-26 =
 * Added     - Add support for Gutenberg editor introduced on WordPress 5.0
 * Dev       - Check compatibility with WordPress 5.0
+* Dev       - Update isotope to version 3.0.5
+* Dev       - Update Shuffle to version 5.2.1
+* Dev       - Update tiny-slider to version 2.9.1
 
 = version 1.3.2 - 2018-05-11 =
 * Added 	- Add portfolio settings to change Portfolio Slug, Portfolio Category Slug, Portfolio Skill Slug.

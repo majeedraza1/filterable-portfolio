@@ -53,23 +53,17 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 		public static function init( $options = array() ) {
 
 			if ( is_null( self::$instance ) ) {
-				self::$instance = new self( $options );
+				self::$instance = new self();
+				self::$instance->initiate_hooks( $options );
 			}
 
 			return self::$instance;
 		}
 
 		/**
-		 * Filterable_Portfolio_Admin constructor.
-		 *
-		 * @param array $options
+		 * @param $options
 		 */
-		public function __construct( $options = array() ) {
-			add_action( 'filterable_portfolio_activation', array( $this, 'post_type' ) );
-			add_action( 'filterable_portfolio_activation', array( $this, 'taxonomy' ) );
-			add_action( 'init', array( $this, 'post_type' ) );
-			add_action( 'init', array( $this, 'taxonomy' ) );
-
+		private function initiate_hooks( $options = array() ) {
 			$this->options = $options;
 
 			// Set portfolio slug from plugin option
@@ -86,6 +80,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 			if ( ! empty( $this->options['skill_slug'] ) ) {
 				$this->skill_slug = $this->options['skill_slug'];
 			}
+
+			add_action( 'filterable_portfolio_activation', array( $this, 'post_type' ) );
+			add_action( 'filterable_portfolio_activation', array( $this, 'taxonomy' ) );
+			add_action( 'init', array( $this, 'post_type' ) );
+			add_action( 'init', array( $this, 'taxonomy' ) );
 		}
 
 		/**
@@ -110,7 +109,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'not_found_in_trash' => __( 'Not found in Trash', 'filterable-portfolio' ),
 			) );
 
-			$args = array(
+			$args = apply_filters( 'filterable_portfolio_post_type_args', array(
 				'label'               => __( 'Portfolios', 'filterable-portfolio' ),
 				'description'         => __( 'A WordPress filterable portfolio to display portfolio images or gallery to your site.',
 					'filterable-portfolio' ),
@@ -135,13 +134,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'has_archive'         => true,
 				'exclude_from_search' => false,
 				'publicly_queryable'  => true,
-				'rewrite'             => array(
-					'slug'       => $this->portfolio_slug,
-					'with_front' => false,
-				),
+				'rewrite'             => array( 'slug' => $this->portfolio_slug, 'with_front' => false, ),
 				'capability_type'     => 'page',
-			);
-			register_post_type( 'portfolio', apply_filters( 'filterable_portfolio_post_type_args', $args ) );
+			) );
+			register_post_type( 'portfolio', $args );
 		}
 
 		/**

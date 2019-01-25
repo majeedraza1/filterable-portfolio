@@ -84,7 +84,10 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 				add_action( 'after_setup_theme', array( self::$instance, 'add_image_size' ) );
 
 				add_filter( 'admin_footer_text', array( self::$instance, 'admin_footer_text' ) );
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( self::$instance, 'action_links' ) );
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array(
+					self::$instance,
+					'action_links'
+				) );
 
 				do_action( 'filterable_portfolio_init' );
 			}
@@ -183,18 +186,18 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		private function init_classes() {
 			$options = $this->get_option();
 
-			$this->container['admin']   = new Filterable_Portfolio_Admin( $options );
+			$this->container['admin']   = Filterable_Portfolio_Admin::init( $options );
 			$this->container['scripts'] = new Filterable_Portfolio_Scripts( $options );
 
 			if ( $this->is_request( 'admin' ) ) {
-				$this->container['setting'] = new Filterable_Portfolio_Setting();
-				$this->container['metabox'] = new Filterable_Portfolio_Metabox();
+				$this->container['setting'] = Filterable_Portfolio_Setting::init();
+				$this->container['metabox'] = Filterable_Portfolio_Metabox::init();
 			}
 
 			if ( $this->is_request( 'frontend' ) ) {
 				$this->container['shortcode'] = new Filterable_Portfolio_Shortcode( $options );
 				$this->container['portfolio'] = new Filterable_Portfolio_Single_Post( $options );
-				$this->container['shapla']    = new Filterable_Portfolio_Shapla_Theme();
+				$this->container['shapla']    = Filterable_Portfolio_Shapla_Theme::init();
 			}
 
 			add_action( 'widgets_init', array( 'Filterable_Portfolio_Widget', 'register' ) );
