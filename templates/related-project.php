@@ -4,23 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$tags       = wp_get_post_terms( get_the_ID(), 'portfolio_cat' );
-$tag_ids    = array_map( function ( $tag ) {
-	return $tag->term_id;
-}, $tags );
-$args       = array(
-	'post_type'      => 'portfolio',
-	'posts_per_page' => intval( $this->options['related_projects_number'] ),
-	'post__not_in'   => array( get_the_ID() ),
-	'tax_query'      => array(
-		array(
-			'taxonomy' => 'portfolio_cat',
-			'field'    => 'id',
-			'terms'    => $tag_ids
-		)
-	)
-);
-$portfolios = get_posts( $args );
+$portfolios = Filterable_Portfolio_Utils::get_related_portfolios();
 
 if ( count( $portfolios ) < 1 ) {
 	return;
@@ -38,7 +22,9 @@ $rp_grid    = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone
 	<?php echo esc_attr( $this->options['related_projects_text'] ); ?>
 </h4>
 <div class="<?php echo $_fp_class; ?>">
-	<?php foreach ( $portfolios as $portfolio ): ?>
+	<?php
+	foreach ( $portfolios as $portfolio ) {
+		?>
         <div id="id-<?php echo $portfolio->ID; ?>" class="portfolio-item <?php echo $rp_grid; ?>">
             <figure>
                 <a href="<?php echo esc_url( get_permalink( $portfolio->ID ) ); ?>" rel="bookmark">
@@ -51,5 +37,6 @@ $rp_grid    = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone
                 </figcaption>
             </figure>
         </div>
-	<?php endforeach; ?>
+	<?php }
+	?>
 </div>
