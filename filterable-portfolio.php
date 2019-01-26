@@ -167,12 +167,14 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			spl_autoload_register( function ( $class ) {
 
 				// If class already exists, not need to include it
-				if ( class_exists( $class ) ) {
+				if ( class_exists( $class ) || false === strpos( $class, 'Filterable_Portfolio_' ) ) {
 					return;
 				}
 
-				// Include out classes
-				$class_path = FILTERABLE_PORTFOLIO_INCLUDES . '/' . $class . '.php';
+				// Include our classes
+				$file_name = 'class-' . strtolower( str_replace( '_', '-', $class ) ) . '.php';
+
+				$class_path = FILTERABLE_PORTFOLIO_INCLUDES . '/' . $file_name;
 				if ( file_exists( $class_path ) ) {
 					require_once $class_path;
 				}
