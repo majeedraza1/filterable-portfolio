@@ -9,21 +9,29 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 	class Filterable_Portfolio_Scripts {
 
 		/**
-		 * Plugin options
+		 * Instance of current class
 		 *
-		 * @var array
+		 * @var self
 		 */
-		private $options = array();
+		private static $instance;
+
+		/**
+		 * @return self
+		 */
+		public static function init() {
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
+
+				self::$instance->init_hooks();
+			}
+
+			return self::$instance;
+		}
 
 		/**
 		 * Filterable_Portfolio_Scripts constructor.
-		 *
-		 * @param $options
 		 */
-		public function __construct( $options ) {
-
-			$this->options = $options;
-
+		public function init_hooks() {
 			add_action( 'wp_loaded', array( $this, 'register_styles' ) );
 			add_action( 'wp_loaded', array( $this, 'register_scripts' ) );
 
@@ -129,7 +137,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		}
 
 		public function inline_style() {
-			$btn_bg = ! empty( $this->options['button_color'] ) ? $this->options['button_color'] : '#4cc1be';
+			$options = get_option( 'filterable_portfolio' );
+			$btn_bg  = ! empty( $options['button_color'] ) ? $options['button_color'] : '#4cc1be';
 			?>
             <style type="text/css" id="filterable-portfolio-inline-style">
                 .portfolio-terms {

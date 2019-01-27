@@ -10,33 +10,26 @@ if ( count( $portfolios ) < 1 ) {
 	return;
 }
 
-$_theme    = $this->options['portfolio_theme'];
-$_fp_class = 'grids portfolio-items related-projects';
-$_fp_class .= ' fp-theme-' . $_theme;
-
-$image_size = $this->options['image_size'];
-$rp_grid    = sprintf( 'grid %1$s %2$s %3$s %4$s', $this->options['columns_phone'], $this->options['columns_tablet'],
-	$this->options['columns_desktop'], $this->options['columns'] );
+$option      = get_option( 'filterable_portfolio' );
+$theme       = ! empty( $option['portfolio_theme'] ) ? $option['portfolio_theme'] : '';
+$theme       = in_array( $theme, array( 'one', 'two' ) ) ? $theme : 'one';
+$items_class = 'grids portfolio-items related-projects';
+$items_class .= ' fp-theme-' . $theme;
+$title       = esc_html__( 'Related Projects', 'filterable-portfolio' );
+if ( ! empty( $options['related_projects_text'] ) ) {
+	$title = esc_html( $options['related_projects_text'] );
+}
 ?>
-<h4 class="related-projects-title">
-	<?php echo esc_attr( $this->options['related_projects_text'] ); ?>
-</h4>
-<div class="<?php echo $_fp_class; ?>">
+<h4 class="related-projects-title"><?php echo $title; ?></h4>
+<div class="<?php echo $items_class; ?>">
 	<?php
+	$temp_post = $GLOBALS['post'];
 	foreach ( $portfolios as $portfolio ) {
-		?>
-        <div id="id-<?php echo $portfolio->ID; ?>" class="portfolio-item <?php echo $rp_grid; ?>">
-            <figure>
-                <a href="<?php echo esc_url( get_permalink( $portfolio->ID ) ); ?>" rel="bookmark">
-                    <img src="<?php echo get_the_post_thumbnail_url( $portfolio->ID, $image_size ); ?>">
-                </a>
-                <figcaption>
-                    <h4><?php echo $portfolio->post_title; ?></h4>
-                    <a href="<?php echo esc_url( get_permalink( $portfolio->ID ) ); ?>" rel="bookmark"
-                       class="button"><?php _e( 'Details', 'filterable-portfolio' ); ?></a>
-                </figcaption>
-            </figure>
-        </div>
-	<?php }
+		setup_postdata( $portfolio );
+		$GLOBALS['post'] = $portfolio;
+		do_action( 'filterable_portfolio_loop_post' );
+	}
+	wp_reset_postdata();
+	$GLOBALS['post'] = $temp_post;
 	?>
 </div>

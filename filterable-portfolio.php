@@ -189,7 +189,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			$options = $this->get_option();
 
 			$this->container['admin']   = Filterable_Portfolio_Admin::init( $options );
-			$this->container['scripts'] = new Filterable_Portfolio_Scripts( $options );
+			$this->container['scripts'] = Filterable_Portfolio_Scripts::init();
 
 			if ( $this->is_request( 'admin' ) ) {
 				$this->container['setting'] = Filterable_Portfolio_Setting::init();
@@ -197,8 +197,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			}
 
 			if ( $this->is_request( 'frontend' ) ) {
-				$this->container['shortcode'] = new Filterable_Portfolio_Shortcode( $options );
 				$this->container['portfolio'] = new Filterable_Portfolio_Single_Post( $options );
+				$this->container['shortcode'] = Filterable_Portfolio_Shortcode::init();
 				$this->container['shapla']    = Filterable_Portfolio_Shapla_Theme::init();
 			}
 
