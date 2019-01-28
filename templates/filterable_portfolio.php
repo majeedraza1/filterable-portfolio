@@ -19,11 +19,11 @@ $items_class .= ' fp-theme-' . $theme;
 	<?php if ( $categories ) { ?>
         <div id="filter" class="portfolio-terms">
             <div class="filter-options">
-                <button class="active" data-group="all" data-filter="*"><?php echo $all_button_text; ?></button>
+                <button class="button active" data-group="all" data-filter="*"><?php echo $all_button_text; ?></button>
 				<?php foreach ( $categories as $category ) {
 					$slug = esc_attr( $category->slug );
 					?>
-                    <button data-group="<?php echo $slug; ?>"
+                    <button class="button" data-group="<?php echo $slug; ?>"
                             data-filter=".<?php echo $slug; ?>"><?php echo esc_html( $category->name ); ?></button>
 				<?php } ?>
             </div>

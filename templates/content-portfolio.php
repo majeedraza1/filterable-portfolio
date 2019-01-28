@@ -15,7 +15,7 @@ $button_text = esc_html__( 'Details', 'filterable-portfolio' );
 if ( ! empty( $options['details_button_text'] ) ) {
 	$button_text = esc_html( $options['details_button_text'] );
 }
-$item_class   = array( 'portfolio-item', 'grid' );
+$item_class   = array( 'filterable-portfolio-item', 'portfolio-item', 'grid' );
 $item_class[] = ! empty( $options['columns_phone'] ) ? esc_attr( $options['columns_phone'] ) : 'xs12';
 $item_class[] = ! empty( $options['columns_tablet'] ) ? esc_attr( $options['columns_tablet'] ) : 's6';
 $item_class[] = ! empty( $options['columns_desktop'] ) ? esc_attr( $options['columns_desktop'] ) : 'm4';
@@ -33,14 +33,14 @@ $post_thumbnail_id = get_post_thumbnail_id( get_the_ID() );
 ?>
 <div id="id-<?php echo get_the_ID(); ?>" class="<?php echo implode( ' ', $item_class ) ?>"
      data-groups='<?php echo wp_json_encode( $categories_slug ); ?>'>
-    <figure>
-        <a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark">
+    <figure class="filterable-portfolio-item__content">
+        <a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark" class="filterable-portfolio-item__media">
 			<?php echo wp_get_attachment_image( $post_thumbnail_id, $image_size ) ?>
         </a>
-        <figcaption>
-            <h4><?php echo get_the_title(); ?></h4>
+        <figcaption class="filterable-portfolio-item__supporting-text">
+            <h4 class="filterable-portfolio-item__title"><?php echo get_the_title(); ?></h4>
             <a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark"
-               class="button"><?php echo $button_text; ?></a>
+               class="button filterable-portfolio-item__action"><?php echo $button_text; ?></a>
         </figcaption>
     </figure>
 </div>

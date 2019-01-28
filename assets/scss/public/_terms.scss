@@ -1,13 +1,16 @@
+@import "preboot";
+
 .portfolio-terms {
-	margin: 0 0 0.5rem;
+	margin: 0 0 1rem;
 	border-bottom: 1px solid $color-button-bg;
-	padding-bottom: 0.5rem;
+	padding-bottom: 1rem;
 
 	&:before,
 	&:after {
 		display: table;
 		content: "";
 	}
+
 	&:after {
 		clear: both;
 	}

@@ -1,51 +1,51 @@
+@import "preboot";
+
 .filterable-portfolio {
-    &:before,
-    &:after {
-        display: table;
-        content: " ";
-    }
-    &:after {
-        clear: both;
-    }
+	&:before,
+	&:after {
+		display: table;
+		content: " ";
+	}
+
+	&:after {
+		clear: both;
+	}
 }
 
-.portfolio-items {
-    font-size: 1.25rem;
+.filterable-portfolio-item {
+	&__content {
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
 
-    *:not(a) {
-        backface-visibility: hidden;
-    }
+	&__media {
+		img {
+			transition: transform 300ms;
+			max-width: 100%;
+			height: auto;
+			margin: 0;
+			padding: 0;
+		}
+	}
 
-    figure {
-        position: relative;
-        overflow: hidden;
-        text-align: center;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+	&__title {
+		color: $color-button-txt;
+		font-size: inherit;
+		line-height: 1;
+		margin: 0 0 1rem 0;
+		padding: 0;
+		text-align: center;
+	}
 
-    h4 {
-        font-size: inherit;
-        line-height: 1;
-        margin: 0 0 1rem 0;
-        padding: 0;
-        color: $color-button-txt;
-    }
-
-    img {
-        transition: transform 0.4s;
-        max-width: 100%;
-        height: auto;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .button {
-        font-size: 1rem;
-        line-height: 1;
-        padding: 0.5rem 1rem;
-        font-weight: 400;
-        background-color: $color-button-bg;
-        color: $color-button-txt;
-    }
+	&__action {
+		font-size: 1rem;
+		line-height: 1;
+		padding: 0.5rem 1rem;
+		font-weight: 400;
+		background-color: $color-button-bg;
+		color: $color-button-txt;
+	}
 }

@@ -39,7 +39,7 @@ gulp.task('js-public', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./assets/scss/*.scss', ['scss']);
+    gulp.watch('./assets/scss/**/*.scss', ['scss']);
     gulp.watch('./assets/js/admin/*.js', ['js-admin']);
     gulp.watch('./assets/js/public/*.js', ['js-public']);
 });

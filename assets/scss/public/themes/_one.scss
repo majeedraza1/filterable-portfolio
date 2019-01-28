@@ -1,37 +1,29 @@
 .fp-theme-one {
-    &.portfolio-items {
+	.filterable-portfolio-item {
+		&__content {
+			&:hover .filterable-portfolio-item__supporting-text {
+				opacity: 1;
+				transform: translateY(0px);
+				transition: transform 0.4s, opacity 0.1s;
+			}
 
-        figure {
+			&:hover img {
+				transform: translateY(-50px);
+			}
+		}
 
-            &:hover figcaption {
-                opacity: 1;
-                transform: translateY(0px);
-                transition: transform 0.4s, opacity 0.1s;
-            }
-
-            &:hover img {
-                transform: translateY(-50px);
-            }
-        }
-
-        figcaption {
-            position: absolute;
-            background-color: #363f48;
-            display: block;
-            width: 100%;
-            bottom: 0;
-            padding: 1rem;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(100%);
-            backface-visibility: hidden;
-            transition: transform 0.4s, opacity 0.1s 0.3s;
-        }
-
-        h4 {
-        }
-
-        .button {
-        }
-    }
+		&__supporting-text {
+			position: absolute;
+			background-color: #363f48;
+			display: block;
+			width: 100%;
+			bottom: 0;
+			padding: 1rem;
+			text-align: center;
+			opacity: 0;
+			transform: translateY(100%);
+			backface-visibility: hidden;
+			transition: transform 0.4s, opacity 0.1s 0.3s;
+		}
+	}
 }

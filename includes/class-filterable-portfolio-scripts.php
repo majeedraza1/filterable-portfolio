@@ -136,24 +136,27 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 			}
 		}
 
+		/**
+		 * Dynamic style
+		 */
 		public function inline_style() {
 			$options = get_option( 'filterable_portfolio' );
 			$btn_bg  = ! empty( $options['button_color'] ) ? $options['button_color'] : '#4cc1be';
 			?>
             <style type="text/css" id="filterable-portfolio-inline-style">
                 .portfolio-terms {
-                    border-bottom: 1px solid<?php echo $btn_bg; ?>;
+                    border-bottom-color: <?php echo $btn_bg; ?>;
                 }
 
                 .portfolio-terms button {
-                    border: 1px solid<?php echo $btn_bg; ?>;
+                    border-color: <?php echo $btn_bg; ?>;
                     color: <?php echo $btn_bg; ?>;
                 }
 
                 .portfolio-terms button.active,
                 .portfolio-terms button:focus,
                 .portfolio-terms button:hover {
-                    border: 1px solid<?php echo $btn_bg; ?>;
+                    border-color: <?php echo $btn_bg; ?>;
                     background-color: <?php echo $btn_bg; ?>;
                 }
 
