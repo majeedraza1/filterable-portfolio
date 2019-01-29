@@ -22,7 +22,7 @@ $categories       = get_the_terms( $id, 'portfolio_cat' );
 $categories_names = is_array( $categories ) ? wp_list_pluck( $categories, 'name' ) : array();
 $skills           = get_the_terms( $id, 'portfolio_skill' );
 $skills_names     = is_array( $skills ) ? wp_list_pluck( $skills, 'name' ) : array();
-$support_archive  = Filterable_Portfolio_Utils::should_show_archive_link();
+$support_archive  = Filterable_Portfolio_Helper::support_archive_template();
 ?>
 <div class="portfolio-meta">
 	<?php if ( ! empty( $option['project_details_text'] ) ) { ?>

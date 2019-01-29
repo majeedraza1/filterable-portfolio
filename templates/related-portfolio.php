@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$portfolios = Filterable_Portfolio_Utils::get_related_portfolios();
+$portfolios = Filterable_Portfolio_Helper::get_related_portfolios();
 
 if ( count( $portfolios ) < 1 ) {
 	return;

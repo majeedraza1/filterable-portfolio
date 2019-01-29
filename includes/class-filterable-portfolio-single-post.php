@@ -35,13 +35,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 * @return string
 		 */
 		public function post_thumbnail_html( $html ) {
-			if ( Filterable_Portfolio_Utils::is_single_portfolio() ) {
+			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
 
-				if ( Filterable_Portfolio_Utils::has_single_template() || Filterable_Portfolio_Utils::is_shapla_theme_activate() ) {
+				if ( Filterable_Portfolio_Helper::has_single_template() || Filterable_Portfolio_Helper::is_shapla_theme_activate() ) {
 					return $html;
 				}
 
-				if ( Filterable_Portfolio_Utils::has_portfolio_images() ) {
+				if ( Filterable_Portfolio_Helper::has_portfolio_images() ) {
 					return '';
 				}
 			}
@@ -57,9 +57,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 * @return string
 		 */
 		public function portfolio_content( $content ) {
-			if ( Filterable_Portfolio_Utils::is_single_portfolio() ) {
+			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
 
-				if ( Filterable_Portfolio_Utils::has_single_template() || Filterable_Portfolio_Utils::is_shapla_theme_activate() ) {
+				if ( Filterable_Portfolio_Helper::has_single_template() || Filterable_Portfolio_Helper::is_shapla_theme_activate() ) {
 					return $content;
 				}
 

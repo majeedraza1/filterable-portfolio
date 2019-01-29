@@ -44,7 +44,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		 * @return boolean
 		 */
 		private function is_shapla_theme_activate() {
-			return Filterable_Portfolio_Utils::is_shapla_theme_activate();
+			return Filterable_Portfolio_Helper::is_shapla_theme_activate();
 		}
 
 		/**
@@ -55,9 +55,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		 * @return string
 		 */
 		public function single_portfolio_template( $single_template ) {
-			if ( Filterable_Portfolio_Utils::is_single_portfolio() ) {
+			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
 				// Include template file from the theme if it exists.
-				if ( Filterable_Portfolio_Utils::has_single_template() ) {
+				if ( Filterable_Portfolio_Helper::has_single_template() ) {
 					return locate_template( 'single-portfolio.php' );
 				}
 
@@ -79,8 +79,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		 * @return string
 		 */
 		public function archive_portfolio_template( $archive_template ) {
-			if ( Filterable_Portfolio_Utils::is_portfolio_archive() ) {
-				if ( Filterable_Portfolio_Utils::has_archive_template() ) {
+			if ( Filterable_Portfolio_Helper::is_portfolio_archive() ) {
+				if ( Filterable_Portfolio_Helper::has_archive_template() ) {
 					$templates = array(
 						'archive-portfolio.php',
 						'taxonomy-portfolio_cat.php',

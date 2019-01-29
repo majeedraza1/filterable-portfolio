@@ -1,6 +1,10 @@
 @import "preboot";
 
 .filterable-portfolio {
+	max-width: 100% !important; // hack for Twenty Nineteen theme
+	display: flex;
+	flex-direction: column;
+
 	&:before,
 	&:after {
 		display: table;

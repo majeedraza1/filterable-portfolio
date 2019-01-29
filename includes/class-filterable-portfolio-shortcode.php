@@ -46,8 +46,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 
 			wp_enqueue_script( 'filterable-portfolio' );
 
-			$portfolios = Filterable_Portfolio_Utils::get_portfolios();
-			$categories = Filterable_Portfolio_Utils::get_portfolio_categories();
+			$portfolios = Filterable_Portfolio_Helper::get_portfolios();
+			$categories = Filterable_Portfolio_Helper::get_portfolio_categories();
 
 			$locate_template = locate_template( "filterable_portfolio.php" );
 			if ( $locate_template != '' ) {

@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die; // If this file is called directly, abort.
 }
 
-class Filterable_Portfolio_Utils {
+class Filterable_Portfolio_Helper {
 
 	/**
 	 * Post type
@@ -215,7 +215,7 @@ class Filterable_Portfolio_Utils {
 	 *
 	 * @return bool
 	 */
-	public static function should_show_archive_link() {
+	public static function support_archive_template() {
 		return ( self::has_archive_template() || self::is_shapla_theme_activate() );
 	}
 }

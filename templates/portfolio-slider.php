@@ -3,11 +3,11 @@
 if ( ! defined( 'WPINC' ) ) {
 	die; // If this file is called directly, abort.
 }
-if ( ! Filterable_Portfolio_Utils::has_portfolio_images() ) {
+if ( ! Filterable_Portfolio_Helper::has_portfolio_images() ) {
 	return;
 }
 
-$project_images = Filterable_Portfolio_Utils::get_portfolio_images_ids();
+$project_images = Filterable_Portfolio_Helper::get_portfolio_images_ids();
 ?>
 <div class="fp-tns-slider-outer dots-circle dots-right">
     <div
