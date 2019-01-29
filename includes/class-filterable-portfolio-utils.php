@@ -82,6 +82,41 @@ class Filterable_Portfolio_Utils {
 	}
 
 	/**
+	 * Get portfolio images ids
+	 *
+	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post.
+	 *
+	 * @return array
+	 */
+	public static function get_portfolio_images_ids( $post = null ) {
+		$post           = get_post( $post );
+		$project_images = get_post_meta( $post->ID, '_project_images', true );
+		if ( is_string( $project_images ) ) {
+			// Remove last comma if any
+			$project_images = rtrim( $project_images, ',' );
+			// Split by comma
+			$project_images = explode( ',', $project_images );
+			// Remove empty value from array
+			$project_images = array_filter( $project_images );
+		}
+
+		return is_array( $project_images ) ? $project_images : array();
+	}
+
+	/**
+	 * Check if has portfolio images
+	 *
+	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post.
+	 *
+	 * @return bool
+	 */
+	public static function has_portfolio_images( $post = null ) {
+		$ids = self::get_portfolio_images_ids( $post );
+
+		return count( $ids ) > 0;
+	}
+
+	/**
 	 * Get portfolio categories
 	 *
 	 * @return array|\WP_Term[]
@@ -97,5 +132,90 @@ class Filterable_Portfolio_Utils {
 		}
 
 		return count( $terms ) ? $terms : array();
+	}
+
+	/**
+	 * Check if single portfolio page
+	 *
+	 * @return bool
+	 */
+	public static function is_single_portfolio() {
+		return is_singular( self::POST_TYPE );
+	}
+
+	/**
+	 * Check if portfolio archive page
+	 *
+	 * @return bool
+	 */
+	public static function is_portfolio_archive() {
+		if ( is_post_type_archive( self::POST_TYPE ) ) {
+			return true;
+		}
+		if ( is_tax( self::CATEGORY ) || is_tax( self::SKILL ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check current theme has single-portfolio.php file
+	 *
+	 * @return bool
+	 */
+	public static function has_single_template() {
+		$template = locate_template( 'single-portfolio.php' );
+		if ( '' != $template ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check current theme has custom archive template
+	 *
+	 * @return bool
+	 */
+	public static function has_archive_template() {
+		$templates = array(
+			'archive-portfolio.php',
+			'taxonomy-portfolio_cat.php',
+			'taxonomy-portfolio_skill.php'
+		);
+
+		if ( '' != locate_template( $templates ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if Shapla theme or it's child theme is active
+	 *
+	 * @return boolean
+	 */
+	public static function is_shapla_theme_activate() {
+		$current_theme  = wp_get_theme();
+		$theme_name     = $current_theme->get( 'Name' );
+		$theme_template = $current_theme->get( 'Template' );
+
+		if ( $theme_template == 'shapla' || $theme_name == 'Shapla' ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if skills and categories should show with link
+	 * If current theme support archive template then link should include
+	 *
+	 * @return bool
+	 */
+	public static function should_show_archive_link() {
+		return ( self::has_archive_template() || self::is_shapla_theme_activate() );
 	}
 }

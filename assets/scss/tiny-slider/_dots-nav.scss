@@ -1,79 +1,81 @@
 .fp-tns-slider-outer {
-    margin-bottom: 30px;
+	margin-bottom: 3rem;
 
-    .tns-nav {
-        text-align: center;
-        -webkit-tap-highlight-color: transparent;
-        margin-top: 10px;
-        position: absolute;
-        width: 100%;
-        bottom: -20px;
+	.tns-nav {
+		bottom: -20px;
+		display: flex;
+		margin-top: 10px;
+		position: absolute;
+		text-align: center;
+		width: 100%;
 
-        > button {
-            display: inline-block;
-            zoom: 1;
-            width: 0.75rem;
-            height: 0.75rem;
-            margin: 0 5px 0 0;
-            padding: 0;
-            transition: opacity 200ms ease;
-            border: 0 none;
-            background-color: rgba(#000, 0.4);
+		> button {
+			display: inline-block;
+			zoom: 1;
+			width: 0.75rem;
+			height: 0.75rem;
+			margin: 0 5px 0 0;
+			padding: 0;
+			transition: opacity 200ms ease;
+			border: 0 none;
+			background-color: rgba(#000, 0.4);
 
-            &.tns-nav-active {
-                background-color: rgba(#000, 0.8);
-            }
+			&.tns-nav-active {
+				background-color: rgba(#000, 0.8);
+			}
 
-            &:hover,
-            &:focus,
-            &:active {
-                outline: none;
-            }
+			&:hover,
+			&:focus,
+			&:active {
+				outline: none;
+			}
 
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
 
-    // Dots positions
-    &.dots-center {
-        .tns-nav {
-            text-align: center;
-        }
-    }
-    &.dots-left {
-        .tns-nav {
-            text-align: left;
-        }
-    }
-    &.dots-right {
-        .tns-nav {
-            text-align: right;
+	// Dots positions
+	&.dots-center {
+		.tns-nav {
+			justify-content: center;
+		}
+	}
 
-            > button {
-                margin: 0 0 0 5px;
-            }
-        }
-    }
+	&.dots-left {
+		.tns-nav {
+			justify-content: flex-start;
+		}
+	}
 
-    // Dots visibility
-    &.dots-visible-hover {
-        .tns-nav {
-            opacity: 0;
-        }
+	&.dots-right {
+		.tns-nav {
+			justify-content: flex-end;
 
-        &:hover .tns-nav {
-            opacity: 1;
-        }
-    }
+			> button {
+				margin: 0 0 0 5px;
+			}
+		}
+	}
 
-    // Dots shape
-    &.dots-circle {
-        .tns-nav {
-            > button {
-                border-radius: 9999px;
-            }
-        }
-    }
+	// Dots visibility
+	&.dots-visible-hover {
+		.tns-nav {
+			opacity: 0;
+		}
+
+		&:hover .tns-nav {
+			opacity: 1;
+		}
+	}
+
+	// Dots shape
+	&.dots-circle {
+		.tns-nav {
+			> button {
+				border-radius: 9999px;
+			}
+		}
+	}
 }

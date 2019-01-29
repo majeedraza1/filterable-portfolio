@@ -35,23 +35,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 * @return string
 		 */
 		public function post_thumbnail_html( $html ) {
-			if ( is_singular( 'portfolio' ) ) {
+			if ( Filterable_Portfolio_Utils::is_single_portfolio() ) {
 
-				if ( $this->single_portfolio_loaded_in_theme() ) {
+				if ( Filterable_Portfolio_Utils::has_single_template() || Filterable_Portfolio_Utils::is_shapla_theme_activate() ) {
 					return $html;
 				}
 
-				if ( $this->is_shapla_theme_activate() ) {
-					return $html;
-				}
-
-				$ids = get_post_meta( get_the_ID(), '_project_images', true );
-				$ids = array_filter( explode( ',', rtrim( $ids, ',' ) ) );
-				if ( count( $ids ) > 1 ) {
+				if ( Filterable_Portfolio_Utils::has_portfolio_images() ) {
 					return '';
 				}
-
-				return $html;
 			}
 
 			return $html;
@@ -65,13 +57,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 * @return string
 		 */
 		public function portfolio_content( $content ) {
-			if ( is_singular( 'portfolio' ) ) {
+			if ( Filterable_Portfolio_Utils::is_single_portfolio() ) {
 
-				if ( $this->single_portfolio_loaded_in_theme() ) {
-					return $content;
-				}
-
-				if ( $this->is_shapla_theme_activate() ) {
+				if ( Filterable_Portfolio_Utils::has_single_template() || Filterable_Portfolio_Utils::is_shapla_theme_activate() ) {
 					return $content;
 				}
 
@@ -79,7 +67,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 				require FILTERABLE_PORTFOLIO_TEMPLATES . '/single-portfolio.php';
 
 				if ( $this->options['show_related_projects'] ) {
-					require FILTERABLE_PORTFOLIO_TEMPLATES . '/related-project.php';
+					require FILTERABLE_PORTFOLIO_TEMPLATES . '/related-portfolio.php';
 				}
 				$project = ob_get_contents();
 				ob_end_clean();
@@ -88,35 +76,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 			}
 
 			return $content;
-		}
-
-		/**
-		 * Check if single-portfolio.php file loaded in theme directory
-		 *
-		 * @return boolean
-		 */
-		public function single_portfolio_loaded_in_theme() {
-			if ( locate_template( "single-portfolio.php" ) != '' ) {
-				return true;
-			}
-
-			return false;
-		}
-
-		/**
-		 * Check if Shapla theme or it's child theme is active
-		 * @return boolean
-		 */
-		public function is_shapla_theme_activate() {
-			$current_theme  = wp_get_theme();
-			$theme_name     = $current_theme->get( 'Name' );
-			$theme_template = $current_theme->get( 'Template' );
-
-			if ( $theme_template == 'shapla' || $theme_name == 'Shapla' ) {
-				return true;
-			}
-
-			return false;
 		}
 	}
 }

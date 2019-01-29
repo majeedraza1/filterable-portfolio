@@ -22,6 +22,7 @@ $categories       = get_the_terms( $id, 'portfolio_cat' );
 $categories_names = is_array( $categories ) ? wp_list_pluck( $categories, 'name' ) : array();
 $skills           = get_the_terms( $id, 'portfolio_skill' );
 $skills_names     = is_array( $skills ) ? wp_list_pluck( $skills, 'name' ) : array();
+$support_archive  = Filterable_Portfolio_Utils::should_show_archive_link();
 ?>
 <div class="portfolio-meta">
 	<?php if ( ! empty( $option['project_details_text'] ) ) { ?>
@@ -33,8 +34,13 @@ $skills_names     = is_array( $skills ) ? wp_list_pluck( $skills, 'name' ) : arr
                 <strong><?php echo esc_html( $option['project_skills_text'] ); ?></strong>
                 <p>
 					<?php
-					foreach ( $skills_names as $name ) {
-						echo esc_html( $name ) . '<br>';
+					if ( $support_archive ) {
+						$skills = get_the_term_list( $id, 'portfolio_skill', '', '<br>', '' );
+						echo $skills;
+					} else {
+						foreach ( $skills_names as $name ) {
+							echo esc_html( $name ) . '<br>';
+						}
 					}
 					?>
                 </p>
@@ -45,8 +51,13 @@ $skills_names     = is_array( $skills ) ? wp_list_pluck( $skills, 'name' ) : arr
                 <strong><?php echo esc_html( $option['project_categories_text'] ); ?></strong>
                 <p>
 					<?php
-					foreach ( $categories_names as $name ) {
-						echo esc_html( $name ) . '<br>';
+					if ( $support_archive ) {
+						$skills = get_the_term_list( $id, 'portfolio_cat', '', '<br>', '' );
+						echo $skills;
+					} else {
+						foreach ( $categories_names as $name ) {
+							echo esc_html( $name ) . '<br>';
+						}
 					}
 					?>
                 </p>
