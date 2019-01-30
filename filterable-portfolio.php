@@ -3,7 +3,7 @@
  * Plugin Name:       Filterable Portfolio
  * Plugin URI:        https://wordpress.org/plugins/filterable-portfolio/
  * Description:       A WordPress plugin to display portfolio images with filtering.
- * Version:           1.3.3
+ * Version:           1.4.0
  * Author:            Sayful Islam
  * Author URI:        https://sayfulislam.com
  * License:           GPLv3
@@ -43,14 +43,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '1.3.3';
-
-		/**
-		 * Plugin options
-		 *
-		 * @var array
-		 */
-		private $options = array();
+		private $version = '1.4.0';
 
 		/**
 		 * Instance of this class
@@ -84,10 +77,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 				add_action( 'after_setup_theme', array( self::$instance, 'add_image_size' ) );
 
 				add_filter( 'admin_footer_text', array( self::$instance, 'admin_footer_text' ) );
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array(
-					self::$instance,
-					'action_links'
-				) );
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ),
+					array( self::$instance, 'action_links' ) );
 
 				do_action( 'filterable_portfolio_init' );
 			}
@@ -186,9 +177,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		 * @return void
 		 */
 		private function init_classes() {
-			$options = $this->get_option();
-
-			$this->container['admin']   = Filterable_Portfolio_Admin::init( $options );
+			$this->container['admin']   = Filterable_Portfolio_Admin::init();
 			$this->container['scripts'] = Filterable_Portfolio_Scripts::init();
 
 			if ( $this->is_request( 'admin' ) ) {
@@ -197,57 +186,12 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			}
 
 			if ( $this->is_request( 'frontend' ) ) {
-				$this->container['portfolio'] = new Filterable_Portfolio_Single_Post( $options );
+				$this->container['portfolio'] = Filterable_Portfolio_Single_Post::init();
 				$this->container['shortcode'] = Filterable_Portfolio_Shortcode::init();
 				$this->container['shapla']    = Filterable_Portfolio_Shapla_Theme::init();
 			}
 
 			add_action( 'widgets_init', array( 'Filterable_Portfolio_Widget', 'register' ) );
-		}
-
-		/**
-		 * Get portfolio options and merge with default values
-		 *
-		 * @return array
-		 */
-		public function get_option() {
-			if ( empty( $this->options ) ) {
-				$default = array(
-					// General Settings
-					'portfolio_theme'          => 'two',
-					'image_size'               => 'filterable-portfolio',
-					'button_color'             => '#4cc1be',
-					'order'                    => 'DESC',
-					'orderby'                  => 'ID',
-					'posts_per_page'           => - 1,
-					'portfolio_filter_script'  => 'isotope',
-					'all_categories_text'      => __( 'All', 'filterable-portfolio' ),
-					'details_button_text'      => __( 'Details', 'filterable-portfolio' ),
-					'portfolio_slug'           => 'portfolio',
-					'category_slug'            => 'portfolio-category',
-					'skill_slug'               => 'portfolio-skill',
-					// Responsive Settings
-					'columns'                  => 'l4',
-					'columns_desktop'          => 'm4',
-					'columns_tablet'           => 's6',
-					'columns_phone'            => 'xs12',
-					// Single Portfolio Settings
-					'show_related_projects'    => 1,
-					'related_projects_number'  => 3,
-					'related_projects_text'    => __( 'Related Projects', 'filterable-portfolio' ),
-					'project_description_text' => __( 'Project Description', 'filterable-portfolio' ),
-					'project_details_text'     => __( 'Project Details', 'filterable-portfolio' ),
-					'project_skills_text'      => __( 'Skills Needed:', 'filterable-portfolio' ),
-					'project_categories_text'  => __( 'Categories:', 'filterable-portfolio' ),
-					'project_url_text'         => __( 'Project URL:', 'filterable-portfolio' ),
-					'project_date_text'        => __( 'Project Date:', 'filterable-portfolio' ),
-					'project_client_text'      => __( 'Client:', 'filterable-portfolio' ),
-				);
-
-				$this->options = wp_parse_args( get_option( 'filterable_portfolio' ), $default );
-			}
-
-			return $this->options;
 		}
 
 		/**

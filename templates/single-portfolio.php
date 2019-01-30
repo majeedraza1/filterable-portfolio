@@ -1,7 +1,7 @@
 <?php
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 $options = get_option( 'filterable_portfolio' );
@@ -11,7 +11,6 @@ $options = get_option( 'filterable_portfolio' );
 	$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/portfolio-slider.php';
 	load_template( $template, false );
 	?>
-
     <div class="grids">
         <div class="project-content grid s8">
             <h4><?php echo esc_attr( $options['project_description_text'] ); ?></h4>
@@ -24,4 +23,10 @@ $options = get_option( 'filterable_portfolio' );
 			?>
         </div>
     </div>
+	<?php
+	if ( isset( $options['show_related_projects'] ) && $options['show_related_projects'] ) {
+		$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/related-portfolio.php';
+		load_template( $template, false );
+	}
+	?>
 </div>

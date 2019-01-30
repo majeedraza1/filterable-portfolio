@@ -16,13 +16,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 		protected static $instance;
 
 		/**
-		 * Plugin options
-		 *
-		 * @var array
-		 */
-		private $options = array();
-
-		/**
 		 * Portfolio post type slug
 		 *
 		 * @var string
@@ -46,39 +39,37 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 		/**
 		 * Ensures only one instance of this class is loaded or can be loaded.
 		 *
-		 * @param array $options
-		 *
 		 * @return self
 		 */
-		public static function init( $options = array() ) {
+		public static function init() {
 
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
-				self::$instance->initiate_hooks( $options );
+				self::$instance->initiate_hooks();
 			}
 
 			return self::$instance;
 		}
 
 		/**
-		 * @param $options
+		 * Initiate hooks
 		 */
-		private function initiate_hooks( $options = array() ) {
-			$this->options = $options;
+		private function initiate_hooks() {
+			$option = get_option( 'filterable_portfolio' );
 
 			// Set portfolio slug from plugin option
-			if ( ! empty( $this->options['portfolio_slug'] ) ) {
-				$this->portfolio_slug = $this->options['portfolio_slug'];
+			if ( ! empty( $option['portfolio_slug'] ) ) {
+				$this->portfolio_slug = $option['portfolio_slug'];
 			}
 
 			// Set portfolio category slug from plugin option
-			if ( ! empty( $this->options['category_slug'] ) ) {
-				$this->category_slug = $this->options['category_slug'];
+			if ( ! empty( $option['category_slug'] ) ) {
+				$this->category_slug = $option['category_slug'];
 			}
 
 			// Set portfolio skill slug from plugin option
-			if ( ! empty( $this->options['skill_slug'] ) ) {
-				$this->skill_slug = $this->options['skill_slug'];
+			if ( ! empty( $option['skill_slug'] ) ) {
+				$this->skill_slug = $option['skill_slug'];
 			}
 
 			add_action( 'filterable_portfolio_activation', array( $this, 'post_type' ) );
@@ -109,18 +100,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'not_found_in_trash' => __( 'Not found in Trash', 'filterable-portfolio' ),
 			) );
 
+			$supports = array( 'title', 'editor', 'thumbnail', 'comments', 'revisions' );
+
 			$args = apply_filters( 'filterable_portfolio_post_type_args', array(
 				'label'               => __( 'Portfolios', 'filterable-portfolio' ),
 				'description'         => __( 'A WordPress filterable portfolio to display portfolio images or gallery to your site.',
 					'filterable-portfolio' ),
 				'labels'              => $labels,
-				'supports'            => apply_filters( 'filterable_portfolio_supports', array(
-					'title',
-					'editor',
-					'thumbnail',
-					'comments',
-					'revisions'
-				) ),
+				'supports'            => apply_filters( 'filterable_portfolio_supports', $supports ),
 				'hierarchical'        => false,
 				'public'              => true,
 				'show_ui'             => true,
@@ -137,7 +124,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'rewrite'             => array( 'slug' => $this->portfolio_slug, 'with_front' => false, ),
 				'capability_type'     => 'page',
 			) );
-			register_post_type( 'portfolio', $args );
+			register_post_type( Filterable_Portfolio_Helper::POST_TYPE, $args );
 		}
 
 		/**
@@ -147,37 +134,35 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 		 * @return void
 		 */
 		public function taxonomy() {
-			register_taxonomy( 'portfolio_cat', 'portfolio',
-				apply_filters( 'filterable_portfolio_category_args', array(
-					'label'             => __( 'Categories', 'filterable-portfolio' ),
-					'singular_label'    => __( 'Category', 'filterable-portfolio' ),
-					'hierarchical'      => true,
-					'public'            => true,
-					'show_ui'           => true,
-					'show_admin_column' => true,
-					'show_in_nav_menus' => true,
-					'show_in_rest'      => true,
-					'args'              => array( 'orderby' => 'term_order' ),
-					'query_var'         => true,
-					'rewrite'           => array( 'slug' => $this->category_slug, 'hierarchical' => true ),
-				) )
-			);
+			$category_args = apply_filters( 'filterable_portfolio_category_args', array(
+				'label'             => __( 'Categories', 'filterable-portfolio' ),
+				'singular_label'    => __( 'Category', 'filterable-portfolio' ),
+				'hierarchical'      => true,
+				'public'            => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
+				'args'              => array( 'orderby' => 'term_order' ),
+				'query_var'         => true,
+				'rewrite'           => array( 'slug' => $this->category_slug, 'hierarchical' => true ),
+			) );
+			register_taxonomy( Filterable_Portfolio_Helper::CATEGORY, Filterable_Portfolio_Helper::POST_TYPE, $category_args );
 
-			register_taxonomy( 'portfolio_skill', 'portfolio',
-				apply_filters( 'filterable_portfolio_skill_args', array(
-					'label'             => __( 'Skills', 'filterable-portfolio' ),
-					'singular_label'    => __( 'Skill', 'filterable-portfolio' ),
-					'hierarchical'      => true,
-					'public'            => true,
-					'show_ui'           => true,
-					'show_admin_column' => true,
-					'show_in_nav_menus' => true,
-					'show_in_rest'      => true,
-					'args'              => array( 'orderby' => 'term_order' ),
-					'query_var'         => true,
-					'rewrite'           => array( 'slug' => $this->skill_slug, 'hierarchical' => true ),
-				) )
-			);
+			$skill_args = apply_filters( 'filterable_portfolio_skill_args', array(
+				'label'             => __( 'Skills', 'filterable-portfolio' ),
+				'singular_label'    => __( 'Skill', 'filterable-portfolio' ),
+				'hierarchical'      => true,
+				'public'            => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
+				'args'              => array( 'orderby' => 'term_order' ),
+				'query_var'         => true,
+				'rewrite'           => array( 'slug' => $this->skill_slug, 'hierarchical' => true ),
+			) );
+			register_taxonomy( Filterable_Portfolio_Helper::SKILL, Filterable_Portfolio_Helper::POST_TYPE, $skill_args );
 		}
 	}
 }

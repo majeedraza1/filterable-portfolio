@@ -9,22 +9,24 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 	class Filterable_Portfolio_Single_Post {
 
 		/**
-		 * Plugin options
+		 * Instance of current class
 		 *
-		 * @var array
+		 * @var self
 		 */
-		private $options = array();
+		protected static $instance;
 
 		/**
-		 * class construct of filterable portfolio single post
-		 *
-		 * @param array $options
+		 * @return self
 		 */
-		public function __construct( $options ) {
-			$this->options = $options;
+		public static function init() {
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
 
-			add_filter( 'post_thumbnail_html', array( $this, 'post_thumbnail_html' ) );
-			add_filter( 'the_content', array( $this, 'portfolio_content' ), 20 );
+				add_filter( 'post_thumbnail_html', array( self::$instance, 'post_thumbnail_html' ) );
+				add_filter( 'the_content', array( self::$instance, 'portfolio_content' ), 20 );
+			}
+
+			return self::$instance;
 		}
 
 		/**
@@ -65,10 +67,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 
 				ob_start();
 				require FILTERABLE_PORTFOLIO_TEMPLATES . '/single-portfolio.php';
-
-				if ( $this->options['show_related_projects'] ) {
-					require FILTERABLE_PORTFOLIO_TEMPLATES . '/related-portfolio.php';
-				}
 				$project = ob_get_contents();
 				ob_end_clean();
 

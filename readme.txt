@@ -2,7 +2,7 @@
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 4.7
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 1.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -83,7 +83,7 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 == Changelog ==
 
-= version 1.3.3 - 2019-01-26 =
+= version 1.4.0 - 2019-01-30 =
 * Added     - Add support for Gutenberg editor introduced on WordPress 5.0
 * Dev       - Check compatibility with WordPress 5.0
 * Dev       - Update isotope to version 3.0.5

@@ -35,10 +35,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 			return self::$instance;
 		}
 
-		public function single_portfolio_content() {
-
-		}
-
 		/**
 		 * Check if Shapla theme or it's child theme is active
 		 * @return boolean
