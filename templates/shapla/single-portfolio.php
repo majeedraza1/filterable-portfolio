@@ -54,8 +54,10 @@ get_header(); ?>
                 </div><!-- #post-## -->
 				<?php
 
-				$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/related-portfolio.php';
-				load_template( $template, false );
+				if ( isset( $options['show_related_projects'] ) && $options['show_related_projects'] ) {
+					$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/related-portfolio.php';
+					load_template( $template, false );
+				}
 
 				do_action( 'shapla_single_post_after' );
 

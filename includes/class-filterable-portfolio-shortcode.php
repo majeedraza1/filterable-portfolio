@@ -35,7 +35,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		 * @return mixed
 		 */
 		public function shortcode() {
-			ob_start();
 			$options = get_option( 'filterable_portfolio' );
 			$isotope = isset( $options['portfolio_filter_script'] ) && $options['portfolio_filter_script'] == 'isotope';
 			if ( $isotope ) {
@@ -49,6 +48,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			$portfolios = Filterable_Portfolio_Helper::get_portfolios();
 			$categories = Filterable_Portfolio_Helper::get_portfolio_categories();
 
+			ob_start();
 			$locate_template = locate_template( "filterable_portfolio.php" );
 			if ( $locate_template != '' ) {
 				load_template( $locate_template, false );

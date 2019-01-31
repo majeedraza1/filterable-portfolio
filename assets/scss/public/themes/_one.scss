@@ -1,3 +1,5 @@
+@import "../preboot";
+
 .fp-theme-one {
 	.filterable-portfolio-item {
 		&__content {
@@ -24,6 +26,10 @@
 			transform: translateY(100%);
 			backface-visibility: hidden;
 			transition: transform 0.4s, opacity 0.1s 0.3s;
+		}
+
+		&__title {
+			color: $color-button-txt !important;
 		}
 	}
 }

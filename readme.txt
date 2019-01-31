@@ -3,7 +3,7 @@ Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 1.3.3
+Stable tag: 1.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -83,12 +83,14 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 == Changelog ==
 
-= version 1.4.0 - 2019-01-30 =
+= version 1.4.0 - 2019-01-31 =
 * Added     - Add support for Gutenberg editor introduced on WordPress 5.0
+* Added     - Add CSS for Twenty Nineteen theme.
 * Dev       - Check compatibility with WordPress 5.0
 * Dev       - Update isotope to version 3.0.5
 * Dev       - Update Shuffle to version 5.2.1
 * Dev       - Update tiny-slider to version 2.9.1
+* Dev       - Add `Filterable_Portfolio_Helper` PHP class
 
 = version 1.3.2 - 2018-05-11 =
 * Added 	- Add portfolio settings to change Portfolio Slug, Portfolio Category Slug, Portfolio Skill Slug.

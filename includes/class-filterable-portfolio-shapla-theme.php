@@ -22,7 +22,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 
-				if ( ! self::$instance->is_shapla_theme_activate() ) {
+				if ( ! Filterable_Portfolio_Helper::is_shapla_theme_activate() ) {
 					return self::$instance;
 				}
 
@@ -33,14 +33,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 			}
 
 			return self::$instance;
-		}
-
-		/**
-		 * Check if Shapla theme or it's child theme is active
-		 * @return boolean
-		 */
-		private function is_shapla_theme_activate() {
-			return Filterable_Portfolio_Helper::is_shapla_theme_activate();
 		}
 
 		/**

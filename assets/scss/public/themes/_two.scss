@@ -40,14 +40,14 @@
 		&__title {
 			position: absolute;
 			right: -100%;
-			bottom: 50px;
+			bottom: 3rem;
 			text-align: center;
 			width: 100%;
 			z-index: 10;
 			transition: 300ms;
 		}
 
-		&__action {
+		&__action.button {
 			bottom: -25%;
 			left: 50%;
 			position: absolute;

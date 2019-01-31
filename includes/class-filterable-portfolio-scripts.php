@@ -16,6 +16,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		private static $instance;
 
 		/**
+		 * Ensures only one instance of this class is loaded or can be loaded.
+         *
 		 * @return self
 		 */
 		public static function init() {
@@ -74,19 +76,19 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				'isotope'                    => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope' . $suffix . '.js',
 					'dependency' => array( 'imagesloaded' ),
-					'version'    => '3.0.4',
+					'version'    => '3.0.5',
 					'in_footer'  => true,
 				),
 				'shuffle'                    => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/shuffle/shuffle' . $suffix . '.js',
 					'dependency' => array( 'imagesloaded' ),
-					'version'    => '5.0.3',
+					'version'    => '5.2.1',
 					'in_footer'  => true,
 				),
 				'tiny-slider'                => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider' . $suffix . '.js',
 					'dependency' => array(),
-					'version'    => '2.3.10',
+					'version'    => '2.9.1',
 					'in_footer'  => true,
 				),
 				'wp-color-picker-alpha'      => array(
