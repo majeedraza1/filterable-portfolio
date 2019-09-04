@@ -55,8 +55,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		/**
 		 * Ensures only one instance of this class is loaded or can be loaded.
 		 *
-		 * @since 1.2.3
 		 * @return Filterable_Portfolio
+		 * @since 1.2.3
 		 */
 		public static function instance() {
 			if ( is_null( self::$instance ) ) {
@@ -117,8 +117,8 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		/**
 		 * Define constant if not already set.
 		 *
-		 * @param  string $name
-		 * @param  string|bool $value
+		 * @param string $name
+		 * @param string|bool $value
 		 */
 		private function define( $name, $value ) {
 			if ( ! defined( $name ) ) {
@@ -189,6 +189,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 				$this->container['portfolio'] = Filterable_Portfolio_Single_Post::init();
 				$this->container['shortcode'] = Filterable_Portfolio_Shortcode::init();
 				$this->container['shapla']    = Filterable_Portfolio_Shapla_Theme::init();
+				$this->container['rest']      = Filterable_Portfolio_REST_Controller::init();
 			}
 
 			add_action( 'widgets_init', array( 'Filterable_Portfolio_Widget', 'register' ) );
@@ -235,7 +236,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		/**
 		 * What type of request is this?
 		 *
-		 * @param  string $type admin, ajax, cron or frontend.
+		 * @param string $type admin, ajax, cron or frontend.
 		 *
 		 * @return bool
 		 */
