@@ -32,9 +32,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		/**
 		 * Filterable Portfolio shortcode.
 		 *
+		 * @param array $attributes
+		 *
 		 * @return mixed
 		 */
-		public function shortcode() {
+		public function shortcode( $attributes ) {
+			$attributes = shortcode_atts( [
+				'featured' => 'no'
+			], $attributes, 'filterable_portfolio' );
+
 			$options = get_option( 'filterable_portfolio' );
 			$isotope = isset( $options['portfolio_filter_script'] ) && $options['portfolio_filter_script'] == 'isotope';
 			if ( $isotope ) {
@@ -45,8 +51,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 
 			wp_enqueue_script( 'filterable-portfolio' );
 
-			$portfolios = Filterable_Portfolio_Helper::get_portfolios();
-			$categories = Filterable_Portfolio_Helper::get_portfolio_categories();
+			$args = [];
+
+			$featured = in_array( $attributes['featured'], [ 'yes', 'on', 'true', true, 1 ], true );
+			if ( $featured ) {
+				$args['featured'] = $featured;
+			}
+
+			$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
+			$categories = Filterable_Portfolio_Helper::get_categories_from_portfolios( $portfolios );
 
 			ob_start();
 			$locate_template = locate_template( "filterable_portfolio.php" );

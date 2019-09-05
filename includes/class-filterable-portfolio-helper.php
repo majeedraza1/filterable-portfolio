@@ -24,16 +24,17 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get all portfolios
 	 *
-	 * @return \WP_Post[]
+	 * @param array $args
+	 *
+	 * @return WP_Post[]
 	 */
-	public static function get_portfolios() {
+	public static function get_portfolios( $args = [] ) {
 		$options        = get_option( 'filterable_portfolio' );
 		$posts_per_page = isset( $options['posts_per_page'] ) ? intval( $options['posts_per_page'] ) : - 1;
 		$orderby        = isset( $options['orderby'] ) ? esc_attr( $options['orderby'] ) : 'ID';
 		$order          = isset( $options['order'] ) ? esc_attr( $options['order'] ) : 'DESC';
 
-
-		$args = array(
+		$portfolios_args = array(
 			'post_type'      => self::POST_TYPE,
 			'post_status'    => 'publish',
 			'posts_per_page' => $posts_per_page,
@@ -41,7 +42,24 @@ class Filterable_Portfolio_Helper {
 			'order'          => $order,
 		);
 
-		return get_posts( $args );
+		if ( isset( $args['per_page'] ) && is_numeric( $args['per_page'] ) ) {
+			$portfolios_args['posts_per_page'] = intval( $args['per_page'] );
+		}
+
+		if ( isset( $args['page'] ) && is_numeric( $args['page'] ) ) {
+			$portfolios_args['paged'] = intval( $args['page'] );
+		}
+
+		if ( isset( $args['featured'] ) && $args['featured'] == true ) {
+			$portfolios_args['meta_query'] = array(
+				array(
+					'key'   => '_is_featured_project',
+					'value' => 'yes',
+				)
+			);
+		}
+
+		return get_posts( $portfolios_args );
 	}
 
 	/**
@@ -117,9 +135,22 @@ class Filterable_Portfolio_Helper {
 	}
 
 	/**
+	 * Get categories from portfolios
+	 *
+	 * @param WP_Post[] $portfolios
+	 *
+	 * @return array|WP_Term[]
+	 */
+	public static function get_categories_from_portfolios( array $portfolios ) {
+		$ids = wp_list_pluck( $portfolios, "ID" );
+
+		return wp_get_object_terms( $ids, self::CATEGORY );
+	}
+
+	/**
 	 * Get portfolio categories
 	 *
-	 * @return array|\WP_Term[]
+	 * @return array|WP_Term[]
 	 */
 	public static function get_portfolio_categories() {
 		$terms = get_terms( array(

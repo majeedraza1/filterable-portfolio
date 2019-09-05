@@ -100,7 +100,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Admin' ) ) {
 				'not_found_in_trash' => __( 'Not found in Trash', 'filterable-portfolio' ),
 			) );
 
-			$supports = array( 'title', 'editor', 'thumbnail', 'comments', 'revisions' );
+			$supports = array( 'title', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions' );
 
 			$args = apply_filters( 'filterable_portfolio_post_type_args', array(
 				'label'               => __( 'Portfolios', 'filterable-portfolio' ),

@@ -54,8 +54,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * Create content for the custom meta box
 		 *
-		 * @param  WP_Post $post
-		 * @param  array $meta_box
+		 * @param WP_Post $post
+		 * @param array $meta_box
 		 *
 		 * @return void
 		 */
@@ -107,9 +107,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * text input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -121,9 +121,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * email input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -135,9 +135,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * password input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -149,9 +149,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * number input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -163,9 +163,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * url input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -177,9 +177,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * color input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -193,9 +193,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * date input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -210,9 +210,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * textarea input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -227,18 +227,18 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * checkbox input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
 		public function checkbox( $field, $name, $value ) {
-			$checked = ( 1 == $value ) ? 'checked="checked"' : '';
-			$table   = sprintf( '<input type="hidden" name="%1$s" value="0">', $name );
+			$checked = ( 'yes' == $value ) ? 'checked="checked"' : '';
+			$table   = sprintf( '<input type="hidden" name="%1$s" value="no">', $name );
 			$table   .= '<fieldset><legend class="screen-reader-text"><span>' . $field['name'] . '</span></legend>';
 			$table   .= '<label for="' . $field['id'] . '">';
-			$table   .= '<input type="checkbox" value="1" id="' . $field['id'] . '" name="' . $name . '" ' . $checked . '>';
+			$table   .= '<input type="checkbox" value="yes" id="' . $field['id'] . '" name="' . $name . '" ' . $checked . '>';
 			$table   .= $field['name'] . '</label></fieldset>';
 
 			return $table;
@@ -247,9 +247,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * multi checkbox input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  array $value
+		 * @param array $field
+		 * @param string $name
+		 * @param array $value
 		 *
 		 * @return string
 		 */
@@ -272,9 +272,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * radio input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -292,9 +292,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * select input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -312,9 +312,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * wp_editor input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */
@@ -336,9 +336,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * images input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param array $field
+		 * @param string $name
+		 * @param string $value
 		 *
 		 * @return string
 		 */

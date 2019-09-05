@@ -16,7 +16,7 @@ $items_class = 'grids portfolio-items';
 $items_class .= ' fp-theme-' . $theme;
 ?>
 <div id="filterable-portfolio" class="filterable-portfolio">
-	<?php if ( $categories ) { ?>
+	<?php if ( $categories && count( $categories ) > 1 ) { ?>
         <div id="filter" class="portfolio-terms">
             <div class="filter-options">
                 <button class="button active" data-group="all" data-filter="*"><?php echo $all_button_text; ?></button>

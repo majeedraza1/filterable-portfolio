@@ -80,7 +80,19 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_items( $request ) {
-		$portfolios = Filterable_Portfolio_Helper::get_portfolios();
+		$page     = $request->get_param( 'page' );
+		$per_page = $request->get_param( 'per_page' );
+
+		$args = [
+			'page'     => $page,
+			'per_page' => $per_page,
+		];
+
+		if ( $request->get_param( 'featured' ) ) {
+			$args['featured'] = true;
+		}
+
+		$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
 		$response   = [ 'items' => $this->prepare_portfolios_for_response( $portfolios, $request ) ];
 
 		return $this->respondOK( $response );
@@ -272,23 +284,46 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 */
 	public function get_collection_params() {
 		return array(
-			'context' => $this->get_context_param(),
-			'order'   => array(
+			'context'  => $this->get_context_param(),
+			'page'     => array(
+				'description'       => __( 'Current page of the collection.' ),
+				'type'              => 'integer',
+				'default'           => 1,
+				'sanitize_callback' => 'absint',
+				'validate_callback' => 'rest_validate_request_arg',
+				'minimum'           => 1,
+			),
+			'per_page' => array(
+				'description'       => __( 'Maximum number of items to be returned in result set.' ),
+				'type'              => 'integer',
+				'default'           => 10,
+				'minimum'           => 1,
+				'maximum'           => 100,
+				'sanitize_callback' => 'absint',
+				'validate_callback' => 'rest_validate_request_arg',
+			),
+			'order'    => array(
 				'description' => __( 'Order sort attribute ascending or descending.' ),
 				'type'        => 'string',
 				'default'     => 'desc',
 				'enum'        => array( 'asc', 'desc' ),
 			),
-			'orderby' => array(
+			'orderby'  => array(
 				'description' => __( 'Sort collection by object attribute.' ),
 				'type'        => 'string',
 				'default'     => 'date',
 				'enum'        => array( 'id', 'title', 'date', ),
 			),
-			'fields'  => array(
-				'description'       => __( 'Limit results to those matching a string.' ),
+			'fields'   => array(
+				'description'       => __( 'List of fields to include in response.' ),
 				'type'              => 'array',
 				'default'           => [ 'id', 'title', 'featured_media' ],
+				'validate_callback' => 'rest_validate_request_arg',
+			),
+			'featured' => array(
+				'description'       => __( 'Limit results to featured projects only.' ),
+				'type'              => 'boolean',
+				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
 		);

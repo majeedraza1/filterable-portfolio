@@ -79,33 +79,40 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 				'context'     => 'normal',
 				'priority'    => 'high',
 				'fields'      => apply_filters( 'filterable_portfolio_meta_box_fields', array(
-					'_project_images' => array(
+					'_project_images'      => array(
 						'name' => __( 'Project Images', 'filterable-portfolio' ),
 						'desc' => __( 'Choose project images.', 'filterable-portfolio' ),
 						'id'   => '_project_images',
 						'type' => 'images',
 						'std'  => '',
 					),
-					'_client_name'    => array(
+					'_client_name'         => array(
 						'name' => __( 'Client Name', 'filterable-portfolio' ),
 						'desc' => __( 'Enter the client name of the project', 'filterable-portfolio' ),
 						'id'   => '_client_name',
 						'type' => 'text',
 						'std'  => ''
 					),
-					'_project_date'   => array(
+					'_project_date'        => array(
 						'name' => __( 'Project Date', 'filterable-portfolio' ),
 						'desc' => __( 'Choose the project date.', 'filterable-portfolio' ),
 						'id'   => '_project_date',
 						'type' => 'date',
 						'std'  => '',
 					),
-					'_project_url'    => array(
+					'_project_url'         => array(
 						'name' => __( 'Project URL', 'filterable-portfolio' ),
 						'desc' => __( 'Enter the project URL', 'filterable-portfolio' ),
 						'id'   => '_project_url',
 						'type' => 'text',
 						'std'  => ''
+					),
+					'_is_featured_project' => array(
+						'name' => __( 'Featured project', 'filterable-portfolio' ),
+						'desc' => __( 'Check this if you want to mark this project as featured.', 'filterable-portfolio' ),
+						'id'   => '_is_featured_project',
+						'type' => 'checkbox',
+						'std'  => 'no'
 					),
 				) ),
 			) );
