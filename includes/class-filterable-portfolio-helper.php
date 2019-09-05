@@ -135,6 +135,24 @@ class Filterable_Portfolio_Helper {
 	}
 
 	/**
+	 * Get portfolio skills
+	 *
+	 * @return array|\WP_Term[]
+	 */
+	public static function get_portfolio_skills() {
+		$terms = get_terms( array(
+			'taxonomy'   => self::SKILL,
+			'hide_empty' => true,
+		) );
+
+		if ( is_wp_error( $terms ) ) {
+			return array();
+		}
+
+		return count( $terms ) ? $terms : array();
+	}
+
+	/**
 	 * Check if single portfolio page
 	 *
 	 * @return bool

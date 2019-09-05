@@ -58,10 +58,22 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 				'args'     => $this->get_collection_params(),
 			],
 		] );
+		register_rest_route( $this->namespace, '/categories', [
+			[
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => [ $this, 'get_categories' ],
+			],
+		] );
+		register_rest_route( $this->namespace, '/skills', [
+			[
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => [ $this, 'get_skills' ],
+			],
+		] );
 	}
 
 	/**
-	 * Retrieves a collection of devices.
+	 * Retrieves a collection of portfolios.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
@@ -69,12 +81,35 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 */
 	public function get_items( $request ) {
 		$portfolios = Filterable_Portfolio_Helper::get_portfolios();
-		$categories = Filterable_Portfolio_Helper::get_portfolio_categories();
+		$response   = [ 'items' => $this->prepare_portfolios_for_response( $portfolios, $request ) ];
 
-		$response = [
-			'categories' => $this->prepare_terms_for_response( $categories ),
-			'portfolios' => $this->prepare_portfolios_for_response( $portfolios, $request )
-		];
+		return $this->respondOK( $response );
+	}
+
+	/**
+	 * Retrieves a collection of portfolios categories.
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
+	 */
+	public function get_categories( $request ) {
+		$items    = Filterable_Portfolio_Helper::get_portfolio_categories();
+		$response = [ 'items' => $this->prepare_terms_for_response( $items ) ];
+
+		return $this->respondOK( $response );
+	}
+
+	/**
+	 * Retrieves a collection of portfolios skills.
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 *
+	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
+	 */
+	public function get_skills( $request ) {
+		$items    = Filterable_Portfolio_Helper::get_portfolio_skills();
+		$response = [ 'items' => $this->prepare_terms_for_response( $items ) ];
 
 		return $this->respondOK( $response );
 	}
@@ -140,9 +175,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		}
 
 		if ( in_array( 'project_images', $fields ) ) {
-			$project_images_ids = get_post_meta( $post->ID, '_project_images', true );
-			$project_images_ids = is_string( $project_images_ids ) ? explode( ',', $project_images_ids ) : $project_images_ids;
-			$project_images_ids = array_map( 'intval', $project_images_ids );
+			$project_images_ids = Filterable_Portfolio_Helper::get_portfolio_images_ids( $post );
 			if ( $project_images_ids ) {
 				foreach ( $project_images_ids as $id ) {
 					$image_src = wp_get_attachment_image_src( $id, 'full' );
@@ -223,8 +256,8 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		foreach ( $categories as $category ) {
 			$items[] = [
 				'id'    => $category->term_id,
-				'key'   => $category->slug,
-				'label' => $category->name,
+				'slug'  => $category->slug,
+				'name'  => $category->name,
 				'count' => $category->count,
 			];
 		}
