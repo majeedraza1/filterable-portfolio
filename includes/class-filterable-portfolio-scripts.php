@@ -17,7 +17,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 		/**
 		 * Ensures only one instance of this class is loaded or can be loaded.
-         *
+		 *
 		 * @return self
 		 */
 		public static function init() {
@@ -91,12 +91,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 					'version'    => '2.9.1',
 					'in_footer'  => true,
 				),
-				'wp-color-picker-alpha'      => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/wp-color-picker-alpha/wp-color-picker-alpha' . $suffix . '.js',
-					'dependency' => array( 'jquery', 'wp-color-picker' ),
-					'version'    => '2.1.3',
-					'in_footer'  => true,
-				),
 				'filterable-portfolio'       => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/script' . $suffix . '.js',
 					'dependency' => array(),
@@ -105,7 +99,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				),
 				'filterable-portfolio-admin' => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/admin' . $suffix . '.js',
-					'dependency' => array( 'jquery', 'wp-color-picker-alpha', 'jquery-ui-datepicker' ),
+					'dependency' => array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker' ),
 					'version'    => FILTERABLE_PORTFOLIO_VERSION,
 					'in_footer'  => true,
 				),

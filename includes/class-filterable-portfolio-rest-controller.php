@@ -136,6 +136,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 */
 	public function prepare_item_for_response( $post, $request ) {
 		$fields = $request->get_param( 'fields' );
+		$option = get_option( 'filterable_portfolio' );
 
 		// Base fields for every post.
 		$data = array( 'id' => $post->ID );
@@ -189,8 +190,9 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		if ( in_array( 'project_images', $fields ) ) {
 			$project_images_ids = Filterable_Portfolio_Helper::get_portfolio_images_ids( $post );
 			if ( $project_images_ids ) {
+				$image_size = ! empty( $option['project_image_size'] ) ? $option['project_image_size'] : 'full';
 				foreach ( $project_images_ids as $id ) {
-					$image_src = wp_get_attachment_image_src( $id, 'full' );
+					$image_src = wp_get_attachment_image_src( $id, $image_size );
 					if ( isset( $image_src[0] ) && filter_var( $image_src[0], FILTER_VALIDATE_URL ) ) {
 						$data['project_images'][] = [
 							'id'       => intval( $id ),
@@ -222,9 +224,10 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		}
 
 		if ( in_array( 'featured_media', $fields ) ) {
+			$image_size             = ! empty( $option['image_size'] ) ? $option['image_size'] : 'filterable-portfolio';
 			$data['featured_media'] = [];
 			$thumbnail_id           = get_post_thumbnail_id( $post->ID );
-			$image_src              = wp_get_attachment_image_src( $thumbnail_id, 'filterable-portfolio' );
+			$image_src              = wp_get_attachment_image_src( $thumbnail_id, $image_size );
 			if ( isset( $image_src[0] ) && filter_var( $image_src[0], FILTER_VALIDATE_URL ) ) {
 				$data['featured_media'] = [
 					'id'       => intval( $thumbnail_id ),

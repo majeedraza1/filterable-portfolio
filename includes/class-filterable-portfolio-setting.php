@@ -227,6 +227,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 
 			// Single Portfolio Settings
 			$settings->add_field( array(
+				'id'   => 'project_image_size',
+				'type' => 'image_sizes',
+				'std'  => 'full',
+				'name' => __( 'Project Images Size', 'filterable-portfolio' ),
+				'desc' => __( 'Choose single portfolio project images size.', 'filterable-portfolio' ),
+				'tab'  => 'single-portfolio-settings',
+			) );
+			$settings->add_field( array(
 				'id'   => 'show_related_projects',
 				'type' => 'checkbox',
 				'std'  => 1,

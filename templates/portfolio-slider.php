@@ -8,6 +8,8 @@ if ( ! Filterable_Portfolio_Helper::has_portfolio_images() ) {
 }
 
 $project_images = Filterable_Portfolio_Helper::get_portfolio_images_ids();
+$option         = get_option( 'filterable_portfolio' );
+$image_size     = ! empty( $option['project_image_size'] ) ? $option['project_image_size'] : 'full';
 ?>
 <div class="fp-tns-slider-outer dots-circle dots-right">
     <div
@@ -32,7 +34,7 @@ $project_images = Filterable_Portfolio_Helper::get_portfolio_images_ids();
 		<?php foreach ( $project_images as $image_id ): ?>
             <div class="item">
                 <div class="img img-1">
-					<?php echo wp_get_attachment_image( $image_id, 'full' ); ?>
+					<?php echo wp_get_attachment_image( $image_id, $image_size ); ?>
                 </div>
             </div>
 		<?php endforeach; ?>
