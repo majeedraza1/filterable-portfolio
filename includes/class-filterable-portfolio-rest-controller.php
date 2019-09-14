@@ -82,6 +82,8 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	public function get_items( $request ) {
 		$page     = $request->get_param( 'page' );
 		$per_page = $request->get_param( 'per_page' );
+		$order    = $request->get_param( 'order' );
+		$orderby  = $request->get_param( 'orderby' );
 
 		$args = [
 			'page'     => $page,
@@ -286,25 +288,28 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 * @return array Query parameters for the collection.
 	 */
 	public function get_collection_params() {
-		return array(
-			'context'  => $this->get_context_param(),
-			'page'     => array(
-				'description'       => __( 'Current page of the collection.' ),
-				'type'              => 'integer',
-				'default'           => 1,
-				'sanitize_callback' => 'absint',
-				'validate_callback' => 'rest_validate_request_arg',
-				'minimum'           => 1,
-			),
-			'per_page' => array(
-				'description'       => __( 'Maximum number of items to be returned in result set.' ),
-				'type'              => 'integer',
-				'default'           => 10,
-				'minimum'           => 1,
-				'maximum'           => 100,
-				'sanitize_callback' => 'absint',
-				'validate_callback' => 'rest_validate_request_arg',
-			),
+		$valid_fields = [
+			'id',
+			'title',
+			'content',
+			'excerpt',
+			'date',
+			'date_gmt',
+			'modified',
+			'modified_gmt',
+			'link',
+			'categories',
+			'skills',
+			'project_images',
+			'client_name',
+			'project_url',
+			'project_date',
+			'featured_media'
+		];
+
+		$params = parent::get_collection_params();
+
+		return array_merge( $params, array(
 			'order'    => array(
 				'description' => __( 'Order sort attribute ascending or descending.' ),
 				'type'        => 'string',
@@ -318,7 +323,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 				'enum'        => array( 'id', 'title', 'date', ),
 			),
 			'fields'   => array(
-				'description'       => __( 'List of fields to include in response.' ),
+				'description'       => __( 'List of fields to include in response. Available fields are ' ) . implode( ', ', $valid_fields ),
 				'type'              => 'array',
 				'default'           => [ 'id', 'title', 'featured_media' ],
 				'validate_callback' => 'rest_validate_request_arg',
@@ -329,7 +334,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',
 			),
-		);
+		) );
 	}
 
 	/**
