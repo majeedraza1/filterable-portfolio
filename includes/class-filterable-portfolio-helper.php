@@ -30,7 +30,7 @@ class Filterable_Portfolio_Helper {
 	 */
 	public static function get_portfolios( $args = [] ) {
 		$options        = get_option( 'filterable_portfolio' );
-		$posts_per_page = isset( $options['posts_per_page'] ) ? intval( $options['posts_per_page'] ) : - 1;
+		$posts_per_page = isset( $options['per_page'] ) ? intval( $options['per_page'] ) : - 1;
 		$orderby        = isset( $options['orderby'] ) ? esc_attr( $options['orderby'] ) : 'ID';
 		$order          = isset( $options['order'] ) ? esc_attr( $options['order'] ) : 'DESC';
 

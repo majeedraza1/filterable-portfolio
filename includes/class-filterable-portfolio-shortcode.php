@@ -37,18 +37,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		 * @return mixed
 		 */
 		public function shortcode( $attributes ) {
+			$option = get_option( 'filterable_portfolio' );
+			$theme  = ! empty( $option['portfolio_theme'] ) ? $option['portfolio_theme'] : '';
+			$theme  = in_array( $theme, array( 'one', 'two' ) ) ? $theme : 'one';
+
 			$attributes = shortcode_atts( [
-				'featured' => 'no'
+				'featured'    => 'no',
+				'show_filter' => 'yes',
 			], $attributes, 'filterable_portfolio' );
 
-			$options = get_option( 'filterable_portfolio' );
-			$isotope = isset( $options['portfolio_filter_script'] ) && $options['portfolio_filter_script'] == 'isotope';
-			if ( $isotope ) {
-				wp_enqueue_script( 'isotope' );
-			} else {
-				wp_enqueue_script( 'shuffle' );
-			}
-
+			wp_enqueue_script( 'isotope' );
 			wp_enqueue_script( 'filterable-portfolio' );
 
 			$args = [];

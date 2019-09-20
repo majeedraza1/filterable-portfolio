@@ -130,18 +130,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				),
 			) );
 			$settings->add_field( array(
-				'id'      => 'portfolio_filter_script',
-				'type'    => 'select',
-				'std'     => 'isotope',
-				'name'    => __( 'Portfolio Filter Script', 'filterable-portfolio' ),
-				'desc'    => __( 'Choose portfolio filter script. Isotope uses GPLv3 for open source use or Commercial License for commercial use. Shuffle uses only MIT License ( compatible with GPL License )',
-					'filterable-portfolio' ),
-				'options' => array(
-					'isotope' => __( 'Isotope', 'filterable-portfolio' ),
-					'shuffle' => __( 'Shuffle', 'filterable-portfolio' ),
-				),
-			) );
-			$settings->add_field( array(
 				'id'   => 'image_size',
 				'type' => 'image_sizes',
 				'std'  => 'filterable-portfolio',

@@ -79,12 +79,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 					'version'    => '3.0.5',
 					'in_footer'  => true,
 				),
-				'shuffle'                    => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/shuffle/shuffle' . $suffix . '.js',
-					'dependency' => array( 'imagesloaded' ),
-					'version'    => '5.2.1',
-					'in_footer'  => true,
-				),
 				'tiny-slider'                => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider' . $suffix . '.js',
 					'dependency' => array(),
