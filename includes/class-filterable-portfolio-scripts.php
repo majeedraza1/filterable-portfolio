@@ -39,7 +39,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 10 );
-			add_action( 'wp_head', array( $this, 'inline_style' ), 30 );
+			add_action( 'wp_head', array( $this, 'inline_style' ), 5 );
 		}
 
 		/**
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		public function register_styles() {
 			$styles = array(
 				'filterable-portfolio'       => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/style.css',
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/frontend.css',
 					'dependency' => array(),
 					'version'    => FILTERABLE_PORTFOLIO_VERSION,
 					'media'      => 'all',
@@ -86,13 +86,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 					'in_footer'  => true,
 				),
 				'filterable-portfolio'       => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/script' . $suffix . '.js',
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/frontend.js',
 					'dependency' => array(),
 					'version'    => FILTERABLE_PORTFOLIO_VERSION,
 					'in_footer'  => true,
 				),
 				'filterable-portfolio-admin' => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/admin' . $suffix . '.js',
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/admin.js',
 					'dependency' => array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker' ),
 					'version'    => FILTERABLE_PORTFOLIO_VERSION,
 					'in_footer'  => true,
@@ -134,29 +134,62 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 			$btn_bg  = ! empty( $options['button_color'] ) ? $options['button_color'] : '#4cc1be';
 			?>
             <style type="text/css" id="filterable-portfolio-inline-style">
-                .portfolio-terms {
-                    border-bottom-color: <?php echo $btn_bg; ?>;
-                }
-
-                .portfolio-terms button {
-                    border-color: <?php echo $btn_bg; ?>;
-                    color: <?php echo $btn_bg; ?>;
-                }
-
-                .portfolio-terms button.active,
-                .portfolio-terms button:focus,
-                .portfolio-terms button:hover {
-                    border-color: <?php echo $btn_bg; ?>;
-                    background-color: <?php echo $btn_bg; ?>;
-                }
-
-                .portfolio-items .button,
-                .portfolio-items button:focus,
-                .portfolio-items button:hover {
-                    background-color: <?php echo $btn_bg; ?> !important;
+                :root {
+                    --portfolio-primary: <?php echo $btn_bg; ?>;
+                    --portfolio-on-primary: <?php echo $this->find_color_invert($btn_bg); ?>;
                 }
             </style>
 			<?php
+		}
+
+		/**
+		 * Find light or dark color for given color
+		 *
+		 * @param string $color
+		 *
+		 * @return string
+		 */
+		function find_color_invert( $color ) {
+			if ( '' === $color ) {
+				return '';
+			}
+
+			// Trim unneeded whitespace
+			$color = str_replace( ' ', '', $color );
+
+			// If this is hex color
+			if ( 1 === preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
+				$r = hexdec( substr( $color, 0, 2 ) );
+				$g = hexdec( substr( $color, 2, 2 ) );
+				$b = hexdec( substr( $color, 4, 2 ) );
+			}
+			// If this is rgb color
+			if ( 'rgb(' === substr( $color, 0, 4 ) ) {
+				list( $r, $g, $b ) = sscanf( $color, 'rgb(%d,%d,%d)' );
+			}
+
+			// If this is rgba color
+			if ( 'rgba(' === substr( $color, 0, 5 ) ) {
+				list( $r, $g, $b, $alpha ) = sscanf( $color, 'rgba(%d,%d,%d,%f)' );
+			}
+
+			if ( ! isset( $r, $g, $b ) ) {
+				return '';
+			}
+
+			$contrast = (
+				$r * $r * .299 +
+				$g * $g * .587 +
+				$b * $b * .114
+			);
+
+			if ( $contrast > pow( 130, 2 ) ) {
+				//bright color, use dark font
+				return '#000';
+			} else {
+				//dark color, use bright font
+				return '#fff';
+			}
 		}
 	}
 }

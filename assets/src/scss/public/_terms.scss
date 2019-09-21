@@ -2,7 +2,7 @@
 
 .portfolio-terms {
 	margin: 0 0 1rem;
-	border-bottom: 1px solid $color-button-bg;
+	border-bottom: 1px solid var(--portfolio-primary, #{$color-button-bg});
 	padding-bottom: 1rem;
 
 	&:before,
@@ -25,17 +25,17 @@
 		padding: 0.5rem 1rem;
 		margin-right: 0.5rem;
 		background-color: transparent;
-		border: 1px solid $color-button-bg;
-		color: $color-button-bg;
+		border: 1px solid var(--portfolio-primary, #{$color-button-bg});
+		color: var(--portfolio-primary, #{$color-button-bg});
 		display: inline-block;
 		cursor: pointer;
 
 		&.active,
 		&:hover,
 		&:focus {
-			border: 1px solid $color-button-bg;
-			background-color: $color-button-bg;
-			color: $color-button-txt;
+			border: 1px solid var(--portfolio-primary, #{$color-button-bg});
+			background-color: var(--portfolio-primary, #{$color-button-bg});
+			color: var(--portfolio-on-primary, #{$color-button-txt});
 		}
 
 		&:last-child {
