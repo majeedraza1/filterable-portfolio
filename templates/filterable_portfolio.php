@@ -4,28 +4,22 @@ if ( ! defined( 'WPINC' ) ) {
 	die; // If this file is called directly, abort.
 }
 
-$option          = get_option( 'filterable_portfolio' );
-$all_button_text = esc_html__( 'All', 'filterable-portfolio' );
-if ( ! empty( $option['all_categories_text'] ) ) {
-	$all_button_text = esc_html( $option['all_categories_text'] );
-}
+$option          = Filterable_Portfolio_Helper::get_options();
+$all_button_text = esc_html( $option['all_categories_text'] );
 
-$theme       = ! empty( $option['portfolio_theme'] ) ? $option['portfolio_theme'] : '';
-$theme       = in_array( $theme, array( 'one', 'two' ) ) ? $theme : 'one';
+$theme       = in_array( $option['portfolio_theme'], array( 'one', 'two' ) ) ? $option['portfolio_theme'] : 'one';
 $items_class = 'grids portfolio-items';
 $items_class .= ' fp-theme-' . $theme;
 ?>
 <div id="filterable-portfolio" class="filterable-portfolio">
 	<?php if ( $categories && count( $categories ) > 1 ) { ?>
-        <div id="filter" class="portfolio-terms">
-            <div class="filter-options">
-                <button class="button active" data-filter="*"><?php echo $all_button_text; ?></button>
-				<?php foreach ( $categories as $category ) { ?>
-                    <button class="button" data-filter=".<?php echo esc_attr( $category->slug ); ?>">
-						<?php echo esc_html( $category->name ); ?>
-                    </button>
-				<?php } ?>
-            </div>
+        <div class="filterable-portfolio__terms is-justify-end">
+            <button class="button is-active" data-filter="*"><?php echo $all_button_text; ?></button>
+			<?php foreach ( $categories as $category ) { ?>
+                <button class="button" data-filter=".<?php echo esc_attr( $category->slug ); ?>">
+					<?php echo esc_html( $category->name ); ?>
+                </button>
+			<?php } ?>
         </div>
 	<?php } ?>
     <div id="portfolio-items" class="<?php echo $items_class; ?>">
@@ -34,7 +28,7 @@ $items_class .= ' fp-theme-' . $theme;
 		foreach ( $portfolios as $portfolio ) {
 			setup_postdata( $portfolio );
 			$GLOBALS['post'] = $portfolio;
-			do_action( 'filterable_portfolio_loop_post' );
+			do_action( 'filterable_portfolio_loop_post', $portfolio );
 		}
 		wp_reset_postdata();
 		$GLOBALS['post'] = $temp_post;

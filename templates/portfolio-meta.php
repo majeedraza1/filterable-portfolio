@@ -4,14 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die; // If this file is called directly, abort.
 }
 
-$option = wp_parse_args( get_option( 'filterable_portfolio' ), array(
-	'project_details_text'    => __( 'Project Details', 'filterable-portfolio' ),
-	'project_skills_text'     => __( 'Skills Needed:', 'filterable-portfolio' ),
-	'project_categories_text' => __( 'Categories:', 'filterable-portfolio' ),
-	'project_url_text'        => __( 'Project URL:', 'filterable-portfolio' ),
-	'project_date_text'       => __( 'Project Date:', 'filterable-portfolio' ),
-	'project_client_text'     => __( 'Client:', 'filterable-portfolio' ),
-) );
+$option = Filterable_Portfolio_Helper::get_options();
 
 $id               = get_the_ID();
 $client_name      = get_post_meta( $id, '_client_name', true );

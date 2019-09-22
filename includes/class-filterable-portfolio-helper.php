@@ -22,6 +22,53 @@ class Filterable_Portfolio_Helper {
 	const SKILL = 'portfolio_skill';
 
 	/**
+	 * Plugin options
+	 *
+	 * @var array
+	 */
+	protected static $options = [];
+
+	/**
+	 * Get plugin options
+	 *
+	 * @return array
+	 */
+	public static function get_options() {
+		if ( empty( static::$options ) ) {
+			$defaults        = [
+				'columns'                  => 'l4',
+				'columns_desktop'          => 'm4',
+				'columns_tablet'           => 's6',
+				'columns_phone'            => 'xs12',
+				'portfolio_theme'          => 'two',
+				'image_size'               => 'filterable-portfolio',
+				'button_color'             => '#4cc1be',
+				'orderby'                  => 'ID',
+				'order'                    => 'DESC',
+				'posts_per_page'           => 100,
+				'all_categories_text'      => __( 'All', 'filterable-portfolio' ),
+				'details_button_text'      => __( 'Details', 'filterable-portfolio' ),
+				'project_image_size'       => 'full',
+				'show_related_projects'    => 1,
+				'related_projects_number'  => 4,
+				'project_description_text' => __( 'Project Description', 'filterable-portfolio' ),
+				'project_details_text'     => __( 'Project Details', 'filterable-portfolio' ),
+				'project_skills_text'      => __( 'Skills Needed:', 'filterable-portfolio' ),
+				'project_categories_text'  => __( 'Categories:', 'filterable-portfolio' ),
+				'project_url_text'         => __( 'Project URL:', 'filterable-portfolio' ),
+				'project_date_text'        => __( 'Project Date:', 'filterable-portfolio' ),
+				'project_client_text'      => __( 'Client:', 'filterable-portfolio' ),
+				'related_projects_text'    => __( 'Related Projects', 'filterable-portfolio' ),
+			];
+			$options         = get_option( 'filterable_portfolio' );
+			$options         = is_array( $options ) ? $options : [];
+			static::$options = wp_parse_args( $options, $defaults );
+		}
+
+		return static::$options;
+	}
+
+	/**
 	 * Get all portfolios
 	 *
 	 * @param array $args
@@ -29,17 +76,13 @@ class Filterable_Portfolio_Helper {
 	 * @return WP_Post[]
 	 */
 	public static function get_portfolios( $args = [] ) {
-		$options        = get_option( 'filterable_portfolio' );
-		$posts_per_page = isset( $options['per_page'] ) ? intval( $options['per_page'] ) : - 1;
-		$orderby        = isset( $options['orderby'] ) ? esc_attr( $options['orderby'] ) : 'ID';
-		$order          = isset( $options['order'] ) ? esc_attr( $options['order'] ) : 'DESC';
-
+		$options         = static::get_options();
 		$portfolios_args = array(
 			'post_type'      => self::POST_TYPE,
 			'post_status'    => 'publish',
-			'posts_per_page' => $posts_per_page,
-			'orderby'        => $orderby,
-			'order'          => $order,
+			'posts_per_page' => intval( $options['posts_per_page'] ),
+			'orderby'        => $options['orderby'],
+			'order'          => $options['order'],
 		);
 
 		if ( isset( $args['per_page'] ) && is_numeric( $args['per_page'] ) ) {
@@ -73,13 +116,11 @@ class Filterable_Portfolio_Helper {
 		$post       = get_post( $post );
 		$categories = get_the_terms( $post->ID, self::CATEGORY );
 		$skills     = get_the_terms( $post->ID, self::SKILL );
-
-		$options  = get_option( 'filterable_portfolio' );
-		$per_page = isset( $options['related_projects_number'] ) ? intval( $options['related_projects_number'] ) : 3;
+		$options    = static::get_options();
 
 		$args = array(
 			'post_type'      => self::POST_TYPE,
-			'posts_per_page' => $per_page,
+			'posts_per_page' => intval( $options['related_projects_number'] ),
 			'post__not_in'   => array( $post->ID ),
 			'tax_query'      => array( 'relation' => 'OR' )
 		);

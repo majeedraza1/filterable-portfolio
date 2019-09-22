@@ -10,15 +10,11 @@ if ( count( $portfolios ) < 1 ) {
 	return;
 }
 
-$option      = get_option( 'filterable_portfolio' );
-$theme       = ! empty( $option['portfolio_theme'] ) ? $option['portfolio_theme'] : '';
-$theme       = in_array( $theme, array( 'one', 'two' ) ) ? $theme : 'one';
+$option      = Filterable_Portfolio_Helper::get_options();
+$theme       = in_array( $option['portfolio_theme'], array( 'one', 'two' ) ) ? $option['portfolio_theme'] : 'one';
 $items_class = 'grids portfolio-items related-projects';
 $items_class .= ' fp-theme-' . $theme;
-$title       = esc_html__( 'Related Projects', 'filterable-portfolio' );
-if ( ! empty( $options['related_projects_text'] ) ) {
-	$title = esc_html( $options['related_projects_text'] );
-}
+$title       = esc_html( $option['related_projects_text'] );
 ?>
 <h4 class="related-projects-title"><?php echo $title; ?></h4>
 <div class="<?php echo $items_class; ?>">
@@ -27,7 +23,7 @@ if ( ! empty( $options['related_projects_text'] ) ) {
 	foreach ( $portfolios as $portfolio ) {
 		setup_postdata( $portfolio );
 		$GLOBALS['post'] = $portfolio;
-		do_action( 'filterable_portfolio_loop_post' );
+		do_action( 'filterable_portfolio_loop_post', $portfolio );
 	}
 	wp_reset_postdata();
 	$GLOBALS['post'] = $temp_post;

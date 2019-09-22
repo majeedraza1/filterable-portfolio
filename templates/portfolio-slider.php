@@ -8,8 +8,8 @@ if ( ! Filterable_Portfolio_Helper::has_portfolio_images() ) {
 }
 
 $project_images = Filterable_Portfolio_Helper::get_portfolio_images_ids();
-$option         = get_option( 'filterable_portfolio' );
-$image_size     = ! empty( $option['project_image_size'] ) ? $option['project_image_size'] : 'full';
+$option         = Filterable_Portfolio_Helper::get_options();
+$image_size     = $option['project_image_size'];
 ?>
 <div class="fp-tns-slider-outer dots-circle dots-right">
     <div

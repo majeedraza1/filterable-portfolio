@@ -43,6 +43,21 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		}
 
 		/**
+		 * Plugin version
+		 *
+		 * @return string
+		 */
+		public function plugin_version() {
+			$version = FILTERABLE_PORTFOLIO_VERSION;
+
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				return $version . '-' . time();
+			}
+
+			return $version;
+		}
+
+		/**
 		 * Register plugin admin & public styles
 		 */
 		public function register_styles() {
@@ -50,13 +65,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				'filterable-portfolio'       => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/frontend.css',
 					'dependency' => array(),
-					'version'    => FILTERABLE_PORTFOLIO_VERSION,
+					'version'    => $this->plugin_version(),
 					'media'      => 'all',
 				),
 				'filterable-portfolio-admin' => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/admin.css',
 					'dependency' => array( 'wp-color-picker' ),
-					'version'    => FILTERABLE_PORTFOLIO_VERSION,
+					'version'    => $this->plugin_version(),
 					'media'      => 'all',
 				),
 			);
@@ -70,17 +85,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 * Register plugin admin & public scripts
 		 */
 		public function register_scripts() {
-			$suffix = ( defined( "SCRIPT_DEBUG" ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 			$scripts = array(
 				'isotope'                    => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope' . $suffix . '.js',
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope.min.js',
 					'dependency' => array( 'imagesloaded' ),
 					'version'    => '3.0.5',
 					'in_footer'  => true,
 				),
 				'tiny-slider'                => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider' . $suffix . '.js',
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider.min.js',
 					'dependency' => array(),
 					'version'    => '2.9.1',
 					'in_footer'  => true,
@@ -88,13 +101,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				'filterable-portfolio'       => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/frontend.js',
 					'dependency' => array(),
-					'version'    => FILTERABLE_PORTFOLIO_VERSION,
+					'version'    => $this->plugin_version(),
 					'in_footer'  => true,
 				),
 				'filterable-portfolio-admin' => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/admin.js',
 					'dependency' => array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker' ),
-					'version'    => FILTERABLE_PORTFOLIO_VERSION,
+					'version'    => $this->plugin_version(),
 					'in_footer'  => true,
 				),
 			);
@@ -120,18 +133,35 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		public function frontend_scripts() {
 			wp_enqueue_style( 'filterable-portfolio' );
 
-			if ( is_singular( 'portfolio' ) ) {
+			if ( $this->should_load_scripts() ) {
 				wp_enqueue_script( 'tiny-slider' );
 				wp_enqueue_script( 'filterable-portfolio' );
 			}
 		}
 
 		/**
+		 * Check if should load scripts
+		 *
+		 * @return bool
+		 */
+		public function should_load_scripts() {
+			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
+				return true;
+			}
+
+			if ( Filterable_Portfolio_Helper::is_portfolio_archive() ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
 		 * Dynamic style
 		 */
 		public function inline_style() {
-			$options = get_option( 'filterable_portfolio' );
-			$btn_bg  = ! empty( $options['button_color'] ) ? $options['button_color'] : '#4cc1be';
+			$options = Filterable_Portfolio_Helper::get_options();
+			$btn_bg  = esc_attr( $options['button_color'] );
 			?>
             <style type="text/css" id="filterable-portfolio-inline-style">
                 :root {

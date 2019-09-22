@@ -1,22 +1,22 @@
 @import "preboot";
 
-.portfolio-terms {
-	margin: 0 0 1rem;
+.filterable-portfolio__terms {
+	align-items: center;
 	border-bottom: 1px solid var(--portfolio-primary, #{$color-button-bg});
+	margin: 0 0 1rem;
 	padding-bottom: 1rem;
+	display: flex;
 
-	&:before,
-	&:after {
-		display: table;
-		content: "";
+	&.is-justify-end {
+		justify-content: flex-end;
 	}
 
-	&:after {
-		clear: both;
+	&.is-justify-start {
+		justify-content: flex-start;
 	}
 
-	.filter-options {
-		float: right;
+	&.is-justify-center {
+		justify-content: center;
 	}
 
 	button {
@@ -30,7 +30,7 @@
 		display: inline-block;
 		cursor: pointer;
 
-		&.active,
+		&.is-active,
 		&:hover,
 		&:focus {
 			border: 1px solid var(--portfolio-primary, #{$color-button-bg});

@@ -56,5 +56,10 @@
 		font-weight: 400;
 		line-height: 1;
 		padding: 0.5rem 1rem;
+
+		&:hover {
+			background-color: var(--portfolio-primary, #{$color-button-bg});
+			color: var(--portfolio-on-primary, #{$color-button-txt});
+		}
 	}
 }

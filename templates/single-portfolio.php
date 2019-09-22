@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die; // If this file is called directly, abort.
 }
 
-$options = get_option( 'filterable_portfolio' );
+$options = Filterable_Portfolio_Helper::get_options();
 ?>
 <div class="single-portfolio-content">
 	<?php
