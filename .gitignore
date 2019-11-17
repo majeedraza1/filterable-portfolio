@@ -1,9 +1,9 @@
-#Folders
-.idea/
-node_modules/
-.sass-cache/
+# Folders
+.idea
+node_modules
+assets/css
+assets/js
 
-#Files
-assets/css/style.css.map
-assets/css/admin.css.map
+# Files
+*.map
 package-lock.json

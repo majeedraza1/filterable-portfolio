@@ -89,13 +89,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 				'isotope'                    => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope.min.js',
 					'dependency' => array( 'imagesloaded' ),
-					'version'    => '3.0.5',
+					'version'    => '3.0.6',
 					'in_footer'  => true,
 				),
 				'tiny-slider'                => array(
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider.min.js',
 					'dependency' => array(),
-					'version'    => '2.9.1',
+					'version'    => '2.9.2',
 					'in_footer'  => true,
 				),
 				'filterable-portfolio'       => array(

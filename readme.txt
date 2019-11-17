@@ -2,8 +2,9 @@
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 4.7
-Tested up to: 5.1
-Stable tag: 1.4.0
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: 1.5.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -31,6 +32,17 @@ After installing and activating the plugin, a new custom post type called "Portf
 
 **[filterable_portfolio]**
 
+The shortcode can include following attributes.
+
+* `featured`: Default value `no`. Value can be `yes` or `no`.
+* `show_filter`: Default value `yes`. Value can be `yes` or `no`.
+
+Example 1:
+
+```
+[filterable_portfolio featured='yes' show_filter='no']
+```
+
 = Theme Integration =
 
 Filterable Portfolio works with most theme out of the box. But the following theme support its full features like single, archive and taxonomy template. Filterable Portfolio is fully integrated with the following themes.
@@ -54,11 +66,8 @@ If you still need help. visit [WordPress codex](https://codex.wordpress.org/Mana
 
 
 == Frequently Asked Questions ==
-Do you have questions or issues with Filterable Portfolio? [Ask for support here.](http://wordpress.org/support/plugin/filterable-portfolio)
 
-== Frequently Asked Questions ==
-
-= After changing portfolio slug, portfolio link is not working.  =
+= After changing portfolio slug, portfolio link is not working. =
 After change portfolio slug, you need to regenerate permalink.
 To regenerate permalink, go to *Settings --> Permalinks* from WordPress admin and press on "Save Changes" button.
 
@@ -82,6 +91,18 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.5.0 - 2019-11-17 =
+* Dev       - Upgrade `isotope` to version 3.0.6 and `tiny-slider` to version 2.9.2
+* Added     - Add portfolios REST endpoint to get portfolios.
+* Added     - Add categories and skills REST endpoint.
+* Added     - Add "Featured" attribute on shortcode and REST api.
+* Tweak 	- Hide filter button if button quantity is one.
+* Added 	- Add image size for single portfolio project images.
+* Tweak 	- Removed alpha color picker for filter buttons.
+* Dev   	- Removed shuffle js library.
+* Dev   	- Update css inline style with css variable.
+* Dev   	- Update shortcode html structure and refactor core code.
 
 = version 1.4.0 - 2019-01-31 =
 * Added     - Add support for Gutenberg editor introduced on WordPress 5.0
@@ -151,7 +172,6 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 == CREDIT ==
 
-1. [Shuffle](https://vestride.github.io/Shuffle/)
 2. [Isotope](http://isotope.metafizzy.co/)
 3. [tiny-slider](https://github.com/ganlanyuan/tiny-slider)
 
