@@ -30,7 +30,7 @@ A WordPress Portfolio plugin to display portfolio/project images to your site.
 
 After installing and activating the plugin, a new custom post type called "Portfolios" will appear at your Wordpress Admin area. Just create your Portfolio from the "Portfolios" menu & paste the following shortcode where you want to display this Portfolio:
 
-**[filterable_portfolio]**
+`[filterable_portfolio]`
 
 The shortcode can include following attributes.
 
@@ -39,9 +39,7 @@ The shortcode can include following attributes.
 
 Example 1:
 
-```
-[filterable_portfolio featured='yes' show_filter='no']
-```
+`[filterable_portfolio featured='yes' show_filter='no']`
 
 = Theme Integration =
 
@@ -74,15 +72,15 @@ To regenerate permalink, go to *Settings --> Permalinks* from WordPress admin an
 = I want to remove Project Date. Is it possible? =
 You can add, remove or modify any field using filter hook. *filterable_portfolio_meta_box_fields*
 Here is an example to remove Project Date.
-```
-function filterable_portfolio_remove_product_date( $fields ) {
+
+`function filterable_portfolio_remove_product_date( $fields ) {
     // Remove product date
     unset( $fields['_project_date'] );
 
     return $fields;
 }
-add_filter( 'filterable_portfolio_meta_box_fields', 'filterable_portfolio_remove_product_date' );
-```
+add_filter( 'filterable_portfolio_meta_box_fields', 'filterable_portfolio_remove_product_date' );`
+
 Here is a list of all default meta fields: _project_images, _client_name, _project_date, _project_url
 
 == Screenshots ==
