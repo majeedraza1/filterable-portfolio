@@ -10,7 +10,9 @@ $id               = get_the_ID();
 $client_name      = get_post_meta( $id, '_client_name', true );
 $project_url      = get_post_meta( $id, '_project_url', true );
 $project_date     = get_post_meta( $id, '_project_date', true );
-$project_date     = date_i18n( get_option( 'date_format' ), strtotime( $project_date ) );
+if ( $project_date ) {
+	$project_date = date_i18n( get_option( 'date_format' ), strtotime( $project_date ) );
+}
 $categories       = get_the_terms( $id, 'portfolio_cat' );
 $categories_names = is_array( $categories ) ? wp_list_pluck( $categories, 'name' ) : array();
 $skills           = get_the_terms( $id, 'portfolio_skill' );
