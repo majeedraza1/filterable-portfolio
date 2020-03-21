@@ -14,7 +14,7 @@ $options = Filterable_Portfolio_Helper::get_options();
     <div class="grids">
         <div class="project-content grid s8">
             <h4><?php echo esc_attr( $options['project_description_text'] ); ?></h4>
-			<?php echo get_the_content(); ?>
+			<?php echo do_shortcode( get_the_content() ); ?>
         </div>
         <div class="project-meta grid s4">
 			<?php
