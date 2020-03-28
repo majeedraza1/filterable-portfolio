@@ -56,7 +56,7 @@
         slideBy = slider.getAttribute('data-slide-by');
         slideBy = (slideBy === 'page') ? 'page' : parseInt(slideBy);
 
-        tns({
+        slider.tinySlider=tns({
             container: slider,
             slideBy: slideBy,
             loop: loop,
