@@ -53,21 +53,24 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route( $this->namespace, '/portfolios', [
 			[
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_items' ],
-				'args'     => $this->get_collection_params(),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'get_items' ],
+				'args'                => $this->get_collection_params(),
+				'permission_callback' => '__return_true',
 			],
 		] );
 		register_rest_route( $this->namespace, '/categories', [
 			[
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_categories' ],
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'get_categories' ],
+				'permission_callback' => '__return_true',
 			],
 		] );
 		register_rest_route( $this->namespace, '/skills', [
 			[
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_skills' ],
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'get_skills' ],
+				'permission_callback' => '__return_true',
 			],
 		] );
 	}
@@ -92,6 +95,14 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 
 		if ( $request->get_param( 'featured' ) ) {
 			$args['featured'] = true;
+		}
+
+		if ( ! empty( $order ) ) {
+			$args['order'] = $order;
+		}
+
+		if ( ! empty( $orderby ) ) {
+			$args['orderby'] = $orderby;
 		}
 
 		$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
@@ -309,32 +320,32 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 
 		$params = parent::get_collection_params();
 
-		return array_merge( $params, array(
-			'order'    => array(
+		return array_merge( $params, [
+			'order'    => [
 				'description' => __( 'Order sort attribute ascending or descending.' ),
 				'type'        => 'string',
 				'default'     => 'desc',
-				'enum'        => array( 'asc', 'desc' ),
-			),
-			'orderby'  => array(
+				'enum'        => [ 'asc', 'desc' ],
+			],
+			'orderby'  => [
 				'description' => __( 'Sort collection by object attribute.' ),
 				'type'        => 'string',
 				'default'     => 'date',
-				'enum'        => array( 'id', 'title', 'date', ),
-			),
-			'fields'   => array(
+				'enum'        => [ 'id', 'title', 'date', ],
+			],
+			'fields'   => [
 				'description'       => __( 'List of fields to include in response. Available fields are ' ) . implode( ', ', $valid_fields ),
 				'type'              => 'array',
 				'default'           => [ 'id', 'title', 'featured_media' ],
 				'validate_callback' => 'rest_validate_request_arg',
-			),
-			'featured' => array(
+			],
+			'featured' => [
 				'description'       => __( 'Limit results to featured projects only.' ),
 				'type'              => 'boolean',
 				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',
-			),
-		) );
+			],
+		] );
 	}
 
 	/**
@@ -657,55 +668,5 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		}
 
 		return $date;
-	}
-
-	/**
-	 * Generate pagination metadata
-	 *
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	public function getPaginationMetadata( array $args ) {
-		$data = wp_parse_args( $args, array(
-			"totalCount"     => 0,
-			"limit"          => 10,
-			"currentPage"    => 1,
-			"offset"         => 0,
-			"previousOffset" => null,
-			"nextOffset"     => null,
-			"pageCount"      => 0,
-		) );
-
-		if ( ! isset( $args['currentPage'] ) && isset( $args['offset'] ) ) {
-			$data['currentPage'] = ( $args['offset'] / $data['limit'] ) + 1;
-		}
-
-		if ( ! isset( $args['offset'] ) && isset( $args['currentPage'] ) ) {
-			$offset         = ( $data['currentPage'] - 1 ) * $data['limit'];
-			$data['offset'] = max( $offset, 0 );
-		}
-
-		$previousOffset         = ( $data['currentPage'] - 2 ) * $data['limit'];
-		$nextOffset             = $data['currentPage'] * $data['limit'];
-		$data['previousOffset'] = ( $previousOffset < 0 || $previousOffset > $data['totalCount'] ) ? null : $previousOffset;
-		$data['nextOffset']     = ( $nextOffset < 0 || $nextOffset > $data['totalCount'] ) ? null : $nextOffset;
-		$data['pageCount']      = ceil( $data['totalCount'] / $data['limit'] );
-
-		return $data;
-	}
-
-	/**
-	 * Get sorting metadata
-	 *
-	 * @param string $field
-	 * @param string $order
-	 *
-	 * @return array
-	 */
-	public function getSortingMetadata( $field, $order ) {
-		return array(
-			array( "field" => $field, "order" => $order ),
-		);
 	}
 }

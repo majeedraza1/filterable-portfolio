@@ -1,15 +1,18 @@
 <?php
 /**
- * Plugin Name:       Filterable Portfolio
- * Plugin URI:        https://wordpress.org/plugins/filterable-portfolio/
- * Description:       A WordPress plugin to display portfolio images with filtering.
- * Version:           1.5.0
- * Author:            Sayful Islam
- * Author URI:        https://sayfulislam.com
- * License:           GPLv3
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       filterable-portfolio
- * Domain Path:       /languages
+ * Plugin Name:         Filterable Portfolio
+ * Plugin URI:          https://wordpress.org/plugins/filterable-portfolio/
+ * Description:         A WordPress plugin to display portfolio images with filtering.
+ * Version:             1.5.1
+ * Author:              Sayful Islam
+ * Author URI:          https://sayfulislam.com
+ * License:             GPLv3
+ * License URI:         https://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:         filterable-portfolio
+ * Domain Path:         /languages
+ * Requires at least:   5.5
+ * Tested up to:        5.7
+ * Requires PHP:        7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,14 +39,14 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		 *
 		 * @var array
 		 */
-		private $container = array();
+		private $container = [];
 
 		/**
 		 * Current version number
 		 *
 		 * @var string
 		 */
-		private $version = '1.5.0';
+		private $version = '1.5.1';
 
 		/**
 		 * Instance of this class
@@ -71,14 +74,13 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 				// initialize plugin classes
 				self::$instance->init_classes();
 
-				register_activation_hook( __FILE__, array( self::$instance, 'activation' ) );
-				register_deactivation_hook( __FILE__, array( self::$instance, 'deactivation' ) );
+				register_activation_hook( __FILE__, [ self::$instance, 'activation' ] );
+				register_deactivation_hook( __FILE__, [ self::$instance, 'deactivation' ] );
 
-				add_action( 'after_setup_theme', array( self::$instance, 'add_image_size' ) );
+				add_action( 'after_setup_theme', [ self::$instance, 'add_image_size' ] );
 
-				add_filter( 'admin_footer_text', array( self::$instance, 'admin_footer_text' ) );
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ),
-					array( self::$instance, 'action_links' ) );
+				add_filter( 'admin_footer_text', [ self::$instance, 'admin_footer_text' ] );
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ self::$instance, 'action_links' ] );
 
 				do_action( 'filterable_portfolio_init' );
 			}
@@ -193,6 +195,11 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			}
 
 			add_action( 'widgets_init', array( 'Filterable_Portfolio_Widget', 'register' ) );
+
+			// WP-CLI Commands
+			if ( class_exists( WP_CLI::class ) && class_exists( WP_CLI_Command::class ) ) {
+				WP_CLI::add_command( 'filterable-portfolio', Filterable_Portfolio_CLI_Command::class );
+			}
 		}
 
 		/**

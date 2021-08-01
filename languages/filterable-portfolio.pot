@@ -1,0 +1,531 @@
+# Copyright (C) 2021 Sayful Islam
+# This file is distributed under the same license as the Filterable Portfolio plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Filterable Portfolio 1.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/filterable-portfolio\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-08-01T13:39:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: filterable-portfolio\n"
+
+#. Plugin Name of the plugin
+#: includes/class-filterable-portfolio-widget.php:17
+msgid "Filterable Portfolio"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/filterable-portfolio/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A WordPress plugin to display portfolio images with filtering."
+msgstr ""
+
+#. Author of the plugin
+msgid "Sayful Islam"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://sayfulislam.com"
+msgstr ""
+
+#: filterable-portfolio.php:215
+msgid "If you like %1$s Filterable Portfolio %2$s please leave us a %3$s rating. A huge thanks in advance!"
+msgstr ""
+
+#: filterable-portfolio.php:235
+#: includes/class-filterable-portfolio-setting.php:39
+msgid "Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:88
+#: includes/class-filterable-portfolio-admin.php:90
+#: includes/class-filterable-portfolio-admin.php:106
+msgid "Portfolios"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:89
+msgid "Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:91
+msgid "Parent Portfolio:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:92
+msgid "All Portfolios"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:93
+msgid "View Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:94
+msgid "Add New Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:95
+msgid "Add New"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:96
+msgid "Edit Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:97
+msgid "Update Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:98
+msgid "Search Portfolio"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:99
+msgid "Not found"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:100
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:107
+msgid "A WordPress filterable portfolio to display portfolio images or gallery to your site."
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:138
+msgid "Categories"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:139
+msgid "Category"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:153
+msgid "Skills"
+msgstr ""
+
+#: includes/class-filterable-portfolio-admin.php:154
+msgid "Skill"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:49
+#: includes/class-filterable-portfolio-setting.php:183
+msgid "All"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:50
+#: includes/class-filterable-portfolio-setting.php:190
+msgid "Details"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:54
+#: includes/class-filterable-portfolio-setting.php:245
+msgid "Project Description"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:55
+#: includes/class-filterable-portfolio-setting.php:253
+msgid "Project Details"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:56
+#: includes/class-filterable-portfolio-setting.php:261
+msgid "Skills Needed:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:57
+#: includes/class-filterable-portfolio-setting.php:269
+msgid "Categories:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:58
+#: includes/class-filterable-portfolio-setting.php:277
+msgid "Project URL:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:59
+#: includes/class-filterable-portfolio-setting.php:285
+msgid "Project Date:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:60
+#: includes/class-filterable-portfolio-setting.php:293
+msgid "Client:"
+msgstr ""
+
+#: includes/class-filterable-portfolio-helper.php:61
+#: includes/class-filterable-portfolio-setting.php:301
+msgid "Related Projects"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox-api.php:355
+msgid "Create Gallery"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox-api.php:356
+msgid "Edit Gallery"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox-api.php:357
+msgid "Saving..."
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox-api.php:358
+msgid "Save Gallery"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:76
+msgid "Portfolio Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:77
+msgid "Here you can customize your project details."
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:83
+msgid "Project Images"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:84
+msgid "Choose project images."
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:90
+msgid "Client Name"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:91
+msgid "Enter the client name of the project"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:97
+msgid "Project Date"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:98
+msgid "Choose the project date."
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:104
+msgid "Project URL"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:105
+msgid "Enter the project URL"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:111
+msgid "Featured project"
+msgstr ""
+
+#: includes/class-filterable-portfolio-metabox.php:112
+msgid "Check this if you want to mark this project as featured."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:38
+msgid "Filterable Portfolio Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:40
+msgid "Thank you for choosing Filterable Portfolio. We hope you enjoy it!"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:49
+msgid "General Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:53
+msgid "Responsive Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:57
+msgid "Single Portfolio Settings"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:64
+msgid "Columns"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:65
+msgid "The number of items you want to see on the Large Desktop Layout."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:68
+#: includes/class-filterable-portfolio-setting.php:84
+#: includes/class-filterable-portfolio-setting.php:99
+#: includes/class-filterable-portfolio-setting.php:114
+msgid "1 Column"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:69
+#: includes/class-filterable-portfolio-setting.php:85
+#: includes/class-filterable-portfolio-setting.php:100
+#: includes/class-filterable-portfolio-setting.php:115
+msgid "2 Columns"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:70
+#: includes/class-filterable-portfolio-setting.php:86
+#: includes/class-filterable-portfolio-setting.php:101
+#: includes/class-filterable-portfolio-setting.php:116
+msgid "3 Columns"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:71
+#: includes/class-filterable-portfolio-setting.php:87
+#: includes/class-filterable-portfolio-setting.php:102
+#: includes/class-filterable-portfolio-setting.php:117
+msgid "4 Columns"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:72
+msgid "6 Columns"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:80
+msgid "Columns:Desktop"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:81
+msgid "The number of items you want to see on the Desktop Layout (Screens size from 993 pixels DP to 1199 pixels DP)"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:95
+msgid "Columns:Tablet"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:96
+msgid "The number of items you want to see on the Tablet Layout (Screens size from 601 pixels DP to 992 pixels DP)"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:110
+msgid "Columns:Phone"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:111
+msgid "The number of items you want to see on the Mobile Layout (Screens size from 320 pixels DP to 600 pixels DP)"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:125
+msgid "Portfolio Theme"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:126
+msgid "Choose portfolio theme."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:128
+msgid "Theme One - Classic Layout"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:129
+msgid "Theme Two - Classic Layout"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:136
+msgid "Image Size"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:137
+msgid "Choose portfolio images size."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:143
+msgid "Button Color"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:144
+msgid "Choose color for filter buttons, border color and details buttons."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:151
+msgid "Portfolio Order"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:152
+msgid "Choose portfolio ascending or descending order."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:154
+msgid "Ascending order"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:155
+msgid "Descending order"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:162
+msgid "Portfolio Order By"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:163
+msgid "Sort retrieved portfolios by parameter."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:165
+msgid "ID"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:166
+msgid "Title"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:167
+msgid "Date created"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:168
+msgid "Date modified"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:169
+msgid "Random"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:176
+msgid "# of portfolio to show"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:177
+msgid "Number of portfolio to show per page. -1 to show all portfolios"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:184
+msgid "All Categories Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:185
+msgid "Enter the text for all filter button."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:191
+msgid "Details Button Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:192
+msgid "Enter the text for details button."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:198
+msgid "Portfolio Slug"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:199
+#: includes/class-filterable-portfolio-setting.php:206
+#: includes/class-filterable-portfolio-setting.php:213
+msgid "The slug name cannot be the same name as a page name or the layout will break. This option changes the permalink when you use the permalink type as %postname%. Make sure to regenerate permalink from Settings --> Permalinks after changing this value."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:205
+msgid "Portfolio Category Slug"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:212
+msgid "Portfolio Skill Slug"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:221
+msgid "Project Images Size"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:222
+msgid "Choose single portfolio project images size."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:229
+msgid "Show Related Projects"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:230
+msgid "Enable to show related projects on portfolio single page."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:237
+msgid "Number of Related Projects"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:238
+msgid "How many related projects you want to show in single portfolio page."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:246
+msgid "Project Description Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:247
+msgid "Enter the text for project description."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:254
+msgid "Project Details Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:255
+msgid "Enter the text for project details."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:262
+msgid "Skills Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:263
+msgid "Enter the text for project skills."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:270
+msgid "Categories Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:271
+msgid "Enter the text for project categories."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:278
+msgid "Project URL Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:279
+msgid "Enter the text for project url."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:286
+msgid "Project date Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:287
+msgid "Enter the text for project date."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:294
+msgid "Client Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:295
+msgid "Enter the text for project client."
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:302
+msgid "Related Projects Text"
+msgstr ""
+
+#: includes/class-filterable-portfolio-setting.php:303
+msgid "Enter the text for related projects."
+msgstr ""
+
+#: includes/class-filterable-portfolio-widget.php:15
+msgid "Display portfolio images with filtering."
+msgstr ""
+
+#: includes/class-filterable-portfolio-widget.php:54
+msgid "Click here"
+msgstr ""
+
+#: includes/class-filterable-portfolio-widget.php:55
+msgid "to change portfolio settings"
+msgstr ""

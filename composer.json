@@ -1,0 +1,25 @@
+{
+  "name": "sayful1/filterable-portfolio",
+  "description": "A WordPress plugin to display portfolio images with filtering.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://wordpress.org/plugins/filterable-portfolio",
+  "authors": [
+    {
+      "name": "Sayful Islam",
+      "email": "sayful.islam001@gmail.com",
+      "homepage": "https://sayfulislam.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0",
+    "ext-json": "*"
+  },
+  "scripts": {
+    "generate-pot": "wp i18n make-pot . languages/filterable-portfolio.pot",
+    "show-plugin-info": "wp filterable-portfolio info",
+    "create-dummy-data": "wp filterable-portfolio create_dummy_data"
+  }
+}
