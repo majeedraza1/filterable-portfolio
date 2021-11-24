@@ -61,20 +61,20 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 * Register plugin admin & public styles
 		 */
 		public function register_styles() {
-			$styles = array(
-				'filterable-portfolio'       => array(
+			$styles = [
+				'filterable-portfolio'       => [
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/frontend.css',
-					'dependency' => array(),
+					'dependency' => [],
 					'version'    => $this->plugin_version(),
 					'media'      => 'all',
-				),
-				'filterable-portfolio-admin' => array(
+				],
+				'filterable-portfolio-admin' => [
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/css/admin.css',
-					'dependency' => array( 'wp-color-picker' ),
+					'dependency' => [ 'wp-color-picker' ],
 					'version'    => $this->plugin_version(),
 					'media'      => 'all',
-				),
-			);
+				],
+			];
 
 			foreach ( $styles as $handle => $style ) {
 				wp_register_style( $handle, $style['src'], $style['dependency'], $style['version'], $style['media'] );
@@ -85,32 +85,26 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 * Register plugin admin & public scripts
 		 */
 		public function register_scripts() {
-			$scripts = array(
-				'isotope'                    => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/isotope/isotope.min.js',
-					'dependency' => array( 'imagesloaded' ),
-					'version'    => '3.0.6',
-					'in_footer'  => true,
-				),
-				'tiny-slider'                => array(
-					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/lib/tiny-slider/tiny-slider.min.js',
-					'dependency' => array(),
-					'version'    => '2.9.2',
-					'in_footer'  => true,
-				),
-				'filterable-portfolio'       => array(
+			$scripts = [
+				'filterable-portfolio'        => [
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/frontend.js',
-					'dependency' => array(),
+					'dependency' => [ 'imagesloaded' ],
 					'version'    => $this->plugin_version(),
 					'in_footer'  => true,
-				),
-				'filterable-portfolio-admin' => array(
+				],
+				'filterable-portfolio-single' => [
+					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/single-portfolio.js',
+					'dependency' => [],
+					'version'    => $this->plugin_version(),
+					'in_footer'  => true,
+				],
+				'filterable-portfolio-admin'  => [
 					'src'        => FILTERABLE_PORTFOLIO_ASSETS . '/js/admin.js',
-					'dependency' => array( 'jquery', 'wp-color-picker', 'jquery-ui-datepicker' ),
+					'dependency' => [ 'jquery', 'wp-color-picker' ],
 					'version'    => $this->plugin_version(),
 					'in_footer'  => true,
-				),
-			);
+				],
+			];
 
 
 			foreach ( $scripts as $handle => $script ) {
@@ -132,15 +126,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 */
 		public function frontend_scripts() {
 			wp_enqueue_style( 'filterable-portfolio' );
-
-			if ( $this->should_load_scripts() ) {
-				wp_enqueue_script( 'tiny-slider' );
-				wp_enqueue_script( 'filterable-portfolio' );
-			}
 		}
 
 		/**
-		 * Check if should load scripts
+		 * Check if it should load scripts
 		 *
 		 * @return bool
 		 */
@@ -163,12 +152,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 			$options = Filterable_Portfolio_Helper::get_options();
 			$btn_bg  = esc_attr( $options['button_color'] );
 			?>
-            <style type="text/css" id="filterable-portfolio-inline-style">
-                :root {
-                    --portfolio-primary: <?php echo $btn_bg; ?>;
-                    --portfolio-on-primary: <?php echo $this->find_color_invert($btn_bg); ?>;
-                }
-            </style>
+			<style id="filterable-portfolio-inline-style">
+				:root {
+					--portfolio-primary: <?php echo $btn_bg; ?>;
+					--portfolio-on-primary: <?php echo $this->find_color_invert($btn_bg); ?>;
+				}
+			</style>
 			<?php
 		}
 

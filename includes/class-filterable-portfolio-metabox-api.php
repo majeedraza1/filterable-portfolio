@@ -200,10 +200,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		 * @return string
 		 */
 		public function date( $field, $name, $value ) {
-			$value = empty( $value ) ? date( 'F d, Y', time() ) : $value;
-			$value = date( "F d, Y", strtotime( $value ) );
+			$value = ! empty( $value ) ? date( "Y-m-d", strtotime( $value ) ) : '';
 
-			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">',
+			return sprintf( '<input type="date" class="regular-text" value="%1$s" id="%2$s" name="%3$s">',
 				$value, $field['id'], $name );
 		}
 
@@ -346,19 +345,19 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$btn_text = $value ? 'Edit Gallery' : 'Add Gallery';
 			$value    = strip_tags( rtrim( $value, ',' ) );
 			ob_start(); ?>
-            <div class="gallery_images">
-                <input type="hidden" value="<?php echo $value; ?>" id="<?php echo $field['id']; ?>"
-                       name="<?php echo $name; ?>">
-                <button id="fp_gallery_btn"
-                        class="button button-default"
-                        data-modal="MediaFramePost"
-                        data-create="<?php esc_attr_e( 'Create Gallery', 'filterable-portfolio' ); ?>"
-                        data-edit="<?php esc_attr_e( 'Edit Gallery', 'filterable-portfolio' ); ?>"
-                        data-progress="<?php esc_attr_e( 'Saving...', 'filterable-portfolio' ); ?>"
-                        data-save="<?php esc_attr_e( 'Save Gallery', 'filterable-portfolio' ); ?>"
-                ><?php echo $btn_text; ?></button>
-                <br class="clear"><br>
-                <ul class="fp_gallery_list gallery_images_list">
+			<div class="gallery_images">
+				<input type="hidden" value="<?php echo $value; ?>" id="<?php echo $field['id']; ?>"
+					   name="<?php echo $name; ?>">
+				<button id="fp_gallery_btn"
+						class="button button-default"
+						data-modal="MediaFramePost"
+						data-create="<?php esc_attr_e( 'Create Gallery', 'filterable-portfolio' ); ?>"
+						data-edit="<?php esc_attr_e( 'Edit Gallery', 'filterable-portfolio' ); ?>"
+						data-progress="<?php esc_attr_e( 'Saving...', 'filterable-portfolio' ); ?>"
+						data-save="<?php esc_attr_e( 'Save Gallery', 'filterable-portfolio' ); ?>"
+				><?php echo $btn_text; ?></button>
+				<br class="clear"><br>
+				<ul class="fp_gallery_list gallery_images_list">
 					<?php
 					if ( $value ) {
 						$thumbs = explode( ',', $value );
@@ -367,9 +366,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 						}
 					}
 					?>
-                </ul>
-                <br class="clear">
-            </div>
+				</ul>
+				<br class="clear">
+			</div>
 			<?php
 			return ob_get_clean();
 		}

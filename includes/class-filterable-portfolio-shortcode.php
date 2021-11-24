@@ -42,7 +42,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 				'show_filter' => 'yes',
 			], $attributes, 'filterable_portfolio' );
 
-			wp_enqueue_script( 'isotope' );
 			wp_enqueue_script( 'filterable-portfolio' );
 
 			$args = [];

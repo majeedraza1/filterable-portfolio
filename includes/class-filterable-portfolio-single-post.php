@@ -22,11 +22,19 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 			if ( is_null( self::$instance ) ) {
 				self::$instance = new self();
 
-				add_filter( 'post_thumbnail_html', array( self::$instance, 'post_thumbnail_html' ) );
-				add_filter( 'the_content', array( self::$instance, 'portfolio_content' ), 20 );
+				add_action( 'wp_enqueue_scripts', [ self::$instance, 'load_script' ] );
+				add_filter( 'post_thumbnail_html', [ self::$instance, 'post_thumbnail_html' ] );
+				add_filter( 'the_content', [ self::$instance, 'portfolio_content' ], 20 );
 			}
 
 			return self::$instance;
+		}
+
+		public function load_script() {
+			if ( ! Filterable_Portfolio_Helper::is_single_portfolio() ) {
+				return;
+			}
+			wp_enqueue_script( 'filterable-portfolio-single' );
 		}
 
 		/**
@@ -54,7 +62,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		/**
 		 * Filterable portfolio single page content
 		 *
-		 * @param  string $content
+		 * @param string $content
 		 *
 		 * @return string
 		 */
