@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:         Filterable Portfolio
- * Plugin URI:          https://wordpress.org/plugins/filterable-portfolio/
+ * Plugin URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description:         A WordPress plugin to display portfolio images with filtering.
  * Version:             1.5.2
  * Author:              Sayful Islam
- * Author URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Author URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * License:             GPLv3
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:         filterable-portfolio
@@ -74,13 +74,13 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 				// initialize plugin classes
 				self::$instance->init_classes();
 
-				register_activation_hook( __FILE__, [ self::$instance, 'activation' ] );
-				register_deactivation_hook( __FILE__, [ self::$instance, 'deactivation' ] );
-
-				add_action( 'after_setup_theme', [ self::$instance, 'add_image_size' ] );
-
+				add_action( 'init', [ self::$instance, 'load_textdomain' ] );
+				add_action( 'init', [ self::$instance, 'add_image_size' ] );
 				add_filter( 'admin_footer_text', [ self::$instance, 'admin_footer_text' ] );
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ self::$instance, 'action_links' ] );
+
+				register_activation_hook( __FILE__, [ self::$instance, 'activation' ] );
+				register_deactivation_hook( __FILE__, [ self::$instance, 'deactivation' ] );
 
 				do_action( 'filterable_portfolio_init' );
 			}
@@ -126,6 +126,15 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 			if ( ! defined( $name ) ) {
 				define( $name, $value );
 			}
+		}
+
+		/**
+		 * Load the plugin text domain for translation.
+		 *
+		 * @return void
+		 */
+		public function load_textdomain() {
+			load_plugin_textdomain( $this->plugin_name, false, basename( FILTERABLE_PORTFOLIO_PATH ) . '/languages' );
 		}
 
 		/**
