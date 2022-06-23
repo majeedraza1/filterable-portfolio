@@ -1,7 +1,7 @@
 <?php
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // If this file is called directly, abort.
 }
 
 $portfolios = Filterable_Portfolio_Helper::get_related_portfolios();

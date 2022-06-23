@@ -2,9 +2,9 @@
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 5.5
-Tested up to: 5.8
+Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.5.0
+Stable tag: 1.5.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -89,6 +89,10 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.5.2 - 2022-06-23 =
+* Added     - Add setting option to set alignment for filter buttons.
+* Dev       - Check compatibility with WordPress 6.0
 
 = version 1.5.1 - 2021-08-01 =
 * Dev   	- Add CLI command to add dummy data.

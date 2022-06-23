@@ -81,10 +81,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			if ( count( $terms ) < 2 || ! $show_filter ) {
 				return;
 			}
-			$option          = Filterable_Portfolio_Helper::get_options();
-			$all_button_text = esc_html( $option['all_categories_text'] );
+			$option            = Filterable_Portfolio_Helper::get_options();
+			$buttons_alignment = in_array( $option['filter_buttons_alignment'], [ 'start', 'center', 'end' ], true ) ?
+				$option['filter_buttons_alignment'] : 'end';
+			$all_button_text   = esc_html( $option['all_categories_text'] );
 
-			$html = '<div class="filterable-portfolio__terms is-justify-end">';
+			$html = '<div class="filterable-portfolio__terms is-justify-' . esc_attr( $buttons_alignment ) . '">';
 			$html .= '<button class="button is-active" data-filter="*">' . $all_button_text . '</button>';
 			foreach ( $terms as $term ) {
 				$html .= sprintf( "<button class='button' data-filter='.%s'>%s</button>",
@@ -118,9 +120,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			$items_class = 'grids portfolio-items';
 			$items_class .= ' fp-theme-' . $theme;
 			?>
-            <div id="filterable-portfolio" class="filterable-portfolio">
+			<div id="filterable-portfolio" class="filterable-portfolio">
 				<?php echo $this->filter_buttons( $attributes, $categories ); ?>
-                <div id="portfolio-items" class="<?php echo $items_class; ?>">
+				<div id="portfolio-items" class="<?php echo $items_class; ?>">
 					<?php
 					$temp_post = $GLOBALS['post'];
 					foreach ( $portfolios as $portfolio ) {
@@ -131,8 +133,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 					wp_reset_postdata();
 					$GLOBALS['post'] = $temp_post;
 					?>
-                </div>
-            </div>
+				</div>
+			</div>
 			<?php
 		}
 

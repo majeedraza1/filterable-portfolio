@@ -3,7 +3,9 @@
 node_modules
 assets/css
 assets/js
+vendor
 
 # Files
 *.map
 package-lock.json
+composer.lock

@@ -43,6 +43,7 @@ class Filterable_Portfolio_Helper {
 				'portfolio_theme'          => 'two',
 				'image_size'               => 'filterable-portfolio',
 				'button_color'             => '#4cc1be',
+				'filter_buttons_alignment' => 'end',
 				'orderby'                  => 'ID',
 				'order'                    => 'DESC',
 				'posts_per_page'           => 100,

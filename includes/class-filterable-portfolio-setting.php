@@ -145,6 +145,19 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 					'filterable-portfolio' ),
 			) );
 			$settings->add_field( array(
+				'id'      => 'filter_buttons_alignment',
+				'type'    => 'select',
+				'std'     => 'end',
+				'name'    => __( 'Button Alignment', 'filterable-portfolio' ),
+				'desc'    => __( 'Choose horizontal alignment for filter buttons.',
+					'filterable-portfolio' ),
+				'options' => array(
+					'start'  => __( 'Left', 'filterable-portfolio' ),
+					'center' => __( 'Center', 'filterable-portfolio' ),
+					'end'    => __( 'Right', 'filterable-portfolio' ),
+				),
+			) );
+			$settings->add_field( array(
 				'id'      => 'order',
 				'type'    => 'select',
 				'std'     => 'DESC',

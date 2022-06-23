@@ -1,8 +1,13 @@
 <?php
 
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die; // If this file is called directly, abort.
 }
+
+/**
+ * @var \WP_Term[] $categories List of WP_Term object.
+ * @var \WP_Post[] $portfolios List of WP_Post object.
+ */
 
 $option          = Filterable_Portfolio_Helper::get_options();
 $all_button_text = esc_html( $option['all_categories_text'] );

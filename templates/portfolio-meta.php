@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die; // If this file is called directly, abort.
 }
 

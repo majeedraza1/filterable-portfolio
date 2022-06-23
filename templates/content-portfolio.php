@@ -6,7 +6,7 @@
  * @since 1.3.3
  */
 
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die; // If this file is called directly, abort.
 }
 
