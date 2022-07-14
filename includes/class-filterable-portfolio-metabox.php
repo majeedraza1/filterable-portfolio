@@ -62,8 +62,23 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 				return;
 			}
 
-			foreach ( $_POST['filterable_portfolio_meta'] as $key => $val ) {
+			$data = $_POST['filterable_portfolio_meta'] ?? [];
+
+			foreach ( $data as $key => $val ) {
 				update_post_meta( $post_id, $key, stripslashes( htmlspecialchars( $val ) ) );
+			}
+
+			$settings = Filterable_Portfolio_Helper::get_options();
+			if ( in_array( $settings['project_date_as_post_date'], [ 1, '1', 'on', 'yes', 'true', true ], true ) ) {
+				$date     = $data['_project_date'] ?? '';
+				$datetime = date( 'Y-m-d H:i:s', strtotime( $date ) );
+				if ( $datetime ) {
+					wp_update_post( [
+						'ID'            => $post_id,
+						'post_date'     => $datetime,
+						'post_date_gmt' => $datetime,
+					] );
+				}
 			}
 		}
 

@@ -158,6 +158,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				),
 			) );
 			$settings->add_field( array(
+				'id'   => 'project_date_as_post_date',
+				'type' => 'checkbox',
+				'std'  => 0,
+				'name' => __( 'Use project date as post date', 'filterable-portfolio' ),
+				'desc' => __( 'Check to user project date as post date.', 'filterable-portfolio' ),
+			) );
+			$settings->add_field( array(
 				'id'      => 'order',
 				'type'    => 'select',
 				'std'     => 'DESC',
