@@ -190,6 +190,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		private function init_classes() {
 			$this->container['admin']   = Filterable_Portfolio_Admin::init();
 			$this->container['scripts'] = Filterable_Portfolio_Scripts::init();
+			$this->container['block']   = Filterable_Portfolio_Gutenberg_Block::init();
 
 			if ( $this->is_request( 'admin' ) ) {
 				$this->container['setting'] = Filterable_Portfolio_Setting::init();

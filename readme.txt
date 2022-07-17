@@ -36,6 +36,8 @@ The shortcode can include following attributes.
 
 * `featured`: Default value `no`. Value can be `yes` or `no`.
 * `show_filter`: Default value `yes`. Value can be `yes` or `no`.
+* `theme`: Default value `one`. Value can be `one` or `two`.
+* `buttons_alignment`: Default value `center`. Value can be `start` or `center` or `end`.
 
 Example 1:
 
@@ -89,6 +91,11 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 2. Screenshot of Theme two.
 
 == Changelog ==
+
+= version 1.6.0 - 2022-07-17 =
+* Feature   - Add block with options (toggle filter buttons, show only features projects, theme, filter buttons alignment and more)
+* Added     - Add setting option to set project date as create datetime.
+* Added     - Add two shortcode attribute 'theme' and 'buttons_alignment'
 
 = version 1.5.2 - 2022-06-23 =
 * Added     - Add setting option to set alignment for filter buttons.

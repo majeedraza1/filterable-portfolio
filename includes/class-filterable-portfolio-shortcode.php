@@ -38,8 +38,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		 */
 		public function shortcode( $attributes ) {
 			$attributes = shortcode_atts( [
-				'featured'    => 'no',
-				'show_filter' => 'yes',
+				'featured'          => 'no',
+				'show_filter'       => 'yes',
+				'theme'             => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
+				'buttons_alignment' => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
 			], $attributes, 'filterable_portfolio' );
 
 			wp_enqueue_script( 'filterable-portfolio' );
@@ -81,13 +83,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			if ( count( $terms ) < 2 || ! $show_filter ) {
 				return;
 			}
-			$option            = Filterable_Portfolio_Helper::get_options();
-			$buttons_alignment = in_array( $option['filter_buttons_alignment'], [ 'start', 'center', 'end' ], true ) ?
-				$option['filter_buttons_alignment'] : 'end';
-			$all_button_text   = esc_html( $option['all_categories_text'] );
+			$buttons_alignment = in_array( $attributes['buttons_alignment'], [ 'start', 'center', 'end' ], true ) ?
+				$attributes['buttons_alignment'] : 'end';
+			$all_button_text   = Filterable_Portfolio_Helper::get_option( 'all_categories_text' );
 
 			$html = '<div class="filterable-portfolio__terms is-justify-' . esc_attr( $buttons_alignment ) . '">';
-			$html .= '<button class="button is-active" data-filter="*">' . $all_button_text . '</button>';
+			$html .= '<button class="button is-active" data-filter="*">' . esc_html( $all_button_text ) . '</button>';
 			foreach ( $terms as $term ) {
 				$html .= sprintf( "<button class='button' data-filter='.%s'>%s</button>",
 					esc_attr( $term->slug ), esc_html( $term->name ) );
@@ -112,11 +113,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
 			$categories = Filterable_Portfolio_Helper::get_categories_from_portfolios( $portfolios );
 
-			$option      = Filterable_Portfolio_Helper::get_options();
-			$theme       = in_array( $option['portfolio_theme'], array(
-				'one',
-				'two'
-			) ) ? $option['portfolio_theme'] : 'one';
+			$theme       = in_array( $attributes['theme'], [ 'one', 'two' ] ) ? $attributes['theme'] : 'one';
 			$items_class = 'grids portfolio-items';
 			$items_class .= ' fp-theme-' . $theme;
 			?>

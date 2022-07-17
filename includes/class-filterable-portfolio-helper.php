@@ -71,6 +71,20 @@ class Filterable_Portfolio_Helper {
 	}
 
 	/**
+	 * Get option
+	 *
+	 * @param string $key The option key.
+	 * @param string $default Default value.
+	 *
+	 * @return false|mixed
+	 */
+	public static function get_option( $key, $default = false ) {
+		$options = self::get_options();
+
+		return $options[ $key ] ?? $default;
+	}
+
+	/**
 	 * Get all portfolios
 	 *
 	 * @param array $args

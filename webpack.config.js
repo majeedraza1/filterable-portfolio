@@ -7,36 +7,37 @@ const svgToMiniDataURI = require('mini-svg-data-uri');
 
 const config = require('./config.json');
 
-let plugins = [];
-
-plugins.push(new MiniCssExtractPlugin({
-	filename: "../css/[name].css"
-}));
-
-plugins.push(new BrowserSyncPlugin({
-	proxy: config.proxyURL
-}));
-
 module.exports = (env, argv) => {
 	let isDev = argv.mode !== 'production';
 
-	return {
-		"entry": config.entryPoints,
-		"output": {
-			"path": path.resolve(__dirname, 'assets/js'),
-			"filename": '[name].js'
+	let plugins = [];
+
+	plugins.push(new MiniCssExtractPlugin({
+		filename: "../css/[name].css"
+	}));
+
+	plugins.push(new BrowserSyncPlugin({
+		proxy: config.proxyURL
+	}));
+
+	const webpackConfig = {
+		entry: config.entryPoints,
+		output: {
+			path: path.resolve(__dirname, 'assets/js'),
+			filename: '[name].js'
 		},
-		"devtool": isDev ? 'eval-source-map' : false,
+		devtool: isDev ? 'eval-source-map' : false,
 		module: {
 			rules: [
 				{
-					test: /\.(js|jsx)$/i,
+					test: /\.(js|jsx|ts|tsx)$/i,
 					use: {
 						loader: "babel-loader",
 						options: {
 							presets: [
 								'@babel/preset-env',
-								'@babel/preset-react'
+								'@babel/preset-react',
+								"@babel/preset-typescript"
 							],
 							plugins: [
 								['@babel/plugin-proposal-class-properties'],
@@ -110,19 +111,29 @@ module.exports = (env, argv) => {
 		},
 		resolve: {
 			alias: {
-				'@': path.resolve('./assets/src/'),
+				'@': path.resolve('./resources/'),
 			},
 			modules: [
 				path.resolve('./node_modules'),
-				path.resolve(path.join(__dirname, 'assets/src/')),
-				path.resolve(path.join(__dirname, 'assets/src/shapla')),
+				path.resolve(path.join(__dirname, 'resources/')),
 			],
-			extensions: ['*', '.js', '.vue', '.json']
+			fallback: {
+				url: false
+			},
+			extensions: ['.js', '.jsx', '.ts', '.tsx']
 		},
-		"plugins": plugins,
-		externals: {
-			'jquery': 'jQuery',
-			'imagesloaded': 'imagesLoaded',
-		}
+		plugins: plugins
 	}
+
+	webpackConfig.externals = {
+		'jquery': 'jQuery',
+		'react': 'React',
+		'react-dom': 'ReactDOM',
+		'@wordpress/blocks': 'wp.blocks',
+		'@wordpress/block-editor': 'wp.blockEditor',
+		'@wordpress/components': 'wp.components',
+		'@wordpress/server-side-render': 'wp.serverSideRender',
+	}
+
+	return webpackConfig;
 };

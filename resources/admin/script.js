@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
 
-    var _this,
+    let _this,
         galleryImages,
         createBtnText,
         editBtnText,
@@ -23,7 +23,7 @@
         images = galleryImages.find('input[type="hidden"]').val();
         selection = loadImages(images);
 
-        var options = {
+        let options = {
             title: createBtnText,
             state: 'gallery-edit',
             frame: 'post',
@@ -64,7 +64,7 @@
 
         // All images removed
         frame.state().get('library').on('remove', function () {
-            var models = frame.state().get('library');
+            let models = frame.state().get('library');
             if (models.length === 0) {
                 selection = false;
             }
@@ -76,7 +76,7 @@
                     style: 'primary',
                     text: saveBtnText,
                     click: function () {
-                        var models = frame.state().get('library'),
+						let models = frame.state().get('library'),
                             ids = '',
                             thumbs_url = '';
 
@@ -101,15 +101,15 @@
 
     function loadImages(images) {
         if (images) {
-            var shortcode = new wp.shortcode({
+			let shortcode = new wp.shortcode({
                 tag: 'gallery',
                 attrs: {ids: images},
                 type: 'single'
             });
 
-            var attachments = wp.media.gallery.attachments(shortcode);
+			let attachments = wp.media.gallery.attachments(shortcode);
 
-            var selection = new wp.media.model.Selection(attachments.models, {
+			let selection = new wp.media.model.Selection(attachments.models, {
                 props: attachments.props.toJSON(),
                 multiple: true
             });

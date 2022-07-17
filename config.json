@@ -2,16 +2,19 @@
   "proxyURL": "http://plugins.test/filterable-portfolio-test",
   "entryPoints": {
     "frontend": [
-      "./assets/src/scss/frontend.scss",
-      "./assets/src/frontend/main.js"
+      "./resources/scss/frontend.scss",
+      "./resources/frontend/main.js"
     ],
     "single-portfolio": [
-      "./assets/src/frontend/single-portfolio.js"
+      "./resources/frontend/single-portfolio.js"
     ],
     "admin": [
-      "./assets/src/scss/admin.scss",
-      "./assets/src/admin/script.js",
-      "./assets/src/admin/vendor.js"
+      "./resources/scss/admin.scss",
+      "./resources/admin/script.js",
+      "./resources/admin/vendor.js"
+    ],
+    "block": [
+      "./resources/admin/block.tsx"
     ]
   }
 }

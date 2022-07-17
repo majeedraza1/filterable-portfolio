@@ -7,6 +7,14 @@ $screen-small: 768px;
 $screen-medium: 992px;
 $screen-large: 1200px;
 
+@mixin fix-box-sizing-issue-on-twentytwentytwo-theme {
+	box-sizing: border-box;
+
+	*, *:before, *:after {
+		box-sizing: border-box;
+	}
+}
+
 // Grids
 // ------------------------------------------------------
 @mixin grids($size){
