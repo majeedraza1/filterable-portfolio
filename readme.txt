@@ -4,7 +4,7 @@ Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, port
 Requires at least: 5.5
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.5.2
+Stable tag: 1.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -28,7 +28,10 @@ A WordPress Portfolio plugin to display portfolio/project images to your site.
 
 = Usages =
 
-After installing and activating the plugin, a new custom post type called "Portfolios" will appear at your Wordpress Admin area. Just create your Portfolio from the "Portfolios" menu & paste the following shortcode where you want to display this Portfolio:
+If you are using Gutenberg Block Editor (WordPress 5.0 or later), search 'Filterable Portfolio'. There is
+a dedicated 'Filterable Portfolio' block with live preview for Gutenberg Block Editor.
+
+After installing and activating the plugin, a new custom post type called "Portfolios" will appear at your WordPress Admin area. Just create your Portfolio from the "Portfolios" menu & paste the following shortcode where you want to display this Portfolio:
 
 `[filterable_portfolio]`
 
@@ -71,6 +74,10 @@ If you still need help. visit [WordPress codex](https://codex.wordpress.org/Mana
 After change portfolio slug, you need to regenerate permalink.
 To regenerate permalink, go to *Settings --> Permalinks* from WordPress admin and press on "Save Changes" button.
 
+= How to use Filterable Portfolio in Gutenberg Block Editor (WordPress 5.0 or later) =
+Filterable Portfolio is first class citizen in Gutenberg Block Editor. Just search 'Filterable Portfolio'. There is
+a dedicated 'Filterable Portfolio' block with live preview for Gutenberg Block Editor.
+
 = I want to remove Project Date. Is it possible? =
 You can add, remove or modify any field using filter hook. *filterable_portfolio_meta_box_fields*
 Here is an example to remove Project Date.
@@ -89,6 +96,10 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 1. Screenshot of Theme one.
 2. Screenshot of Theme two.
+3. Filterable Portfolio in Gutenberg Block Editor.
+4. List of portfolios in admin dashboard.
+5. Filterable Portfolio settings.
+6. Filterable Portfolio edit page.
 
 == Changelog ==
 

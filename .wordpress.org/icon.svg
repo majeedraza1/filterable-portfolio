@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" shape-rendering="geometricPrecision">
+	<g transform="translate(0 28)">
+		<g>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#D32F2F" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#D32F2F" stroke-width="0"/>
+		</g>
+		<g transform="translate(0 128)">
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#757575" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#2E7D32" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#757575" stroke-width="0"/>
+		</g>
+		<g transform="translate(0 256)">
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#1976D2" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575" stroke-width="0"/>
+			<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#1976D2" stroke-width="0"/>
+		</g>
+	</g>
+	<g transform="translate(6 15)">
+		<rect width="60" height="20" rx="0" ry="0" transform="translate(100 55)" fill="#757575" stroke-width="0"/>
+		<rect width="60" height="20" rx="0" ry="0" transform="translate(180 55)" fill="#D32F2F" stroke-width="0"/>
+		<rect width="60" height="20" rx="0" ry="0" transform="translate(260 55)" fill="#2E7D32" stroke-width="0"/>
+		<rect width="60" height="20" rx="0" ry="0" transform="translate(340 55)" fill="#1976D2" stroke-width="0"/>
+	</g>
+</svg>
