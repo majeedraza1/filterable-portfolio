@@ -176,12 +176,22 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 			// Trim unneeded whitespace
 			$color = str_replace( ' ', '', $color );
 
-			// If this is hex color
-			if ( 1 === preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
-				$r = hexdec( substr( $color, 0, 2 ) );
-				$g = hexdec( substr( $color, 2, 2 ) );
-				$b = hexdec( substr( $color, 4, 2 ) );
+			// 3 or 6 hex digits, or the empty string.
+			if ( preg_match( '/^(\#[\da-f]{3}|\#[\da-f]{6}|\#[\da-f]{8})$/', $color ) ) {
+				// Format the hex color string.
+				$hex = str_replace( '#', '', $color );
+
+				if ( 3 == strlen( $hex ) ) {
+					$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) .
+						   str_repeat( substr( $hex, 1, 1 ), 2 ) .
+						   str_repeat( substr( $hex, 2, 1 ), 2 );
+				}
+
+				$r = hexdec( substr( $hex, 0, 2 ) );
+				$g = hexdec( substr( $hex, 2, 2 ) );
+				$b = hexdec( substr( $hex, 4, 2 ) );
 			}
+
 			// If this is rgb color
 			if ( 'rgb(' === substr( $color, 0, 4 ) ) {
 				list( $r, $g, $b ) = sscanf( $color, 'rgb(%d,%d,%d)' );
