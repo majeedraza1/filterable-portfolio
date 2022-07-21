@@ -1,26 +1,39 @@
+// @ts-ignore
 import {registerBlockType} from '@wordpress/blocks';
-import {ServerSideRender, PanelBody, ToggleControl, SelectControl} from '@wordpress/components';
+// @ts-ignore
+import {ServerSideRender, PanelBody, ToggleControl, SelectControl, TextControl} from '@wordpress/components';
+// @ts-ignore
 import {useBlockProps, InspectorControls} from '@wordpress/block-editor';
 import {__} from '@wordpress/i18n'
 import React from 'react';
 
 const icon = (
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" shapeRendering="geometricPrecision">
+		<rect width="512" height="512" rx="8" fill="#fff7ed"/>
 		<g transform="translate(0 28)">
 			<g>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#D32F2F" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#D32F2F" strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#D32F2F"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#D32F2F"
+					  strokeWidth="0"/>
 			</g>
 			<g transform="translate(0 128)">
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#757575" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#2E7D32" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#757575" strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#757575"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#2E7D32"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#757575"
+					  strokeWidth="0"/>
 			</g>
 			<g transform="translate(0 256)">
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#1976D2" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575" strokeWidth="0"/>
-				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#1976D2" strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(38 100)" fill="#1976D2"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(196 100)" fill="#757575"
+					  strokeWidth="0"/>
+				<rect width="120" height="90" rx="0" ry="0" transform="translate(354 100)" fill="#1976D2"
+					  strokeWidth="0"/>
 			</g>
 		</g>
 		<g transform="translate(6 15)">
@@ -38,7 +51,7 @@ registerBlockType('filterable-portfolio/projects', {
 	icon: icon,
 	category: 'widgets',
 	edit({attributes, setAttributes}) {
-		const {isFeatured, showFilter, theme, buttonsAlignment} = attributes
+		const {isFeatured, showFilter, theme, buttonsAlignment, limit} = attributes
 		const blockProps = useBlockProps();
 		const InspectorControlsEl = (
 			<InspectorControls key="setting">
@@ -79,6 +92,14 @@ registerBlockType('filterable-portfolio/projects', {
 							onChange={(buttonsAlignment: string) => setAttributes({buttonsAlignment})}
 						/>
 					</div>
+					<TextControl
+						type='number'
+						label={__('Limit', 'filterable-portfolio')}
+						help={__('Limit total items to show.', 'filterable-portfolio')}
+						value={limit}
+						onChange={(limit) => setAttributes({limit})}
+						min={-1}
+					/>
 				</PanelBody>
 			</InspectorControls>
 		)

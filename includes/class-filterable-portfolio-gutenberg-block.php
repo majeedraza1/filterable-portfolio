@@ -42,6 +42,10 @@ class Filterable_Portfolio_Gutenberg_Block {
 			'attributes'      => [
 				'isFeatured'       => [ 'type' => 'boolean', 'default' => false ],
 				'showFilter'       => [ 'type' => 'boolean', 'default' => true ],
+				'limit'            => [
+					'type'    => 'number',
+					'default' => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 )
+				],
 				'theme'            => [
 					'type'    => 'string',
 					'default' => Filterable_Portfolio_Helper::get_option( 'portfolio_theme' )
@@ -75,6 +79,10 @@ class Filterable_Portfolio_Gutenberg_Block {
 		}
 		if ( in_array( $buttons_alignment, [ 'start', 'center', 'end' ], true ) ) {
 			$args['buttons_alignment'] = $buttons_alignment;
+		}
+
+		if ( $attributes['limit'] && is_numeric( $attributes['limit'] ) ) {
+			$args['per_page'] = intval( $attributes['limit'] );
 		}
 
 		return Filterable_Portfolio_Shortcode::init()->shortcode( $args );

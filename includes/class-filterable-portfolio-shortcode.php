@@ -23,7 +23,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 				self::$instance = new self();
 
 				add_shortcode( 'filterable_portfolio', array( self::$instance, 'shortcode' ) );
-				add_action( 'filterable_portfolio_loop_post', array( self::$instance, 'portfolio_item' ) );
+				add_action( 'filterable_portfolio_loop_post', array( self::$instance, 'portfolio_loop_item' ) );
 			}
 
 			return self::$instance;
@@ -42,11 +42,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 				'show_filter'       => 'yes',
 				'theme'             => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
 				'buttons_alignment' => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
+				'per_page'          => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 ),
 			], $attributes, 'filterable_portfolio' );
 
 			wp_enqueue_script( 'filterable-portfolio' );
 
 			$args = [];
+
+			if ( isset( $attributes['per_page'] ) && is_numeric( $attributes['per_page'] ) ) {
+				$args['per_page'] = $attributes['per_page'];
+			}
 
 			$featured = in_array( $attributes['featured'], [ 'yes', 'on', 'true', true, 1 ], true );
 			if ( $featured ) {
@@ -61,11 +66,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			if ( $locate_template != '' ) {
 				load_template( $locate_template, false );
 			} else {
-				//require FILTERABLE_PORTFOLIO_TEMPLATES . '/filterable_portfolio.php';
 				$this->portfolio_items( $attributes );
 			}
-			$html = ob_get_contents();
-			ob_end_clean();
+			$html = ob_get_clean();
 
 			return apply_filters( 'filterable_portfolio', $html, $portfolios, $categories );
 		}
@@ -138,7 +141,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		/**
 		 * Portfolio loop post content
 		 */
-		public function portfolio_item() {
+		public function portfolio_loop_item() {
 			$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/content-portfolio.php';
 			load_template( $template, false );
 		}
