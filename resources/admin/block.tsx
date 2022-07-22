@@ -1,7 +1,7 @@
 // @ts-ignore
 import {registerBlockType} from '@wordpress/blocks';
 // @ts-ignore
-import {ServerSideRender, PanelBody, ToggleControl, SelectControl, TextControl} from '@wordpress/components';
+import {ServerSideRender, PanelBody, ToggleControl, SelectControl, RangeControl} from '@wordpress/components';
 // @ts-ignore
 import {useBlockProps, InspectorControls} from '@wordpress/block-editor';
 import {__} from '@wordpress/i18n'
@@ -45,13 +45,33 @@ const icon = (
 	</svg>
 );
 
+const columnsOptions = [
+	{label: __('Default (as Global Settings)', 'filterable-portfolio'), value: '0'},
+	{label: __('1 Column', 'filterable-portfolio'), value: '12'},
+	{label: __('2 Columns', 'filterable-portfolio'), value: '6'},
+	{label: __('3 Columns', 'filterable-portfolio'), value: '4'},
+	{label: __('4 Columns', 'filterable-portfolio'), value: '3'},
+	{label: __('6 Columns', 'filterable-portfolio'), value: '2'},
+];
+
 registerBlockType('filterable-portfolio/projects', {
 	apiVersion: 2,
 	title: __('Filterable Portfolio', 'filterable-portfolio'),
 	icon: icon,
 	category: 'widgets',
+	// @ts-ignore
 	edit({attributes, setAttributes}) {
-		const {isFeatured, showFilter, theme, buttonsAlignment, limit} = attributes
+		const {
+			isFeatured,
+			showFilter,
+			theme,
+			buttonsAlignment,
+			limit,
+			columnsPhone,
+			columnsTablet,
+			columnsDesktop,
+			columnsWidescreen
+		} = attributes
 		const blockProps = useBlockProps();
 		const InspectorControlsEl = (
 			<InspectorControls key="setting">
@@ -59,16 +79,6 @@ registerBlockType('filterable-portfolio/projects', {
 					title={__('Portfolio Options', 'filterable-portfolio')}
 					initialOpen={true}
 				>
-					<ToggleControl
-						label={__('Show filter buttons.', 'filterable-portfolio')}
-						checked={showFilter}
-						onChange={() => setAttributes({showFilter: !showFilter})}
-					/>
-					<ToggleControl
-						label={__('Only show featured projects.', 'filterable-portfolio')}
-						checked={isFeatured}
-						onChange={() => setAttributes({isFeatured: !isFeatured})}
-					/>
 					<div className="filterable-portfolio-select-control">
 						<SelectControl
 							label={__('Theme', 'filterable-portfolio')}
@@ -80,6 +90,29 @@ registerBlockType('filterable-portfolio/projects', {
 							onChange={(theme: string) => setAttributes({theme})}
 						/>
 					</div>
+					<RangeControl
+						label={__('Limit', 'filterable-portfolio')}
+						help={__('Limit total items to show. To show all set -1.', 'filterable-portfolio')}
+						value={limit}
+						onChange={(limit: number) => setAttributes({limit})}
+						min={-1}
+						max={100}
+					/>
+					<ToggleControl
+						label={__('Only show featured projects.', 'filterable-portfolio')}
+						checked={isFeatured}
+						onChange={() => setAttributes({isFeatured: !isFeatured})}
+					/>
+				</PanelBody>
+				<PanelBody
+					title={__('Filter Settings', 'filterable-portfolio')}
+					initialOpen={false}
+				>
+					<ToggleControl
+						label={__('Show filter buttons.', 'filterable-portfolio')}
+						checked={showFilter}
+						onChange={() => setAttributes({showFilter: !showFilter})}
+					/>
 					<div className="filterable-portfolio-select-control">
 						<SelectControl
 							label={__('Filter buttons alignment', 'filterable-portfolio')}
@@ -92,13 +125,34 @@ registerBlockType('filterable-portfolio/projects', {
 							onChange={(buttonsAlignment: string) => setAttributes({buttonsAlignment})}
 						/>
 					</div>
-					<TextControl
-						type='number'
-						label={__('Limit', 'filterable-portfolio')}
-						help={__('Limit total items to show.', 'filterable-portfolio')}
-						value={limit}
-						onChange={(limit) => setAttributes({limit})}
-						min={-1}
+				</PanelBody>
+				<PanelBody
+					title={__('Responsive Settings', 'filterable-portfolio')}
+					initialOpen={false}
+				>
+					<SelectControl
+						label={__('Columns:Phone', 'filterable-portfolio')}
+						value={columnsPhone}
+						onChange={(columnsPhone: number) => setAttributes({columnsPhone})}
+						options={columnsOptions}
+					/>
+					<SelectControl
+						label={__('Columns:Tablet', 'filterable-portfolio')}
+						value={columnsTablet}
+						onChange={(columnsTablet: number) => setAttributes({columnsTablet})}
+						options={columnsOptions}
+					/>
+					<SelectControl
+						label={__('Columns:Desktop', 'filterable-portfolio')}
+						value={columnsDesktop}
+						onChange={(columnsDesktop: number) => setAttributes({columnsDesktop})}
+						options={columnsOptions}
+					/>
+					<SelectControl
+						label={__('Columns:Widescreen', 'filterable-portfolio')}
+						value={columnsWidescreen}
+						onChange={(columnsWidescreen: number) => setAttributes({columnsWidescreen})}
+						options={columnsOptions}
 					/>
 				</PanelBody>
 			</InspectorControls>

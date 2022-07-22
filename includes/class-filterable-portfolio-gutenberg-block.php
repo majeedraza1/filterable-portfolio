@@ -40,20 +40,24 @@ class Filterable_Portfolio_Gutenberg_Block {
 			'style'           => 'filterable-portfolio',
 			'render_callback' => [ $this, 'portfolio_dynamic_render_callback' ],
 			'attributes'      => [
-				'isFeatured'       => [ 'type' => 'boolean', 'default' => false ],
-				'showFilter'       => [ 'type' => 'boolean', 'default' => true ],
-				'limit'            => [
+				'isFeatured'        => [ 'type' => 'boolean', 'default' => false ],
+				'showFilter'        => [ 'type' => 'boolean', 'default' => true ],
+				'limit'             => [
 					'type'    => 'number',
 					'default' => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 )
 				],
-				'theme'            => [
+				'theme'             => [
 					'type'    => 'string',
 					'default' => Filterable_Portfolio_Helper::get_option( 'portfolio_theme' )
 				],
-				'buttonsAlignment' => [
+				'buttonsAlignment'  => [
 					'type'    => 'string',
 					'default' => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment' )
 				],
+				'columnsPhone'      => [ 'type' => 'number' ],
+				'columnsTablet'     => [ 'type' => 'number' ],
+				'columnsDesktop'    => [ 'type' => 'number' ],
+				'columnsWidescreen' => [ 'type' => 'number' ],
 			],
 		) );
 	}
@@ -69,10 +73,20 @@ class Filterable_Portfolio_Gutenberg_Block {
 		$show_filter       = in_array( $attributes['showFilter'], [ 'true', true, 1, '1', 'yes', 'on' ], true );
 		$theme             = $attributes['theme'] ?? '';
 		$buttons_alignment = $attributes['buttonsAlignment'] ?? '';
+		$columnsPhone      = $this->get_responsive_class( $attributes, 'columnsPhone' );
+		$columnsTablet     = $this->get_responsive_class( $attributes, 'columnsTablet' );
+		$columnsDesktop    = $this->get_responsive_class( $attributes, 'columnsDesktop' );
+		$columnsWidescreen = $this->get_responsive_class( $attributes, 'columnsWidescreen' );
 
 		$args = [
-			'featured'    => $featured ? 'yes' : 'no',
-			'show_filter' => $show_filter ? 'yes' : 'no',
+			'featured'           => $featured ? 'yes' : 'no',
+			'show_filter'        => $show_filter ? 'yes' : 'no',
+			'responsive_classes' => [
+				'columns_phone'   => $columnsPhone,
+				'columns_tablet'  => $columnsTablet,
+				'columns_desktop' => $columnsDesktop,
+				'columns'         => $columnsWidescreen,
+			],
 		];
 		if ( in_array( $theme, [ 'one', 'two' ], true ) ) {
 			$args['theme'] = $theme;
@@ -86,5 +100,19 @@ class Filterable_Portfolio_Gutenberg_Block {
 		}
 
 		return Filterable_Portfolio_Shortcode::init()->shortcode( $args );
+	}
+
+	public function get_responsive_class( $attributes, $name ) {
+		$prefixes = [
+			'columnsPhone'      => [ 'prefix' => 'xs', 'option' => 'columns_phone' ],
+			'columnsTablet'     => [ 'prefix' => 's', 'option' => 'columns_tablet' ],
+			'columnsDesktop'    => [ 'prefix' => 'm', 'option' => 'columns_desktop' ],
+			'columnsWidescreen' => [ 'prefix' => 'l', 'option' => 'columns' ],
+		];
+		if ( ! empty( $attributes[ $name ] ) ) {
+			return sprintf( '%s%s', $prefixes[ $name ]['prefix'], $attributes[ $name ] );
+		}
+
+		return Filterable_Portfolio_Helper::get_option( $prefixes[ $name ]['option'] );
 	}
 }

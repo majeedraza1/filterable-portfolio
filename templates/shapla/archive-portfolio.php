@@ -18,10 +18,10 @@ $_fp_class .= ' fp-theme-' . $_theme;
 
 get_header(); ?>
 
-    <div id="primary" class="content-area">
-        <main id="main" class="site-main">
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
 			<?php if ( have_posts() ) : ?>
-                <div class="<?php echo $_fp_class; ?>">
+				<div class="<?php echo $_fp_class; ?>">
 					<?php
 					while ( have_posts() ) {
 						the_post();
@@ -31,10 +31,18 @@ get_header(); ?>
 						do_action( 'filterable_portfolio_loop_post' );
 					}
 					?>
-                </div>
+				</div>
 			<?php endif; ?>
-        </main><!-- #main -->
-    </div><!-- #primary -->
+			<?php
+			/**
+			 * Functions hooked in to shapla_paging_nav action
+			 *
+			 * @hooked shapla_paging_nav - 10
+			 */
+			do_action( 'shapla_loop_after' );
+			?>
+		</main><!-- #main -->
+	</div><!-- #primary -->
 
 <?php
 get_sidebar();

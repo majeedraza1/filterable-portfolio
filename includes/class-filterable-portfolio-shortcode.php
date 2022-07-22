@@ -38,11 +38,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		 */
 		public function shortcode( $attributes ) {
 			$attributes = shortcode_atts( [
-				'featured'          => 'no',
-				'show_filter'       => 'yes',
-				'theme'             => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
-				'buttons_alignment' => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
-				'per_page'          => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 ),
+				'featured'           => 'no',
+				'show_filter'        => 'yes',
+				'responsive_classes' => [],
+				'theme'              => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
+				'buttons_alignment'  => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
+				'per_page'           => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 ),
 			], $attributes, 'filterable_portfolio' );
 
 			wp_enqueue_script( 'filterable-portfolio' );
@@ -55,7 +56,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 
 			$featured = in_array( $attributes['featured'], [ 'yes', 'on', 'true', true, 1 ], true );
 			if ( $featured ) {
-				$args['featured'] = $featured;
+				$args['featured'] = true;
 			}
 
 			$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
@@ -66,7 +67,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			if ( $locate_template != '' ) {
 				load_template( $locate_template, false );
 			} else {
-				$this->portfolio_items( $attributes );
+				$this->portfolio_items( $attributes, $portfolios, $categories );
 			}
 			$html = ob_get_clean();
 
@@ -104,18 +105,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		/**
 		 * Get portfolio items
 		 *
-		 * @param array $attributes
+		 * @param array $attributes Setting attributes.
+		 * @param array $portfolios List of WP_Post object.
+		 * @param array $categories List of WP_Term object.
 		 */
-		public function portfolio_items( $attributes ) {
-			$args = [];
-
-			$featured = in_array( $attributes['featured'], [ 'yes', 'on', 'true', true, 1 ], true );
-			if ( $featured ) {
-				$args['featured'] = $featured;
-			}
-			$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
-			$categories = Filterable_Portfolio_Helper::get_categories_from_portfolios( $portfolios );
-
+		public function portfolio_items( array $attributes, $portfolios = [], $categories = [] ) {
 			$theme       = in_array( $attributes['theme'], [ 'one', 'two' ] ) ? $attributes['theme'] : 'one';
 			$items_class = 'grids portfolio-items';
 			$items_class .= ' fp-theme-' . $theme;
@@ -124,7 +118,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 				<?php echo $this->filter_buttons( $attributes, $categories ); ?>
 				<div id="portfolio-items" class="<?php echo $items_class; ?>">
 					<?php
-					$temp_post = $GLOBALS['post'];
+					$GLOBALS['filterable_portfolio_attributes'] = $attributes;
+					$temp_post                                  = $GLOBALS['post'];
 					foreach ( $portfolios as $portfolio ) {
 						setup_postdata( $portfolio );
 						$GLOBALS['post'] = $portfolio;
@@ -142,8 +137,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		 * Portfolio loop post content
 		 */
 		public function portfolio_loop_item() {
-			$template = FILTERABLE_PORTFOLIO_TEMPLATES . '/content-portfolio.php';
-			load_template( $template, false );
+			load_template( FILTERABLE_PORTFOLIO_TEMPLATES . '/content-portfolio.php', false );
 		}
 	}
 }

@@ -4,7 +4,7 @@ Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, port
 Requires at least: 5.5
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -102,6 +102,13 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 6. Filterable Portfolio edit page.
 
 == Changelog ==
+
+= version 1.6.1 - 2022-07-22 =
+* Add responsive setting on block option.
+* Add block option to set maximum limit.
+* Fix PHP Deprecated notice when finding invert color.
+* Add background color on 'Filterable Portfolio' brand icon.
+* Fixed design issue related to box-sizing on default 'Twenty Twenty-Two' theme.
 
 = version 1.6.0 - 2022-07-17 =
 * Feature   - Add block with options (toggle filter buttons, show only features projects, theme, filter buttons alignment and more)

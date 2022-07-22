@@ -1,4 +1,8 @@
+@import "preboot";
+
 .single-portfolio-content {
-  max-width: 100% !important; // hack for Twenty Nineteen theme
-  margin: 0 !important;
+	max-width: 100% !important; // hack for Twenty Nineteen theme
+	margin: 0 !important;
+
+	@include fix-box-sizing-issue-on-twentytwentytwo-theme();
 }

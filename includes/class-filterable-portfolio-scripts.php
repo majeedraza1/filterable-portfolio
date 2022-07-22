@@ -168,7 +168,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 *
 		 * @return string
 		 */
-		function find_color_invert( $color ) {
+		public function find_color_invert( $color ) {
 			if ( '' === $color ) {
 				return '';
 			}
