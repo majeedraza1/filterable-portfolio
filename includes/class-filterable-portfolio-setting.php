@@ -251,6 +251,20 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting' ) ) {
 				'tab'  => 'single-portfolio-settings',
 			) );
 			$settings->add_field( array(
+				'id'   => 'category_disable_archive_link',
+				'type' => 'checkbox',
+				'std'  => 0,
+				'name' => __( 'Disable Category Archive page link', 'filterable-portfolio' ),
+				'tab'  => 'single-portfolio-settings',
+			) );
+			$settings->add_field( array(
+				'id'   => 'skill_disable_archive_link',
+				'type' => 'checkbox',
+				'std'  => 0,
+				'name' => __( 'Disable Skill Archive page link', 'filterable-portfolio' ),
+				'tab'  => 'single-portfolio-settings',
+			) );
+			$settings->add_field( array(
 				'id'   => 'related_projects_number',
 				'type' => 'number',
 				'std'  => 3,
