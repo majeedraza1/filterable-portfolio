@@ -64,6 +64,7 @@ registerBlockType('filterable-portfolio/projects', {
 		const {
 			isFeatured,
 			showFilter,
+			filterBy,
 			theme,
 			buttonsAlignment,
 			limit,
@@ -84,8 +85,8 @@ registerBlockType('filterable-portfolio/projects', {
 							label={__('Theme', 'filterable-portfolio')}
 							value={theme}
 							options={[
-								{label: 'One', value: 'one'},
-								{label: 'Two', value: 'two'},
+								{label: __('One', 'filterable-portfolio'), value: 'one'},
+								{label: __('Two', 'filterable-portfolio'), value: 'two'},
 							]}
 							onChange={(theme: string) => setAttributes({theme})}
 						/>
@@ -123,6 +124,17 @@ registerBlockType('filterable-portfolio/projects', {
 								{label: 'Right', value: 'end'},
 							]}
 							onChange={(buttonsAlignment: string) => setAttributes({buttonsAlignment})}
+						/>
+					</div>
+					<div className="filterable-portfolio-select-control">
+						<SelectControl
+							label={__('Filter by', 'filterable-portfolio')}
+							value={filterBy}
+							options={[
+								{label: __('Categories', 'filterable-portfolio'), value: 'categories'},
+								{label: __('Skills', 'filterable-portfolio'), value: 'skills'},
+							]}
+							onChange={(filterBy: string) => setAttributes({filterBy})}
 						/>
 					</div>
 				</PanelBody>

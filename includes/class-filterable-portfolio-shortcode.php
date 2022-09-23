@@ -40,6 +40,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			$attributes = shortcode_atts( [
 				'featured'           => 'no',
 				'show_filter'        => 'yes',
+				'filter_by'          => 'categories',
 				'responsive_classes' => [],
 				'theme'              => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
 				'buttons_alignment'  => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
@@ -58,9 +59,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			if ( $featured ) {
 				$args['featured'] = true;
 			}
+			$filter_by = in_array( $attributes['filter_by'], [ 'categories', 'skills' ], true ) ?
+				$attributes['filter_by'] : 'categories';
 
 			$portfolios = Filterable_Portfolio_Helper::get_portfolios( $args );
-			$categories = Filterable_Portfolio_Helper::get_categories_from_portfolios( $portfolios );
+			if ( 'skills' === $filter_by ) {
+				$categories = Filterable_Portfolio_Helper::get_skills_from_portfolios( $portfolios );
+			} else {
+				$categories = Filterable_Portfolio_Helper::get_categories_from_portfolios( $portfolios );
+			}
 
 			ob_start();
 			$locate_template = locate_template( "filterable_portfolio.php" );

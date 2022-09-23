@@ -3,7 +3,7 @@
  * Plugin Name:         Filterable Portfolio
  * Plugin URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description:         A WordPress plugin to display portfolio images with filtering.
- * Version:             1.6.1
+ * Version:             1.6.2
  * Author:              Sayful Islam
  * Author URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * License:             GPLv3
@@ -11,7 +11,7 @@
  * Text Domain:         filterable-portfolio
  * Domain Path:         /languages
  * Requires at least:   5.5
- * Tested up to:        6.0
+ * Tested up to:        6.1
  * Requires PHP:        7.0
  */
 
@@ -46,7 +46,7 @@ if ( ! class_exists( 'Filterable_Portfolio' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '1.6.1';
+		private $version = '1.6.2';
 
 		/**
 		 * Instance of this class

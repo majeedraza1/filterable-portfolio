@@ -22,7 +22,11 @@ $item_class[] = esc_attr( $classes['columns_desktop'] ?? $options['columns_deskt
 $item_class[] = esc_attr( $classes['columns'] ?? $options['columns'] );
 
 $categories_slug = array();
-$categories      = get_the_terms( get_the_ID(), 'portfolio_cat' );
+if ( isset( $attributes['filter_by'] ) && $attributes['filter_by'] === 'skills' ) {
+	$categories = get_the_terms( get_the_ID(), 'portfolio_skill' );
+} else {
+	$categories = get_the_terms( get_the_ID(), 'portfolio_cat' );
+}
 if ( $categories && ! is_wp_error( $categories ) ) {
 	$categories_slug = wp_list_pluck( $categories, 'slug' );
 	$item_class      = array_merge( $item_class, $categories_slug );

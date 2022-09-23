@@ -29,7 +29,7 @@ $support_archive  = Filterable_Portfolio_Helper::support_archive_template();
 				<strong><?php echo esc_html( $option['project_skills_text'] ); ?></strong>
 				<p>
 					<?php
-					if ( $support_archive && ! Filterable_Portfolio_Helper::get_option( 'skill_disable_archive_link' ) ) {
+					if ( ! Filterable_Portfolio_Helper::get_option( 'skill_disable_archive_link' ) ) {
 						$skills = get_the_term_list( $id, 'portfolio_skill', '', '<br>', '' );
 						echo $skills;
 					} else {
@@ -46,7 +46,7 @@ $support_archive  = Filterable_Portfolio_Helper::support_archive_template();
 				<strong><?php echo esc_html( $option['project_categories_text'] ); ?></strong>
 				<p>
 					<?php
-					if ( $support_archive && ! Filterable_Portfolio_Helper::get_option( 'category_disable_archive_link' ) ) {
+					if ( ! Filterable_Portfolio_Helper::get_option( 'category_disable_archive_link' ) ) {
 						$skills = get_the_term_list( $id, 'portfolio_cat', '', '<br>', '' );
 						echo $skills;
 					} else {

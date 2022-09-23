@@ -2,9 +2,9 @@
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 5.5
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -39,6 +39,7 @@ The shortcode can include following attributes.
 
 * `featured`: Default value `no`. Value can be `yes` or `no`.
 * `show_filter`: Default value `yes`. Value can be `yes` or `no`.
+* `filter_by`: Default value `categories`. Value can be `categories` or `skills`.
 * `theme`: Default value `one`. Value can be `one` or `two`.
 * `buttons_alignment`: Default value `center`. Value can be `start` or `center` or `end`.
 
@@ -102,6 +103,11 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 6. Filterable Portfolio edit page.
 
 == Changelog ==
+
+= version 1.6.2 - 2022-09-23 =
+* Add default archive template for portfolio post type if it not exists in theme.
+* Add attribute to change filter option from 'categories' to 'skills'.
+* Add setting option to disable single portfolio category and skill archive page link.
 
 = version 1.6.1 - 2022-07-22 =
 * Add responsive setting on block option.

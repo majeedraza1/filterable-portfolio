@@ -42,6 +42,7 @@ class Filterable_Portfolio_Gutenberg_Block {
 			'attributes'      => [
 				'isFeatured'        => [ 'type' => 'boolean', 'default' => false ],
 				'showFilter'        => [ 'type' => 'boolean', 'default' => true ],
+				'filterBy'          => [ 'type' => 'string', 'default' => 'categories' ],
 				'limit'             => [
 					'type'    => 'number',
 					'default' => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 )
@@ -81,6 +82,7 @@ class Filterable_Portfolio_Gutenberg_Block {
 		$args = [
 			'featured'           => $featured ? 'yes' : 'no',
 			'show_filter'        => $show_filter ? 'yes' : 'no',
+			'filter_by'          => $attributes['filterBy'] ?? '',
 			'responsive_classes' => [
 				'columns_phone'   => $columnsPhone,
 				'columns_tablet'  => $columnsTablet,

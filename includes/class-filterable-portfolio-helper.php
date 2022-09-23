@@ -207,6 +207,19 @@ class Filterable_Portfolio_Helper {
 	}
 
 	/**
+	 * Get skills from portfolios
+	 *
+	 * @param WP_Post[] $portfolios
+	 *
+	 * @return array|WP_Term[]
+	 */
+	public static function get_skills_from_portfolios( array $portfolios ) {
+		$ids = wp_list_pluck( $portfolios, "ID" );
+
+		return wp_get_object_terms( $ids, self::SKILL );
+	}
+
+	/**
 	 * Get portfolio categories
 	 *
 	 * @return array|WP_Term[]
@@ -444,8 +457,8 @@ class Filterable_Portfolio_Helper {
 		$out = '';
 		if ( $prepend_lorem_text ) {
 			$out = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' .
-			       'sed do eiusmod tempor incididunt ut labore et dolore magna ' .
-			       'aliqua.';
+				   'sed do eiusmod tempor incididunt ut labore et dolore magna ' .
+				   'aliqua.';
 		}
 		$rnd       = explode( ' ',
 			'a ab ad accusamus adipisci alias aliquam amet animi aperiam ' .
@@ -525,5 +538,17 @@ class Filterable_Portfolio_Helper {
 		array_multisort( $widths, SORT_DESC, $heights, SORT_DESC, $images );
 
 		return $images;
+	}
+
+	public static function load_template( $template, $require_once = true, $args = [] ) {
+		$located = FILTERABLE_PORTFOLIO_TEMPLATES . '/' . $template;
+
+		// First check if file exist in stylesheet or template directory
+		$locate_template = locate_template( $template );
+		if ( '' != $locate_template ) {
+			$located = $locate_template;
+		}
+
+		load_template( $located, $require_once, $args );
 	}
 }
