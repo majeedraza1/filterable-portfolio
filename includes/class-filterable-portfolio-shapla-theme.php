@@ -92,7 +92,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 				return FILTERABLE_PORTFOLIO_TEMPLATES . '/shapla/single-portfolio.php';
 			}
 
-			return $single_template;
+			return apply_filters( 'filterable_portfolio/single_template', $single_template );
 		}
 
 		/**
@@ -123,8 +123,11 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 				return FILTERABLE_PORTFOLIO_TEMPLATES . '/shapla/archive-portfolio.php';
 			}
 
-			// Load default archive template
-			return FILTERABLE_PORTFOLIO_TEMPLATES . '/archive-portfolio.php';
+			// Load default archive template.
+			return apply_filters(
+				'filterable_portfolio/archive_template',
+				FILTERABLE_PORTFOLIO_TEMPLATES . '/archive-portfolio.php'
+			);
 		}
 
 		/**

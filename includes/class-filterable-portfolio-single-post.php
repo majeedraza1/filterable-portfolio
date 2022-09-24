@@ -46,6 +46,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 */
 		public function post_thumbnail_html( $html ) {
 			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
+				if ( true === apply_filters( 'filterable_portfolio/has_single_template', false ) ) {
+					return $html;
+				}
 
 				if ( Filterable_Portfolio_Helper::has_single_template() || Filterable_Portfolio_Helper::is_shapla_theme_activate() ) {
 					return $html;
@@ -68,6 +71,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Single_Post' ) ) {
 		 */
 		public function portfolio_content( $content ) {
 			if ( Filterable_Portfolio_Helper::is_single_portfolio() ) {
+				if ( true === apply_filters( 'filterable_portfolio/has_single_template', false ) ) {
+					return $content;
+				}
 
 				if ( Filterable_Portfolio_Helper::has_single_template() || Filterable_Portfolio_Helper::is_shapla_theme_activate() ) {
 					return $content;
