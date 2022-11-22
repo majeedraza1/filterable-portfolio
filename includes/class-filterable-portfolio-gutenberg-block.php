@@ -2,6 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Filterable_Portfolio_Gutenberg_Block class.
+ */
 class Filterable_Portfolio_Gutenberg_Block {
 	/**
 	 * Instance of current class
@@ -25,6 +28,11 @@ class Filterable_Portfolio_Gutenberg_Block {
 		return self::$instance;
 	}
 
+	/**
+	 * Register block type
+	 *
+	 * @return void
+	 */
 	public function register_block_type() {
 		wp_register_script(
 			'filterable-portfolio-block',
@@ -43,6 +51,14 @@ class Filterable_Portfolio_Gutenberg_Block {
 				'isFeatured'        => [ 'type' => 'boolean', 'default' => false ],
 				'showFilter'        => [ 'type' => 'boolean', 'default' => true ],
 				'filterBy'          => [ 'type' => 'string', 'default' => 'categories' ],
+				'orderBy'           => [
+					'type'    => 'string',
+					'default' => Filterable_Portfolio_Helper::get_option( 'orderby', 'ID' )
+				],
+				'order'             => [
+					'type'    => 'string',
+					'default' => Filterable_Portfolio_Helper::get_option( 'order', 'DESC' )
+				],
 				'limit'             => [
 					'type'    => 'number',
 					'default' => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 )
@@ -64,6 +80,8 @@ class Filterable_Portfolio_Gutenberg_Block {
 	}
 
 	/**
+	 * Render portfolio content
+	 *
 	 * @param array $attributes The block attributes.
 	 * @param string $content The block content.
 	 *
@@ -101,9 +119,22 @@ class Filterable_Portfolio_Gutenberg_Block {
 			$args['per_page'] = intval( $attributes['limit'] );
 		}
 
+		if ( isset( $attributes['order'], $attributes['orderBy'] ) ) {
+			$args['order']   = sanitize_text_field( $attributes['order'] );
+			$args['orderby'] = sanitize_text_field( $attributes['orderBy'] );
+		}
+
 		return Filterable_Portfolio_Shortcode::init()->shortcode( $args );
 	}
 
+	/**
+	 * Get responsive class
+	 *
+	 * @param array $attributes The block attributes.
+	 * @param string $name The attribute key.
+	 *
+	 * @return string
+	 */
 	public function get_responsive_class( $attributes, $name ) {
 		$prefixes = [
 			'columnsPhone'      => [ 'prefix' => 'xs', 'option' => 'columns_phone' ],

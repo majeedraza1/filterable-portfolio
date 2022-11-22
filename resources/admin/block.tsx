@@ -1,10 +1,10 @@
 // @ts-ignore
 import {registerBlockType} from '@wordpress/blocks';
 // @ts-ignore
-import {ServerSideRender, PanelBody, ToggleControl, SelectControl, RangeControl} from '@wordpress/components';
+import {PanelBody, RangeControl, SelectControl, ServerSideRender, ToggleControl} from '@wordpress/components';
 // @ts-ignore
-import {useBlockProps, InspectorControls} from '@wordpress/block-editor';
-import {__} from '@wordpress/i18n'
+import {InspectorControls, useBlockProps} from '@wordpress/block-editor';
+import {__} from '@wordpress/i18n';
 import React from 'react';
 
 const icon = (
@@ -54,6 +54,19 @@ const columnsOptions = [
 	{label: __('6 Columns', 'filterable-portfolio'), value: '2'},
 ];
 
+const orderByOptions = [
+	{label: __('Portfolio ID', 'filterable-portfolio'), value: 'ID'},
+	{label: __('Portfolio title', 'filterable-portfolio'), value: 'title'},
+	{label: __('Portfolio date', 'filterable-portfolio'), value: 'date'},
+	{label: __('Portfolio last modified date', 'filterable-portfolio'), value: 'modified'},
+	{label: __('Random order', 'filterable-portfolio'), value: 'rand'},
+];
+
+const orderOptions = [
+	{label: __('Ascending (lowest to highest)', 'filterable-portfolio'), value: 'ASC'},
+	{label: __('Descending (highest to lowest)', 'filterable-portfolio'), value: 'DESC'},
+];
+
 registerBlockType('filterable-portfolio/projects', {
 	apiVersion: 2,
 	title: __('Filterable Portfolio', 'filterable-portfolio'),
@@ -71,7 +84,9 @@ registerBlockType('filterable-portfolio/projects', {
 			columnsPhone,
 			columnsTablet,
 			columnsDesktop,
-			columnsWidescreen
+			columnsWidescreen,
+			order,
+			orderBy
 		} = attributes
 		const blockProps = useBlockProps();
 		const InspectorControlsEl = (
@@ -104,6 +119,22 @@ registerBlockType('filterable-portfolio/projects', {
 						checked={isFeatured}
 						onChange={() => setAttributes({isFeatured: !isFeatured})}
 					/>
+					<div className="filterable-portfolio-select-control">
+						<SelectControl
+							label={__('Order by', 'filterable-portfolio')}
+							value={orderBy}
+							options={orderByOptions}
+							onChange={(orderBy: string) => setAttributes({orderBy})}
+						/>
+					</div>
+					<div className="filterable-portfolio-select-control">
+						<SelectControl
+							label={__('Order', 'filterable-portfolio')}
+							value={order}
+							options={orderOptions}
+							onChange={(order: string) => setAttributes({order})}
+						/>
+					</div>
 				</PanelBody>
 				<PanelBody
 					title={__('Filter Settings', 'filterable-portfolio')}

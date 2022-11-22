@@ -45,11 +45,16 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 				'theme'              => Filterable_Portfolio_Helper::get_option( 'portfolio_theme', 'two' ),
 				'buttons_alignment'  => Filterable_Portfolio_Helper::get_option( 'filter_buttons_alignment', 'end' ),
 				'per_page'           => Filterable_Portfolio_Helper::get_option( 'posts_per_page', 100 ),
+				'orderby'            => Filterable_Portfolio_Helper::get_option( 'orderby', 'ID' ),
+				'order'              => Filterable_Portfolio_Helper::get_option( 'order', 'DESC' ),
 			], $attributes, 'filterable_portfolio' );
 
 			wp_enqueue_script( 'filterable-portfolio' );
 
-			$args = [];
+			$args = [
+				'orderby' => $attributes['orderby'],
+				'order'   => $attributes['order'],
+			];
 
 			if ( isset( $attributes['per_page'] ) && is_numeric( $attributes['per_page'] ) ) {
 				$args['per_page'] = $attributes['per_page'];

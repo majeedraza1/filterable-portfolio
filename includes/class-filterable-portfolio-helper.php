@@ -99,8 +99,8 @@ class Filterable_Portfolio_Helper {
 			'post_type'      => self::POST_TYPE,
 			'post_status'    => 'publish',
 			'posts_per_page' => intval( $options['posts_per_page'] ),
-			'orderby'        => $options['orderby'],
-			'order'          => $options['order'],
+			'orderby'        => $args['orderby'] ? $args['orderby'] : $options['orderby'],
+			'order'          => $args['order'] ? $args['order'] : $options['order'],
 		);
 
 		if ( isset( $args['per_page'] ) && is_numeric( $args['per_page'] ) ) {
@@ -457,8 +457,8 @@ class Filterable_Portfolio_Helper {
 		$out = '';
 		if ( $prepend_lorem_text ) {
 			$out = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' .
-				   'sed do eiusmod tempor incididunt ut labore et dolore magna ' .
-				   'aliqua.';
+			       'sed do eiusmod tempor incididunt ut labore et dolore magna ' .
+			       'aliqua.';
 		}
 		$rnd       = explode( ' ',
 			'a ab ad accusamus adipisci alias aliquam amet animi aperiam ' .
@@ -540,6 +540,15 @@ class Filterable_Portfolio_Helper {
 		return $images;
 	}
 
+	/**
+	 * Load a template
+	 *
+	 * @param string $template The template name.
+	 * @param bool $require_once Should require once?
+	 * @param array $args Optional arguments to be passed to template.
+	 *
+	 * @return void
+	 */
 	public static function load_template( $template, $require_once = true, $args = [] ) {
 		$located = FILTERABLE_PORTFOLIO_TEMPLATES . '/' . $template;
 

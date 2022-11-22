@@ -4,7 +4,7 @@ Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, port
 Requires at least: 5.5
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -104,8 +104,9 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 
 == Changelog ==
 
-= version 1.6.3 - 2022-##-## =
+= version 1.6.3 - 2022-11-22 =
 * Add filter hook to load single portfolio template and archive portfolio template from plugin.
+* Add 'orderby' and 'order' shortcode and block attributes to change global option.
 
 = version 1.6.2 - 2022-09-23 =
 * Add default archive template for portfolio post type if it not exists in theme.
