@@ -18,11 +18,26 @@
     "ext-json": "*"
   },
   "require-dev": {
-    "wp-cli/wp-cli-bundle": "^2.6"
+    "wp-cli/wp-cli-bundle": "*",
+    "phpunit/phpunit": "^9.0",
+    "roots/wordpress": "^6.4",
+    "wp-phpunit/wp-phpunit": "^5.9",
+    "yoast/phpunit-polyfills": "^1.0",
+    "squizlabs/php_codesniffer": "^3.6",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "wp-coding-standards/wpcs": "*"
   },
   "scripts": {
     "generate-pot": "wp i18n make-pot . languages/filterable-portfolio.pot",
     "show-plugin-info": "wp filterable-portfolio info",
-    "create-dummy-data": "wp filterable-portfolio create_dummy_data"
+    "create-dummy-data": "wp filterable-portfolio create_dummy_data",
+    "lint": "phpcs --standard=phpcs.xml",
+    "format": "phpcbf --standard=phpcs.xml"
+  },
+  "config": {
+    "allow-plugins": {
+      "roots/wordpress-core-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }

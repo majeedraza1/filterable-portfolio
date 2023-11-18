@@ -14,7 +14,7 @@
       "./resources/admin/vendor.js"
     ],
     "block": [
-      "./resources/admin/block.tsx"
+      "./resources/admin/block.jsx"
     ]
   }
 }

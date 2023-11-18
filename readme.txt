@@ -1,10 +1,10 @@
 === Filterable Portfolio ===
 Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
-Requires at least: 5.5
-Tested up to: 6.1
+Requires at least: 6.0
 Requires PHP: 7.0
-Stable tag: 1.6.3
+Tested up to: 6.4
+Stable tag: 1.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -103,6 +103,10 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 6. Filterable Portfolio edit page.
 
 == Changelog ==
+
+= version 1.6.4 - 2023-11-18 =
+* Dev       - Check compatibility with WordPress 6.4
+* Fix       - Block related issue.
 
 = version 1.6.3 - 2022-11-22 =
 * Add filter hook to load single portfolio template and archive portfolio template from plugin.
