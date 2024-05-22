@@ -1,6 +1,6 @@
 === Filterable Portfolio ===
 Contributors: sayful
-Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
+Tags: portfolio, portfolio gallery, portfolio plugin, sortable portfolio, project showcase
 Requires at least: 6.0
 Requires PHP: 7.0
 Tested up to: 6.5
