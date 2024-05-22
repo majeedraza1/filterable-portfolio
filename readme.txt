@@ -3,7 +3,7 @@ Contributors: sayful
 Tags: portfolio, filterable portfolio, images portfolio, portfolio gallery, portfolio plugin, filtrable portfolio, responsive portfolio, wordpress portfolio, wp portfolio, wordpress portfolio plugin, sortable portfolio, project portfolio
 Requires at least: 6.0
 Requires PHP: 7.0
-Tested up to: 6.4
+Tested up to: 6.5
 Stable tag: 1.6.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
