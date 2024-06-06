@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:         Filterable Portfolio
- * Plugin URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Plugin URI:          https://majeedraza.me/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description:         A WordPress plugin to display portfolio images with filtering.
  * Version:             1.6.4
  * Author:              Sayful Islam
- * Author URI:          https://sayfulislam.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
+ * Author URI:          https://majeedraza.me/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * License:             GPLv3
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:         filterable-portfolio

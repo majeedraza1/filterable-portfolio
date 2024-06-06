@@ -1,5 +1,5 @@
 === Filterable Portfolio ===
-Contributors: sayful
+Contributors: sayful, majeedraza
 Tags: portfolio, portfolio gallery, portfolio plugin, sortable portfolio, project showcase
 Requires at least: 6.0
 Requires PHP: 7.0

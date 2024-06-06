@@ -9,20 +9,7 @@
     "project",
     "gallery"
   ],
-  "author": {
-    "name": "Sayful Islam",
-    "email": "sayful.islam001@gmail.com",
-    "url": "https://sayfulislam.com"
-  },
   "license": "GPLv3",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sayful1/filterable-portfolio.git"
-  },
-  "bugs": {
-    "url": "https://github.com/sayful1/filterable-portfolio/issues"
-  },
-  "homepage": "https://github.com/sayful1/filterable-portfolio#readme",
   "scripts": {
     "dev": "webpack --mode=development --progress --watch",
     "dev-build": "webpack --mode=development",
