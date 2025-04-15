@@ -4,7 +4,7 @@
  * Plugin URI:          https://majeedraza.me/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
  * Description:         A WordPress plugin to display portfolio images with filtering.
  * Version:             1.6.5
- * Author:              Sayful Islam
+ * Author:              Majeed Raza
  * Author URI:          https://majeedraza.me/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  * License:             GPLv3
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.txt
