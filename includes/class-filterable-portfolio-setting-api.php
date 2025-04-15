@@ -72,7 +72,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * This method is accessible outside the class for creating menu
 		 *
-		 * @param array $menu_fields
+		 * @param  array  $menu_fields
 		 *
 		 * @throws Exception
 		 */
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * This method is accessible outside the class for creating settings field
 		 *
-		 * @param array $field
+		 * @param  array  $field
 		 *
 		 * @throws Exception
 		 */
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 *
 		 * This method is accessible outside the class for creating page tab
 		 *
-		 * @param array $tab
+		 * @param  array  $tab
 		 *
 		 * @throws Exception
 		 */
@@ -136,8 +136,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			$page_title  = $this->menu_fields['page_title'];
 			$menu_title  = $this->menu_fields['menu_title'];
 			$menu_slug   = $this->menu_fields['menu_slug'];
-			$capability  = isset( $this->menu_fields['capability'] ) ? $this->menu_fields['capability'] : 'manage_options';
-			$parent_slug = isset( $this->menu_fields['parent_slug'] ) ? $this->menu_fields['parent_slug'] : null;
+			$capability  = $this->menu_fields['capability'] ?? 'manage_options';
+			$parent_slug = $this->menu_fields['parent_slug'] ?? null;
 
 			if ( $parent_slug ) {
 				add_submenu_page(
@@ -163,12 +163,12 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		 * Load page content
 		 */
 		public function page_content() {
-			ob_start(); ?>
+			?>
             <div class="wrap about-wrap">
-                <h1><?php echo $this->menu_fields['page_title']; ?></h1>
-                <div class="about-text"><?php echo $this->menu_fields['about_text']; ?></div>
+                <h1><?php echo esc_html( $this->menu_fields['page_title'] ); ?></h1>
+                <div class="about-text"><?php echo esc_html( $this->menu_fields['about_text'] ); ?></div>
 				<?php $this->option_page_tabs(); ?>
-                <form autocomplete="off" method="POST" action="<?php echo $this->action; ?>">
+                <form autocomplete="off" method="POST" action="<?php echo esc_attr( $this->action ); ?>">
 					<?php
 					$this->get_options();
 					settings_fields( $this->menu_fields['option_name'] );
@@ -178,7 +178,6 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
                 </form>
             </div>
 			<?php
-			echo ob_get_clean();
 		}
 
 		/**
@@ -190,7 +189,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 				return;
 			}
 
-			$current_tab = isset ( $_GET['tab'] ) ? $_GET['tab'] : $this->tabs[0]['id'];
+			$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : $this->tabs[0]['id']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$page        = $this->menu_fields['menu_slug'];
 
 			echo '<h2 class="nav-tab-wrapper wp-clearfix">';
@@ -200,7 +199,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					'page' => $page,
 					'tab'  => $tab['id']
 				), admin_url( $this->menu_fields['parent_slug'] ) ) );
-				echo '<a class="nav-tab' . $class . '" href="' . $page_url . '">' . $tab['title'] . '</a>';
+				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $page_url ) . '">' . esc_html( $tab['title'] ) . '</a>';
 			}
 			echo '</h2>';
 		}
@@ -208,7 +207,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * Filter settings fields by page tab
 		 *
-		 * @param  string $current_tab
+		 * @param  string  $current_tab
 		 *
 		 * @return array
 		 */
@@ -219,7 +218,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			}
 
 			if ( ! $current_tab ) {
-				$current_tab = isset ( $_GET['tab'] ) ? $_GET['tab'] : $this->tabs[0]['id'];
+				$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : $this->tabs[0]['id'];  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			}
 
 			$new_array = array();
@@ -244,7 +243,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * Sanitize each setting field as needed
 		 *
-		 * @param array $input Contains all settings fields as array keys
+		 * @param  array  $input  Contains all settings fields as array keys
 		 *
 		 * @return array
 		 */
@@ -255,12 +254,13 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			$options      = array_filter( $options );
 
 			if ( empty( $options ) ) {
-				$options = (array) $this->get_options();
+				$options = $this->get_options();
 			}
 
 			if ( count( $this->tabs ) > 0 ) {
-				parse_str( $_POST['_wp_http_referer'], $referrer );
-				$tab    = isset( $referrer['tab'] ) ? $referrer['tab'] : $this->tabs[0]['id'];
+				parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ?? '' ) ),
+					$referrer );  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$tab    = $referrer['tab'] ?? $this->tabs[0]['id'];
 				$fields = $this->filter_fields_by_tab( $tab );
 			}
 
@@ -301,8 +301,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * Validate the option's value
 		 *
-		 * @param  mixed $input
-		 * @param  string $validation_rule
+		 * @param  mixed  $input
+		 * @param  string  $validation_rule
 		 *
 		 * @return mixed
 		 */
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 					break;
 
 				case 'date':
-					return date( 'F d, Y', strtotime( $input ) );
+					return gmdate( 'F d, Y', strtotime( $input ) );
 					break;
 
 				case 'textarea':
@@ -369,7 +369,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * Settings fields
 		 *
-		 * @param  array $fields
+		 * @param  array  $fields
 		 *
 		 * @return void
 		 */
@@ -403,15 +403,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 			}
 
 			$table .= "</table>";
-			echo $table;
+			echo wp_kses_post( $table );
 		}
 
 		/**
 		 * text input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -423,9 +423,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * email input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -437,9 +437,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * password input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -451,9 +451,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * number input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -465,9 +465,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * url input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -479,9 +479,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * color input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -495,14 +495,14 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * date input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
 		public function date( $field, $name, $value ) {
-			$value = date( "F d, Y", strtotime( $value ) );
+			$value = gmdate( "F d, Y", strtotime( $value ) );
 
 			return sprintf( '<input type="text" class="regular-text datepicker" value="%1$s" id="%2$s" name="%3$s">',
 				$value, $field['id'], $name );
@@ -511,9 +511,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * textarea input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -529,9 +529,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * checkbox input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -549,9 +549,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * multi checkbox input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  array $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  array  $value
 		 *
 		 * @return string
 		 */
@@ -572,9 +572,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * radio input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -594,9 +594,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * select input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -660,9 +660,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Setting_API' ) ) {
 		/**
 		 * wp_editor input field
 		 *
-		 * @param  array $field
-		 * @param  string $name
-		 * @param  string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */

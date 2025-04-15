@@ -35,15 +35,15 @@ if ( $categories && ! is_wp_error( $categories ) ) {
 $image_size        = esc_attr( $options['image_size'] );
 $post_thumbnail_id = get_post_thumbnail_id( get_the_ID() );
 ?>
-<div id="id-<?php echo get_the_ID(); ?>" class="<?php echo implode( ' ', $item_class ) ?>">
-	<figure class="filterable-portfolio-item__content">
-		<a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark" class="filterable-portfolio-item__media">
+<div id="id-<?php echo esc_attr( get_the_ID() ); ?>" class="<?php echo esc_attr( implode( ' ', $item_class ) ) ?>">
+    <figure class="filterable-portfolio-item__content">
+        <a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark" class="filterable-portfolio-item__media">
 			<?php echo wp_get_attachment_image( $post_thumbnail_id, $image_size ) ?>
-		</a>
-		<figcaption class="filterable-portfolio-item__supporting-text">
-			<h4 class="filterable-portfolio-item__title"><?php echo get_the_title(); ?></h4>
-			<a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark"
-			   class="button filterable-portfolio-item__action"><?php echo $button_text; ?></a>
-		</figcaption>
-	</figure>
+        </a>
+        <figcaption class="filterable-portfolio-item__supporting-text">
+            <h4 class="filterable-portfolio-item__title"><?php echo esc_html( get_the_title() ); ?></h4>
+            <a href="<?php echo esc_url( get_the_permalink() ); ?>" rel="bookmark"
+               class="button filterable-portfolio-item__action"><?php echo esc_html( $button_text ); ?></a>
+        </figcaption>
+    </figure>
 </div>

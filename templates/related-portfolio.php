@@ -16,8 +16,8 @@ $items_class = 'grids portfolio-items related-projects';
 $items_class .= ' fp-theme-' . $theme;
 $title       = esc_html( $option['related_projects_text'] );
 ?>
-<h4 class="related-projects-title"><?php echo $title; ?></h4>
-<div class="<?php echo $items_class; ?>">
+<h4 class="related-projects-title"><?php echo esc_html( $title ); ?></h4>
+<div class="<?php echo esc_attr( $items_class ); ?>">
 	<?php
 	$temp_post = $GLOBALS['post'];
 	foreach ( $portfolios as $portfolio ) {

@@ -75,8 +75,8 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get option
 	 *
-	 * @param string $key The option key.
-	 * @param string $default Default value.
+	 * @param  string  $key  The option key.
+	 * @param  string  $default  Default value.
 	 *
 	 * @return false|mixed
 	 */
@@ -89,7 +89,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get all portfolios
 	 *
-	 * @param array $args
+	 * @param  array  $args
 	 *
 	 * @return WP_Post[]
 	 */
@@ -111,7 +111,7 @@ class Filterable_Portfolio_Helper {
 			$portfolios_args['paged'] = intval( $args['page'] );
 		}
 
-		if ( isset( $args['featured'] ) && $args['featured'] == true ) {
+		if ( isset( $args['featured'] ) && $args['featured'] === true ) {
 			$portfolios_args['meta_query'] = array(
 				array(
 					'key'   => '_is_featured_project',
@@ -126,7 +126,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get related portfolios
 	 *
-	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post.
+	 * @param  int|\WP_Post|null  $post  Post ID or post object. Defaults to global $post.
 	 *
 	 * @return \WP_Post[] List of posts.
 	 */
@@ -139,7 +139,6 @@ class Filterable_Portfolio_Helper {
 		$args = array(
 			'post_type'      => self::POST_TYPE,
 			'posts_per_page' => intval( $options['related_projects_number'] ),
-			'post__not_in'   => array( $post->ID ),
 			'tax_query'      => array( 'relation' => 'OR' )
 		);
 
@@ -155,13 +154,28 @@ class Filterable_Portfolio_Helper {
 			$args['tax_query'][] = array( 'taxonomy' => self::SKILL, 'field' => 'id', 'terms' => $skill_ids );
 		}
 
-		return get_posts( $args );
+		$_posts = get_posts( $args );
+
+		/**
+		 * To fix performance issue on post__not_in parameter
+		 *
+		 * @see https://wpvip.com/documentation/performance-improvements-by-removing-usage-of-post__not_in/
+		 */
+		$posts = array();
+		foreach ( $_posts as $_post ) {
+			if ( $_post->ID === $post->ID ) {
+				continue;
+			}
+			$posts[] = $_post;
+		}
+
+		return $posts;
 	}
 
 	/**
 	 * Get portfolio images ids
 	 *
-	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post.
+	 * @param  int|\WP_Post|null  $post  Post ID or post object. Defaults to global $post.
 	 *
 	 * @return array
 	 */
@@ -183,7 +197,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Check if has portfolio images
 	 *
-	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post.
+	 * @param  int|\WP_Post|null  $post  Post ID or post object. Defaults to global $post.
 	 *
 	 * @return bool
 	 */
@@ -196,7 +210,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get categories from portfolios
 	 *
-	 * @param WP_Post[] $portfolios
+	 * @param  WP_Post[]  $portfolios
 	 *
 	 * @return array|WP_Term[]
 	 */
@@ -209,7 +223,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get skills from portfolios
 	 *
-	 * @param WP_Post[] $portfolios
+	 * @param  WP_Post[]  $portfolios
 	 *
 	 * @return array|WP_Term[]
 	 */
@@ -375,7 +389,7 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Create dummy portfolios
 	 *
-	 * @param int $total
+	 * @param  int  $total
 	 */
 	public static function create_dummy_portfolio( $total = 1 ) {
 		$categories = get_terms( [ 'taxonomy' => self::CATEGORY, 'hide_empty' => false ] );
@@ -391,23 +405,23 @@ class Filterable_Portfolio_Helper {
 				'post_type'    => self::POST_TYPE,
 			] );
 			if ( ! is_wp_error( $id ) ) {
-				$name = $names[ rand( 0, 8 ) ];
+				$name = $names[ wp_rand( 0, 8 ) ];
 				add_post_meta( $id, '_client_name', $name );
 
 				add_post_meta( $id, '_project_url', 'https://example.com' );
 
-				$random_time = rand( strtotime( 'first day of last year' ), time() );
-				add_post_meta( $id, '_project_date', date( "Y-m-d", $random_time ) );
+				$random_time = wp_rand( strtotime( 'first day of last year' ), time() );
+				add_post_meta( $id, '_project_date', gmdate( "Y-m-d", $random_time ) );
 
 				$images     = self::get_images( 'full', 10 );
 				$images_ids = wp_list_pluck( $images, 'id' );
 				add_post_meta( $id, '_project_images', implode( ',', $images_ids ) );
 				set_post_thumbnail( $id, $images_ids[0] );
 
-				$category = $categories[ rand( 0, count( $categories ) - 1 ) ];
+				$category = $categories[ wp_rand( 0, count( $categories ) - 1 ) ];
 				wp_set_object_terms( $id, [ $category->term_id ], self::CATEGORY );
 
-				$skill = $skills[ rand( 0, count( $skills ) - 1 ) ];
+				$skill = $skills[ wp_rand( 0, count( $skills ) - 1 ) ];
 				wp_set_object_terms( $id, [ $skill->term_id ], self::SKILL );
 			}
 		}
@@ -420,7 +434,7 @@ class Filterable_Portfolio_Helper {
 	 */
 	public static function create_test_page() {
 		$page_path    = 'filterable-portfolio-test';
-		$page_title   = __( 'Filterable Portfolio Test', 'carousel-slider' );
+		$page_title   = __( 'Filterable Portfolio Test', 'filterable-portfolio' );
 		$page_content = '[filterable_portfolio]';
 
 		// Check that the page doesn't exist already
@@ -447,9 +461,9 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Generate lorem text
 	 *
-	 * @param int $sentence
-	 * @param int $max_words
-	 * @param bool $prepend_lorem_text
+	 * @param  int  $sentence
+	 * @param  int  $max_words
+	 * @param  bool  $prepend_lorem_text
 	 *
 	 * @return string
 	 */
@@ -481,7 +495,7 @@ class Filterable_Portfolio_Helper {
 		$max_words = $max_words <= 3 ? 4 : $max_words;
 		for ( $i = 0, $add = $sentence - (int) $prepend_lorem_text; $i < $add; $i ++ ) {
 			shuffle( $rnd );
-			$words = array_slice( $rnd, 0, mt_rand( 3, $max_words ) );
+			$words = array_slice( $rnd, 0, wp_rand( 3, $max_words ) );
 			$out   .= ( ! $prepend_lorem_text && $i == 0 ? '' : ' ' ) . ucfirst( implode( ' ', $words ) ) . '.';
 		}
 
@@ -491,8 +505,8 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Get list of images sorted by its width and height
 	 *
-	 * @param string $image_size
-	 * @param int $per_page
+	 * @param  string  $image_size
+	 * @param  int  $per_page
 	 *
 	 * @return array
 	 */
@@ -543,9 +557,9 @@ class Filterable_Portfolio_Helper {
 	/**
 	 * Load a template
 	 *
-	 * @param string $template The template name.
-	 * @param bool $require_once Should require once?
-	 * @param array $args Optional arguments to be passed to template.
+	 * @param  string  $template  The template name.
+	 * @param  bool  $require_once  Should require once?
+	 * @param  array  $args  Optional arguments to be passed to template.
 	 *
 	 * @return void
 	 */

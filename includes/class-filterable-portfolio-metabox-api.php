@@ -31,7 +31,7 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * Add a custom meta box
 		 *
-		 * @param array $meta_box Meta box input data
+		 * @param  array  $meta_box  Meta box input data
 		 *
 		 * @return void
 		 */
@@ -54,8 +54,8 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * Create content for the custom meta box
 		 *
-		 * @param WP_Post $post
-		 * @param array $meta_box
+		 * @param  WP_Post  $post
+		 * @param  array  $meta_box
 		 *
 		 * @return void
 		 */
@@ -67,7 +67,7 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			$meta_box = $meta_box['args'];
 
 			if ( isset( $meta_box['description'] ) && $meta_box['description'] != '' ) {
-				echo sprintf( '<p class="description">%s</p>', $meta_box['description'] );
+				echo sprintf( '<p class="description">%s</p>', wp_kses_post( $meta_box['description'] ) );
 			}
 
 			wp_nonce_field( $this->nonce_action, $this->nonce_name );
@@ -101,15 +101,15 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 			}
 
 			$table .= "</table>";
-			echo $table;
+			echo wp_kses_post( $table );
 		}
 
 		/**
 		 * text input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -121,9 +121,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * email input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -135,9 +135,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * password input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -149,9 +149,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * number input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -163,9 +163,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * url input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -177,9 +177,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * color input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -193,14 +193,14 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * date input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
 		public function date( $field, $name, $value ) {
-			$value = ! empty( $value ) ? date( "Y-m-d", strtotime( $value ) ) : '';
+			$value = ! empty( $value ) ? gmdate( "Y-m-d", strtotime( $value ) ) : '';
 
 			return sprintf( '<input type="date" class="regular-text" value="%1$s" id="%2$s" name="%3$s">',
 				$value, $field['id'], $name );
@@ -209,9 +209,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * textarea input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -226,9 +226,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * checkbox input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -246,9 +246,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * multi checkbox input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param array $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  array  $value
 		 *
 		 * @return string
 		 */
@@ -271,9 +271,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * radio input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -291,9 +291,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * select input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -311,9 +311,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * wp_editor input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
@@ -335,29 +335,30 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 		/**
 		 * images input field
 		 *
-		 * @param array $field
-		 * @param string $name
-		 * @param string $value
+		 * @param  array  $field
+		 * @param  string  $name
+		 * @param  string  $value
 		 *
 		 * @return string
 		 */
 		public function images( $field, $name, $value ) {
 			$btn_text = $value ? 'Edit Gallery' : 'Add Gallery';
-			$value    = strip_tags( rtrim( $value, ',' ) );
+			$value    = wp_strip_all_tags( rtrim( $value, ',' ) );
 			ob_start(); ?>
-			<div class="gallery_images">
-				<input type="hidden" value="<?php echo $value; ?>" id="<?php echo $field['id']; ?>"
-					   name="<?php echo $name; ?>">
-				<button id="fp_gallery_btn"
-						class="button button-default"
-						data-modal="MediaFramePost"
-						data-create="<?php esc_attr_e( 'Create Gallery', 'filterable-portfolio' ); ?>"
-						data-edit="<?php esc_attr_e( 'Edit Gallery', 'filterable-portfolio' ); ?>"
-						data-progress="<?php esc_attr_e( 'Saving...', 'filterable-portfolio' ); ?>"
-						data-save="<?php esc_attr_e( 'Save Gallery', 'filterable-portfolio' ); ?>"
-				><?php echo $btn_text; ?></button>
-				<br class="clear"><br>
-				<ul class="fp_gallery_list gallery_images_list">
+            <div class="gallery_images">
+                <input type="hidden" value="<?php echo esc_attr( $value ); ?>"
+                       id="<?php echo esc_attr( $field['id'] ); ?>"
+                       name="<?php echo esc_attr( $name ); ?>">
+                <button id="fp_gallery_btn"
+                        class="button button-default"
+                        data-modal="MediaFramePost"
+                        data-create="<?php esc_attr_e( 'Create Gallery', 'filterable-portfolio' ); ?>"
+                        data-edit="<?php esc_attr_e( 'Edit Gallery', 'filterable-portfolio' ); ?>"
+                        data-progress="<?php esc_attr_e( 'Saving...', 'filterable-portfolio' ); ?>"
+                        data-save="<?php esc_attr_e( 'Save Gallery', 'filterable-portfolio' ); ?>"
+                ><?php echo esc_html( $btn_text ); ?></button>
+                <br class="clear"><br>
+                <ul class="fp_gallery_list gallery_images_list">
 					<?php
 					if ( $value ) {
 						$thumbs = explode( ',', $value );
@@ -366,9 +367,9 @@ if ( ! class_exists( 'Filterable_Portfolio_MetaBox_API' ) ) {
 						}
 					}
 					?>
-				</ul>
-				<br class="clear">
-			</div>
+                </ul>
+                <br class="clear">
+            </div>
 			<?php
 			return ob_get_clean();
 		}

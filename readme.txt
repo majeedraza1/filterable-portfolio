@@ -3,8 +3,8 @@ Contributors: sayful, majeedraza
 Tags: portfolio, portfolio gallery, portfolio plugin, sortable portfolio, project showcase
 Requires at least: 6.0
 Requires PHP: 7.0
-Tested up to: 6.5
-Stable tag: 1.6.4
+Tested up to: 6.8
+Stable tag: 1.6.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -103,6 +103,10 @@ Here is a list of all default meta fields: _project_images, _client_name, _proje
 6. Filterable Portfolio edit page.
 
 == Changelog ==
+
+= version 1.6.5 - 2025-04-15 =
+* Dev       - Check compatibility with WordPress 6.8
+* Dev       - Update security and performance using "Plugin Check (PCP)"
 
 = version 1.6.4 - 2023-11-18 =
 * Dev       - Check compatibility with WordPress 6.4

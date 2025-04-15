@@ -32,14 +32,15 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 		/**
 		 * Save custom meta box
 		 *
-		 * @param int $post_id The post ID
+		 * @param  int  $post_id  The post ID
 		 */
 		public function save_meta_boxes( $post_id ) {
 			if ( ! isset( $_POST['_fp_nonce'] ) ) {
 				return;
 			}
 
-			if ( ! wp_verify_nonce( $_POST['_fp_nonce'], 'filterable_portfolio_nonce' ) ) {
+			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_fp_nonce'] ) ),
+				'filterable_portfolio_nonce' ) ) {
 				return;
 			}
 
@@ -62,7 +63,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 				return;
 			}
 
-			$data = $_POST['filterable_portfolio_meta'] ?? [];
+			$data = is_array( $_POST['filterable_portfolio_meta'] ) ? stripslashes_deep( $_POST['filterable_portfolio_meta'] ) : [];
 
 			foreach ( $data as $key => $val ) {
 				update_post_meta( $post_id, $key, stripslashes( htmlspecialchars( $val ) ) );
@@ -71,7 +72,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 			$settings = Filterable_Portfolio_Helper::get_options();
 			if ( in_array( $settings['project_date_as_post_date'], [ 1, '1', 'on', 'yes', 'true', true ], true ) ) {
 				$date     = $data['_project_date'] ?? '';
-				$datetime = date( 'Y-m-d H:i:s', strtotime( $date ) );
+				$datetime = gmdate( 'Y-m-d H:i:s', strtotime( $date ) );
 				if ( $datetime ) {
 					wp_update_post( [
 						'ID'            => $post_id,
@@ -124,7 +125,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Metabox' ) ) {
 					),
 					'_is_featured_project' => array(
 						'name' => __( 'Featured project', 'filterable-portfolio' ),
-						'desc' => __( 'Check this if you want to mark this project as featured.', 'filterable-portfolio' ),
+						'desc' => __( 'Check this if you want to mark this project as featured.',
+							'filterable-portfolio' ),
 						'id'   => '_is_featured_project',
 						'type' => 'checkbox',
 						'std'  => 'no'

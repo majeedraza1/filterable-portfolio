@@ -78,7 +78,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves a collection of portfolios.
 	 *
-	 * @param WP_REST_Request $request Full data about the request.
+	 * @param  WP_REST_Request  $request  Full data about the request.
 	 *
 	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
@@ -114,7 +114,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves a collection of portfolios categories.
 	 *
-	 * @param WP_REST_Request $request Full data about the request.
+	 * @param  WP_REST_Request  $request  Full data about the request.
 	 *
 	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
@@ -128,7 +128,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves a collection of portfolios skills.
 	 *
-	 * @param WP_REST_Request $request Full data about the request.
+	 * @param  WP_REST_Request  $request  Full data about the request.
 	 *
 	 * @return WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
@@ -142,8 +142,8 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Prepares a single post output for response.
 	 *
-	 * @param WP_Post $post Post object.
-	 * @param WP_REST_Request $request Request object.
+	 * @param  WP_Post  $post  Post object.
+	 * @param  WP_REST_Request  $request  Request object.
 	 *
 	 * @return WP_REST_Response Response object.
 	 */
@@ -163,7 +163,8 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 		}
 
 		if ( in_array( 'excerpt', $fields ) ) {
-			$data['excerpt'] = apply_filters( 'the_excerpt', apply_filters( 'get_the_excerpt', $post->post_excerpt, $post ) );
+			$data['excerpt'] = apply_filters( 'the_excerpt',
+				apply_filters( 'get_the_excerpt', $post->post_excerpt, $post ) );
 		}
 
 		if ( in_array( 'date', $fields ) ) {
@@ -233,7 +234,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 
 		if ( in_array( 'project_date', $fields ) ) {
 			$project_date         = get_post_meta( $post->ID, '_project_date', true );
-			$data['project_date'] = ! empty( $project_date ) ? date( "Y-m-d", strtotime( $project_date ) ) : '';
+			$data['project_date'] = ! empty( $project_date ) ? gmdate( "Y-m-d", strtotime( $project_date ) ) : '';
 		}
 
 		if ( in_array( 'featured_media', $fields ) ) {
@@ -259,9 +260,9 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @param WP_Post[] $portfolios
+	 * @param  WP_Post[]  $portfolios
 	 *
-	 * @param WP_REST_Request $request
+	 * @param  WP_REST_Request  $request
 	 *
 	 * @return array
 	 */
@@ -275,7 +276,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @param WP_Term[] $categories
+	 * @param  WP_Term[]  $categories
 	 *
 	 * @return array
 	 */
@@ -322,25 +323,26 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 
 		return array_merge( $params, [
 			'order'    => [
-				'description' => __( 'Order sort attribute ascending or descending.' ),
+				'description' => __( 'Order sort attribute ascending or descending.', 'filterable-portfolio' ),
 				'type'        => 'string',
 				'default'     => 'desc',
 				'enum'        => [ 'asc', 'desc' ],
 			],
 			'orderby'  => [
-				'description' => __( 'Sort collection by object attribute.' ),
+				'description' => __( 'Sort collection by object attribute.', 'filterable-portfolio' ),
 				'type'        => 'string',
 				'default'     => 'date',
 				'enum'        => [ 'id', 'title', 'date', ],
 			],
 			'fields'   => [
-				'description'       => __( 'List of fields to include in response. Available fields are ' ) . implode( ', ', $valid_fields ),
+				'description'       => __( 'List of fields to include in response. Available fields are ',
+						'filterable-portfolio' ) . implode( ', ', $valid_fields ),
 				'type'              => 'array',
 				'default'           => [ 'id', 'title', 'featured_media' ],
 				'validate_callback' => 'rest_validate_request_arg',
 			],
 			'featured' => [
-				'description'       => __( 'Limit results to featured projects only.' ),
+				'description'       => __( 'Limit results to featured projects only.', 'filterable-portfolio' ),
 				'type'              => 'boolean',
 				'default'           => false,
 				'validate_callback' => 'rest_validate_request_arg',
@@ -360,7 +362,7 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Set HTTP status code.
 	 *
-	 * @param int $statusCode
+	 * @param  int  $statusCode
 	 *
 	 * @return self
 	 */
@@ -373,9 +375,9 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Respond.
 	 *
-	 * @param mixed $data Response data. Default null.
-	 * @param int $status Optional. HTTP status code. Default 200.
-	 * @param array $headers Optional. HTTP header map. Default empty array.
+	 * @param  mixed  $data  Response data. Default null.
+	 * @param  int  $status  Optional. HTTP status code. Default 200.
+	 * @param  array  $headers  Optional. HTTP header map. Default empty array.
 	 *
 	 * @return WP_REST_Response
 	 */
@@ -386,9 +388,9 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Response error message
 	 *
-	 * @param string $code
-	 * @param string $message
-	 * @param mixed $data
+	 * @param  string  $code
+	 * @param  string  $message
+	 * @param  mixed  $data
 	 *
 	 * @return WP_REST_Response
 	 */
@@ -418,9 +420,9 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Response success message
 	 *
-	 * @param mixed $data
-	 * @param string $message
-	 * @param array $headers
+	 * @param  mixed  $data
+	 * @param  string  $message
+	 * @param  array  $headers
 	 *
 	 * @return WP_REST_Response
 	 */
@@ -452,8 +454,8 @@ class Filterable_Portfolio_REST_Controller extends WP_REST_Controller {
 	 * --> bulk creation
 	 * --> bulk update
 	 *
-	 * @param mixed $data
-	 * @param string $message
+	 * @param  mixed  $data
+	 * @param  string  $message
 	 *
 	 * @return WP_REST_Response
 	 */

@@ -38,7 +38,8 @@ class Filterable_Portfolio_Gutenberg_Block {
 			'filterable-portfolio-block',
 			FILTERABLE_PORTFOLIO_ASSETS . '/js/block.js',
 			[ 'wp-blocks', 'wp-components', 'wp-block-editor', 'wp-i18n', 'wp-element', 'wp-server-side-render' ],
-			FILTERABLE_PORTFOLIO_VERSION
+			FILTERABLE_PORTFOLIO_VERSION,
+			true
 		);
 
 		register_block_type( 'filterable-portfolio/projects', array(
@@ -82,8 +83,8 @@ class Filterable_Portfolio_Gutenberg_Block {
 	/**
 	 * Render portfolio content
 	 *
-	 * @param array $attributes The block attributes.
-	 * @param string $content The block content.
+	 * @param  array  $attributes  The block attributes.
+	 * @param  string  $content  The block content.
 	 *
 	 * @return string Returns the block content.
 	 */
@@ -130,8 +131,8 @@ class Filterable_Portfolio_Gutenberg_Block {
 	/**
 	 * Get responsive class
 	 *
-	 * @param array $attributes The block attributes.
-	 * @param string $name The attribute key.
+	 * @param  array  $attributes  The block attributes.
+	 * @param  string  $name  The attribute key.
 	 *
 	 * @return string
 	 */

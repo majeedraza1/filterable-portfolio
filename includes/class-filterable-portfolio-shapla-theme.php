@@ -60,10 +60,10 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 			];
 
 			add_action( 'filterable_portfolio/before_main_content', function () use ( $theme_info ) {
-				echo $theme_info['before_content'];
+				echo wp_kses_post( $theme_info['before_content'] );
 			} );
 			add_action( 'filterable_portfolio/after_main_content', function () use ( $theme_info ) {
-				echo $theme_info['after_content'];
+				echo wp_kses_post( $theme_info['after_content'] );
 			} );
 
 			add_action( 'filterable_portfolio/loop_before', [ self::$instance, 'do_page_title' ] );
@@ -74,7 +74,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		/**
 		 * Load single portfolio template from plugin.
 		 *
-		 * @param string $single_template The post template.
+		 * @param  string  $single_template  The post template.
 		 *
 		 * @return string
 		 */
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		/**
 		 * Load portfolio archive template from plugin.
 		 *
-		 * @param string $archive_template The post template.
+		 * @param  string  $archive_template  The post template.
 		 *
 		 * @return string
 		 */
@@ -140,9 +140,9 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 				return;
 			}
 			?>
-			<header class="page-header">
+            <header class="page-header">
 			<?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
-			</header><?php
+            </header><?php
 		}
 
 		/**
@@ -154,7 +154,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 			$_fp_class   = [ 'grids', 'portfolio-items' ];
 			$_fp_class[] = sprintf( 'fp-theme-%s', Filterable_Portfolio_Helper::get_option( 'portfolio_theme' ) );
 			if ( have_posts() ) : ?>
-				<div class="<?php echo join( ' ', $_fp_class ); ?>">
+                <div class="<?php echo esc_attr( join( ' ', $_fp_class ) ); ?>">
 					<?php
 					while ( have_posts() ) {
 						the_post();
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 						Filterable_Portfolio_Helper::load_template( 'content-portfolio.php', false );
 					}
 					?>
-				</div>
+                </div>
 			<?php endif;
 		}
 
@@ -176,8 +176,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shapla_Theme' ) ) {
 		public function do_pagination() {
 			the_posts_pagination( array(
 				'type'      => 'list',
-				'next_text' => _x( 'Next', 'Next post', 'storefront' ),
-				'prev_text' => _x( 'Previous', 'Previous post', 'storefront' ),
+				'next_text' => _x( 'Next', 'Next post', 'filterable-portfolio' ),
+				'prev_text' => _x( 'Previous', 'Previous post', 'filterable-portfolio' ),
 			) );
 		}
 	}

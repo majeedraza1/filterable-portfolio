@@ -32,7 +32,7 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		/**
 		 * Filterable Portfolio shortcode.
 		 *
-		 * @param array $attributes
+		 * @param  array  $attributes
 		 *
 		 * @return mixed
 		 */
@@ -89,8 +89,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 		/**
 		 * Get shortcode filter buttons
 		 *
-		 * @param array $attributes
-		 * @param WP_Term[] $terms
+		 * @param  array  $attributes
+		 * @param  WP_Term[]  $terms
 		 *
 		 * @return string|void
 		 */
@@ -111,24 +111,24 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 			}
 			$html .= '</div>';
 
-			return $html;
+			echo wp_kses_post( $html );
 		}
 
 		/**
 		 * Get portfolio items
 		 *
-		 * @param array $attributes Setting attributes.
-		 * @param array $portfolios List of WP_Post object.
-		 * @param array $categories List of WP_Term object.
+		 * @param  array  $attributes  Setting attributes.
+		 * @param  array  $portfolios  List of WP_Post object.
+		 * @param  array  $categories  List of WP_Term object.
 		 */
 		public function portfolio_items( array $attributes, $portfolios = [], $categories = [] ) {
 			$theme       = in_array( $attributes['theme'], [ 'one', 'two' ] ) ? $attributes['theme'] : 'one';
 			$items_class = 'grids portfolio-items';
 			$items_class .= ' fp-theme-' . $theme;
 			?>
-			<div id="filterable-portfolio" class="filterable-portfolio">
-				<?php echo $this->filter_buttons( $attributes, $categories ); ?>
-				<div id="portfolio-items" class="<?php echo $items_class; ?>">
+            <div id="filterable-portfolio" class="filterable-portfolio">
+				<?php $this->filter_buttons( $attributes, $categories ); ?>
+                <div id="portfolio-items" class="<?php echo esc_attr( $items_class ); ?>">
 					<?php
 					$GLOBALS['filterable_portfolio_attributes'] = $attributes;
 					$temp_post                                  = $GLOBALS['post'];
@@ -140,8 +140,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Shortcode' ) ) {
 					wp_reset_postdata();
 					$GLOBALS['post'] = $temp_post;
 					?>
-				</div>
-			</div>
+                </div>
+            </div>
 			<?php
 		}
 

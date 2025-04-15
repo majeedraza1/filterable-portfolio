@@ -19,7 +19,7 @@ $items_class .= ' fp-theme-' . $theme;
 <div id="filterable-portfolio" class="filterable-portfolio">
 	<?php if ( $categories && count( $categories ) > 1 ) { ?>
         <div class="filterable-portfolio__terms is-justify-end">
-            <button class="button is-active" data-filter="*"><?php echo $all_button_text; ?></button>
+            <button class="button is-active" data-filter="*"><?php echo esc_html( $all_button_text ); ?></button>
 			<?php foreach ( $categories as $category ) { ?>
                 <button class="button" data-filter=".<?php echo esc_attr( $category->slug ); ?>">
 					<?php echo esc_html( $category->name ); ?>
@@ -27,7 +27,7 @@ $items_class .= ' fp-theme-' . $theme;
 			<?php } ?>
         </div>
 	<?php } ?>
-    <div id="portfolio-items" class="<?php echo $items_class; ?>">
+    <div id="portfolio-items" class="<?php echo esc_attr( $items_class ); ?>">
 		<?php
 		$temp_post = $GLOBALS['post'];
 		foreach ( $portfolios as $portfolio ) {

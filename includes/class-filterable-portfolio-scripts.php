@@ -108,7 +108,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 
 			foreach ( $scripts as $handle => $script ) {
-				wp_register_script( $handle, $script['src'], $script['dependency'], $script['version'], $script['in_footer'] );
+				wp_register_script( $handle, $script['src'], $script['dependency'], $script['version'],
+					$script['in_footer'] );
 			}
 		}
 
@@ -150,21 +151,21 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 		 */
 		public function inline_style() {
 			$options = Filterable_Portfolio_Helper::get_options();
-			$btn_bg  = esc_attr( $options['button_color'] );
+			$btn_bg  = $options['button_color'];
 			?>
-			<style id="filterable-portfolio-inline-style">
-				:root {
-					--portfolio-primary: <?php echo $btn_bg; ?>;
-					--portfolio-on-primary: <?php echo $this->find_color_invert($btn_bg); ?>;
-				}
-			</style>
+            <style id="filterable-portfolio-inline-style">
+                :root {
+                    --portfolio-primary: <?php echo esc_attr($btn_bg); ?>;
+                    --portfolio-on-primary: <?php echo esc_attr($this->find_color_invert($btn_bg)); ?>;
+                }
+            </style>
 			<?php
 		}
 
 		/**
 		 * Find light or dark color for given color
 		 *
-		 * @param string $color
+		 * @param  string  $color
 		 *
 		 * @return string
 		 */
@@ -183,8 +184,8 @@ if ( ! class_exists( 'Filterable_Portfolio_Scripts' ) ) {
 
 				if ( 3 == strlen( $hex ) ) {
 					$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) .
-						   str_repeat( substr( $hex, 1, 1 ), 2 ) .
-						   str_repeat( substr( $hex, 2, 1 ), 2 );
+					       str_repeat( substr( $hex, 1, 1 ), 2 ) .
+					       str_repeat( substr( $hex, 2, 1 ), 2 );
 				}
 
 				$r = hexdec( substr( $hex, 0, 2 ) );
